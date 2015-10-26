@@ -1,0 +1,19 @@
+n=int(input('input n(n>5)'))
+x=1
+y=1
+d=2*n
+if n<=5:
+    print('error')
+else:
+    while y<=n:
+        while x<=n:
+            if x<10:
+                print(x, end='  ')
+            else:
+                print(x, end=' ')
+            x+=1
+        print('', end='\n\n')
+        y+=1
+        x=y
+        n+=1
+        if n==d: break
