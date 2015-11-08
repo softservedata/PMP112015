@@ -1,0 +1,7 @@
+n=int(input('input n,n>5 '))
+m=int(input('input m,m>n '))
+if n<5 or m<n:
+    print('incorret.(m should be > n and n should be >5)')
+else:
+    import math
+    print ('result= ',math.factorial(m)/(math.factorial(n)*(math.factorial(m-n))
