@@ -1,0 +1,20 @@
+m=int(input('m='))
+n=int(input('n='))
+a=[]
+for i in range(m):
+    a.append([int(input())for k in range(n)])
+for i in range(len(a)):
+    print(a[i])
+
+
+for i in range(m):
+    for j in range(n):
+        if a[i][j]==max(a[i][k] for k in range(n)):
+            if a[i][j]==min(a[k][j] for k in range(m)):
+                print(i+1,j+1)
+
+for i in range(m):
+    for j in range(n):
+        if a[i][j]==min(a[i][k] for k in range(n)):
+            if a[i][j]==max(a[k][j] for k in range(m)):
+                print(i+1,j+1)
