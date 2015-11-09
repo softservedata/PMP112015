@@ -1,0 +1,10 @@
+m=[]
+n=int(input('n=')
+for i in range(n):
+    m.append([x for x in input().split()])
+for i in range (n):
+    for k in range(n):
+        ans=True
+        if k!=i:
+            ans=ans and m[i][i]>m[i][k]
+    print(ans)
