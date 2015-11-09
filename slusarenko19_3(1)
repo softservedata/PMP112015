@@ -1,0 +1,30 @@
+# вводимо розмірність матриці
+#(для коректної роботи кількість елементів повинна бути кратна трьом)
+n=int(input('n='))
+a=[[int(0) for i in range(n)] for j in range(n)]
+k=int(n/3)
+# імпортуємо модуль для роботи з випадковими числами
+import random
+# заповнюємо матрицю випадковими числами від 0 до 9
+for i in range(n):
+        for j in range(n):
+                a[i][j]=random.randint(0,9)
+#роздрук матриці на екран
+for i in range(n):
+        for j in range(n):
+                print(a[i][j],end=' ')
+        print()
+print("\n\n\n\n\n")
+#прохід першого квадрату
+for i in range(k):
+        for j in range(k,2*k):
+                print(a[i][j],end=' ')
+#прохід центральних квадратів
+for i in range(k,2*k):
+        for j in range(n):
+                print(a[i][j],end=' ')
+#прохід останнього квадрату
+for i in range(2*k,n):
+        for j in range(k,2*k):
+                print(a[i][j],end=' ')
+input()
