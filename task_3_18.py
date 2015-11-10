@@ -32,4 +32,5 @@ while n>=3:
     k+=1
 for i in range(n):
     for j in range(n):
-        print('{0:<5}'.format(a[i][j],10),end=' ')
+        print('{0:<5}'.format(a[i][j]),end=' ')
+    print()
