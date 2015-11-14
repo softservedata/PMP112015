@@ -1,0 +1,58 @@
+n=int(input('n='))
+if n<=3:
+    print('error')
+else:
+    a=[[float(input('input ')) for j in range(n)] for i in range(n)]
+    for i in a:
+        for j in i:
+            if j<10:
+                print(j, end='  ')
+            else:
+                print(j, end=' ')
+        print()
+    b=[]
+    q=0
+    if n%2==0:
+        x=0
+        k=0
+        i=int((n-2)/2)
+        while i>=0:
+            while x<n-k:
+                b.append(a[i][x])
+                x+=1
+            k+=1
+            i-=1
+            if i==-1:
+                x=0
+                k=0
+                q+=1
+                i=int((n-2)/2)
+                a=a[::-1]
+            x=k
+            if q==2:
+                break
+    else:
+        x=0
+        k=0
+        i=int((n-1)/2)
+        while i>=0:
+            while x<n-k:
+                b.append(a[i][x])
+                x+=1
+            k+=1
+            i-=1
+            if i==-1:
+                x=1
+                k=1
+                q+=1
+                i=int((n-1)/2-1)
+                a=a[::-1]
+            x=k
+            if q==2:
+                break
+    d=0
+    for i in b:
+        if i>0:
+            d+=1
+    print(b)
+    print('кількість додатніх елементів: ',d)
