@@ -1,0 +1,18 @@
+s=raw_input('text')
+s=s.split('-')
+print s
+d=dict()
+if len(s)>253:
+    print 'Можна вводити не більше 253 символів'
+else:
+    for x in s:
+        d[x]=len(x)
+    inverse=dict()
+    for k in d:
+        val=d[k]
+        if val in inverse:
+            inverse[val].append(k)
+        else:
+            inverse[val]=[k]
+    print 'The shorter:',inverse[min(inverse)],'The longest:',inverse[max(inverse)]
+    
