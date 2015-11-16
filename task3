@@ -1,0 +1,19 @@
+n=int(raw_input('n='))
+m=[]
+if n>5:
+    for i in range(n):
+            e=raw_input().split()
+            e[i]=int(e[i])
+            m.append(e)
+    for i in range(n):
+        for j in range(n):
+            if m[i][j]==m[j][i]:
+                t=True
+            else:
+                t=False
+                break
+    if t==True:
+        print 'Матриця симетрична'
+    else: 'Матриця не семетрична'
+else: print 'n>5'
+            
