@@ -1,0 +1,23 @@
+n=input('n=')
+t=tuple(n)
+p=[]
+m=[]
+v=[]
+res=[]
+for i in range (97,123):
+    m.append(i)
+for l in range (65,91):
+    v.append(l)
+for k in t:
+    if ord (k) >64 and ord (k) <91:
+        res.append(ord(k))
+    elif ord (k) >96 and ord (k) <123:
+        res.append(ord(k))
+for j in m :
+    if j in res:
+        p.append(chr(j))
+for o in v :
+    if o in res:
+        p.append(chr(o))
+print (p)
+pause=str(input())
