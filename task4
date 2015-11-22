@@ -1,0 +1,4 @@
+s=input('s=')
+a=s.replace('x','iks')
+s=a
+print(s)
