@@ -1,0 +1,20 @@
+a=str(input('Введіть рядок: '))
+a=a.split(' ') 
+a.sort()
+if len(a)>20: 
+    print('Помилка, довжина повинна бути не більше 20 слів')
+else: 
+    x=0 
+    while x<len(a): 
+        k=0
+        n=0
+        while n<len(a): 
+            if a[x]==a[n]: 
+                k+=1
+                if k>1: 
+                    del a[n]
+            if n<len(a) and a[x]!=a[n] or k<2:
+                n+=1
+        print(a[x], '- кількість повторень: ', k)
+        x+=1
+        
