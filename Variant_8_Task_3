@@ -1,0 +1,17 @@
+m=int(input('m='))
+n=int(input('n='))
+if m and n > 5:
+    Amt=[]
+    for i in range(m):
+        row=input('Type ' + str(n) + ' elements of row ' + str(i+1) + ': ').split()
+        for i in range(len(row)):
+            row[i]=int(row[i])
+        Amt.append(row)
+    for i in range(m):
+        Amt[i].sort()
+        Amt[i].reverse()
+    Amt.sort()
+    Amt.reverse()
+    for i in range(m):
+        Compofsums=sum(Amt[i])
+        print(Compofsums)
