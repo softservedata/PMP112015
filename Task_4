@@ -1,0 +1,13 @@
+a=input()
+a=a.split()
+b=list(a[0])
+if len(a)>20:
+    print('error')
+else:
+    for i in a:
+        c=list(i)
+        for j in b:
+            if not j in c:
+                break
+        else:
+            print(i)
