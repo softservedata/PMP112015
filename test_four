@@ -1,0 +1,7 @@
+s=input("Enter your text:")
+c=s.split("/n")
+z=[]
+for k in c:
+    z.append(k.replace(k[len(k)-2:],''))
+for x in z:
+    print(x," ")
