@@ -1,0 +1,10 @@
+a=input('text:')
+if len(a)>253:
+    print ('Error')
+else:
+    while a[0]==' ':
+        a=a[1:]
+    while a[-1]==' ':
+        a=a[:-2]
+    a=a[::-1]
+    print(a)
