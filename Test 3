@@ -1,0 +1,16 @@
+a=input('Enter the first line: ')
+b=input('Enter the second line: ')
+if len(a)>253 or len(b)>20:
+    print('Error.Exceeded the length tapes')
+else:
+    n=int(input('At any place to put the second string in the first? '))
+    c=list(a)
+    while n>=len(a):
+        print('Position does not exist')
+        n=int(input('At any place to put the second string in the first? '))
+    c.insert(n-1, b)
+    c=''.join(c)
+    if len(c)>253:
+        print('The tape is full')
+    else:
+        print(c)
