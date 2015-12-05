@@ -1,0 +1,7 @@
+n=input('Your string  ')
+n1=tuple(n)
+d={}
+for i in n1 :
+    if ord(i)>96 and ord(i)<123:
+        d[i]=n1.count(i)
+print(d)
