@@ -1,0 +1,27 @@
+n=int(input('n='))
+k=int(input('k='))
+a=[]
+b=[]
+for i in range(n):
+    a.append(int(input()))
+print(a)
+for i in range(n):
+    if a[i]%3==0 or a[i]%10==3:
+        a[i]=-3
+print(a)
+
+if k>0:
+    for i in range(n):
+       if i<k:
+           b.append(a[i+n-k])
+       else:
+           b.append(a[i-k])
+else:
+    k=abs(k)
+    for i in range(n):
+        if i+k<n:
+            b.append(a[i+k])
+        else:
+            b.append(a[i+k-n])
+        
+print(b)
