@@ -1,0 +1,50 @@
+def importation(m,n):        #function for inputing elements
+    if m>=2 and m<=10 and n>=4 and n<=50:
+       t = [ ]
+       mr=[]
+       for i in range(m):
+            row = raw_input('Type the ' + str(n) + ' elements in group ' + str(i+1) + ': ').split()
+            if len(row)==n:
+                for i in range(len(row)):
+                  row[i] = int(row[i])
+                  if row[i]>99 and row[i]<1000:
+                      if i==len(row)-1:
+                           t.append(row)
+                  else:
+                   print'Error, you typed wrong data'
+            else:
+               print'Error, you typed wrong data'   
+    else:
+       print'Error, you typed wrong data'
+    return t
+#print importation(3,5)
+def isprime(n):
+    if n == 1:
+        return False
+    for x in range(2, n):
+        if n % x == 0:
+            return False
+        else:
+            return True
+#print isprime(7), isprime(12)
+def ShowList(all_list):        #outputing data
+    f = all_list[a.index(max(a))]
+    return f
+def count_primes(z):
+    k=0
+    for x in z:
+        if isprime(x):
+            k+=1
+    return k
+    
+#- - - - - - - - - - - - - - - - - - -
+a = [ ]
+print'Dear user, please enter those numbers:  2<=m<=10;  4<=n<=50;    99<elements in n<1000'
+m = int(raw_input('m = '))
+n = int(raw_input('n = '))
+all_list = importation(m,n)
+for i in all_list:
+    a.append(count_primes(i))
+print 'amount of prime numbers in all groups:',a
+
+print 'group with max amount of prime numbers:',ShowList(all_list)
