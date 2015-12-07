@@ -1,0 +1,34 @@
+x=ord('a')
+z=ord('z')
+lat=[]
+for i in range(x,z+1):
+    lat.append(chr(i))
+x=ord('а')
+z=ord('я')
+kir=[]
+for i in range(x,z+1):
+    kir.append(chr(i))
+m=int(input("m:"))
+n=int(input("n:"))
+a=[]
+def write(a):
+    for x in a:
+        print(x)
+def read(m):
+    a=[]
+    for i in range(m):
+       a.append(input().split())
+    return a
+
+a=read(m)
+def counter(a):
+    cl=0
+    ck=0
+    for i in a:
+        for x in i:
+            if x in lat:cl+=1
+            if x in kir:cr+=1
+    if kir>lat:print("Латинських більше")
+    else:print("Кирилиці більше")
+write(a)
+counter(a)
