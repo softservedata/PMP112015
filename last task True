@@ -1,0 +1,31 @@
+def poriv(x):
+    d=[]
+    v=[]
+    for k in x:
+        if k>0:
+            d.append(k)
+        if k<0:
+            v.append(k)
+    if len(d)>len(v) :
+        return d
+    if len(d)<len(v) :
+        return v
+    else:
+        return d+v
+def suma(x):
+    s=0
+    for i in x:
+        s=s+i
+    return s
+q=[]
+n=int(input('how many groups?  '))
+for k in range(n):
+    y=[int(x) for x in input('group  ').split()]
+    q.append(y)
+for i in q:
+    m=poriv(i)
+    u=0
+    for l in m:
+        u=u+l
+    print (u)
+        
