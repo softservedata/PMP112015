@@ -1,13 +1,18 @@
-n=int(input('n='))
-m=int(input('m='))
+n=int(raw_input('n='))
+m=int(raw_input('m='))
 demomatrix=[]
-if n<5:
-    print('n must be greater than 5')
-elif m<5:
-    print('m must be greater than 5')
-else:
-    for i in range(m):
-        demomatrix.append([abs(int(input())) for k in range(n)])
-    for k in range(len(demomatrix)):
-        b=demomatrix[k].sort()
-        print demomatrix[k]
+for i in range(m):
+    demomatrix.append([int(raw_input()) for k in range(n)])
+for i in range(len(demomatrix)):
+    b=demomatrix[i].sort()
+    print demomatrix[i]
+print 'Result'
+for i in range(m):
+    for j in range(1,n):
+        a=demomatrix[i][j-1]
+        if demomatrix[i][j]<abs(a):
+            b=demomatrix[i][j]
+            demomatrix[i][j]=a
+            demomatrix[i][j-1]=b
+    print demomatrix[i]
+        
