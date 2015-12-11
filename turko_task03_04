@@ -1,0 +1,22 @@
+A=[]
+maxel=[]
+n=int(input('n='))
+for i in range(n):
+    k=[]
+    el=[0,0,0]
+    for q in range(n):
+        x=int(input('x='))
+        k.append(x)
+        if abs(k[q])>abs(el[0]):
+            el[0]=abs(k[q])
+            el[1]=i
+            el[2]=q    
+    maxel.append(el)
+    A.append(k)
+for i in range(n):
+    b=A[i][i]
+    A[i][i]=maxel[i][0]
+    z=maxel[i][1]
+    x=maxel[i][2]
+    A[z][x]=b
+print(A)  
