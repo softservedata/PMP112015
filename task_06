@@ -1,0 +1,13 @@
+import random
+def suma(x,n):
+    if (n!=0):
+        return suma(x,n-1)+x[n-1]
+    else:
+        return 0
+n=int(input('n='))
+x=[]
+for i in range(n):
+    el=random.randint(1,10)
+    x.append(el)
+print(x)
+print('S=',suma(x,n))
