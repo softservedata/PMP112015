@@ -1,0 +1,14 @@
+def prog(n):
+        if n==0:
+             return 0
+        else:
+             j=(2*n-1)/(2*n)
+             q=j+prog(n-1)
+             return q
+
+
+n=int(input('n= '))
+if n>2:
+       print(1/(2+(3/(4+(5/(5+prog(n)))))))
+else:
+     print('Type n>2')
