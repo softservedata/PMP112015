@@ -8,4 +8,4 @@ def pow(x,n):
             return(x*x**(n-1))
 x=float(input('x='))
 n=int(input('n='))
-pow(x,n)
+print(pow(x,n))
