@@ -1,6 +1,9 @@
-line = input('Enter words: ')
-m = line.split(' ')
-for k in range(len(m)):
-    z = m[k][1:]
-    if len(z) > 1:
-        print(z)
+def bcof(n,m):
+    if 0<=n<=m:
+        if n==0 or n==m:
+            return 1
+        else:
+            return bcof(n-1,m-1)+bcof(n,m-1)
+    else:
+        print '0<=n<=m'
+print bcof(2,5)
