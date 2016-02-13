@@ -1,8 +1,0 @@
-z=2.718-(float(input('E=(E>0.001)')))
-def next(x):
-    if (1+1/x)**x>=z:
-        print(x)
-    else:
-        next(x+1)
-next(1) 
-
