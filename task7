@@ -1,0 +1,15 @@
+#include"iostream"
+using namespace std;
+int main()
+{
+	int b,c;
+	cin >> b;
+	c = 0;
+	while (b > 0)
+	{
+		c = c+b % 10;
+		b = b / 10;
+	}
+	cout << c;
+	cin>> b;
+}
