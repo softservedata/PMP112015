@@ -7,5 +7,6 @@ def Koshi(x):
     else:
         Koshi(x+1)
 Koshi(1) 
+#lol
 
 
