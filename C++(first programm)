@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	int a, b, c;
+	cout << "print up to 4 numbers  ";
+	cin >> a;
+	b = 0;
+	c = a;
+	while (a > 1)
+	{
+		a = a / 10;
+		b = b + 1;
+	}
+	cout << (pow(10, b) + c) * 10 + 1;
+	system("pause");
+}
