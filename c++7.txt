@@ -1,0 +1,29 @@
+#include<iostream>
+#include<conio.h>
+using namespace std;
+long factorial(long a)
+{
+    if ( a > 1 )
+        return(a*factorial(a-1));
+    else
+        return 1;
+}
+int main()
+{
+    int n,x,s=0;
+    cout<<"How many numbers you want to enter?  ";
+    cin>>n;
+    for(int i=1;i<=n;i++)
+    {    
+        cout<<"Enter a number "<<i<<"  ";
+        cin>>x;
+	if(pow(2,i)<x)
+	{    if(x<factorial(i))
+             {
+		s=s+1;  
+             }
+	}
+     }
+    cout<<"Amound of correct numbers = "<<s;
+    _getch();
+}
