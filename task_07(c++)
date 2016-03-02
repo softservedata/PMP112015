@@ -1,0 +1,30 @@
+#include <conio.h>
+#include <iostream>
+
+
+using namespace std;
+
+
+ int main()
+{
+
+	int a,b,g;
+	g=0;
+	cout << "";
+	cin >> a;
+	a=a*a;
+	while(a>0)
+	{
+		b=a%10;
+		a/=10;
+		if(b==3)
+			g=3;
+	}
+	if(g==3)
+		cout << "Ye 3!";
+	else
+		cout << "Nemaye 3!";
+	_getch();
+	return 0;
+
+}
