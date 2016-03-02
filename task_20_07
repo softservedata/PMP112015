@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+	int n,x,y,i=0;
+	cout << "n= ";
+	cin >> n;
+	for (x = 1; pow(x, 2) <= n; x++)
+	{
+		for (y = 1; pow(x, 2) + pow(y, 4) <= n; y++)
+			
+		{
+			if (pow(x, 2) + pow(y, 4) == n)
+			{
+				i = 1;
+				cout << "(" << x << "," << y << ")" << endl;
+			}
+			
+		}
+		
+	}
+	if (i == 0)
+	cout << "nema par"<<endl;
+	system("pause");
+	return 0;
+}
