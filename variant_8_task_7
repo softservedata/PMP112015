@@ -1,0 +1,15 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main()
+{
+	int m; double k;
+	cin >> m;
+	cout << "m="<< m << endl;
+	k = log10(m) / log10(4);
+	if (!(k - (int)k))
+		k--;
+	cout << "k=" << (int)k << endl;
+	system("pause");
+	return 0;
+}
