@@ -1,0 +1,13 @@
+n=int(input('Введіть n>5 '))
+x=int(input('x= '))
+import math
+
+s=x
+l=0
+k=0
+while k!=n-1:
+      s=math.sin(x)
+      l=math.sin(s)+l
+      k=k+1
+      
+print(l)

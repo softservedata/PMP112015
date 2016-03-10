@@ -1,0 +1,9 @@
+a=int(input('Введіть a='))#задаєм а 
+n=int(input('Введіть n='))#задаєм n
+k=1
+z=0
+while k<=n:
+      z=z+(1+a+k)**3
+      k=k+1
+     
+print(z)
