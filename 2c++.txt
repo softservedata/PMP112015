@@ -1,0 +1,88 @@
+#include <iostream>
+#include <time.h>
+using namespace std;
+char **CreateArray(int y, int x)
+{
+	char **p = new char *[10];
+	for (int i = 0; i < y; i++)
+	{
+		p[i] = new char[x];
+
+
+	}
+
+	return p;
+}
+
+void FillArray(char **p, int y, int x)
+{
+	char a;
+	for (int i = 0; i < y; i++)
+	{
+		for (int j = 0; j < x; j++) {
+
+			cin >> a;
+			p[i][j] = a;
+
+		}
+
+	}
+}
+void PrintArray(char **p, int x, int y) {
+	for (int i = 0; i < x; ++i) {
+		for (int j = 0; j < y; ++j) {
+			cout << p[i][j] << ' ';
+		
+		}
+		cout << endl;
+	}
+}
+
+char **operation(char **p, int y, int x) {
+	int mala = 0, big = 0;
+	for (int i = 0; i < x; ++i) {
+		for (int j = 0; j < y; ++j) {
+			if (int(p[i][j]) <= 90) {
+				mala = mala + 1;
+			}
+			else if (int(p[i][j]) >= 97) {
+				big = big + 1;
+			}
+
+		}
+		if (mala > big) {
+			for (int j = 0; j < y; ++j) {
+				if (int(p[i][j]) >= 97) {
+					p[i][j] = char(int(p[i][j]) - 32);
+				}
+
+			}
+
+		}
+		else if (big > mala) {
+			for (int j = 0; j < y; ++j) {
+				if (int(p[i][j]) <= 90) {
+					p[i][j] = char(int(p[i][j]) + 32);
+
+				}
+
+			}
+
+		}
+		mala = 0;
+		big = 0;
+	}
+	return p;
+}
+
+
+//------------------------------------------------
+void main() {
+	char **p;
+	p=CreateArray(3, 3);
+	FillArray(p, 3, 3);
+	operation(p, 3, 3);
+	PrintArray(p, 3, 3);
+	system("pause");
+
+}
