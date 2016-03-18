@@ -1,0 +1,115 @@
+#pragma once
+
+void ReadGroup(char str[50], int n);
+void PrintGroup(char str[50],int n);
+bool Is_ok(char str[50],int n);
+void Replace_char(char str[50],int n);
+
+
+//---------------------------------------------
+
+
+#include"Oreration.h"
+#include"iostream" 
+#include <windows.h> 
+#include<string> 
+using namespace std;
+void ReadGroup(char str[50], int n)
+{
+	setlocale(LC_ALL, "Russian");
+	for (int i = 0; i < n; ++i)
+	{
+		cout <<"el["<< i + 1<< "]=";
+		cin >>str[i];
+	}
+}
+
+void PrintGroup(char str[50], int n)
+{
+	setlocale(LC_CTYPE, "rus");
+	for (int i = 0; i < n; ++i)
+	{
+		cout << str[i] << " ";
+	}
+	cout <<endl;
+}
+bool Is_ok(char str[50], int n)
+{
+	int count_of_curylic = 0;
+	int count_of_latinos = 0;
+	char L[] = { 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
+	char K[] = { 'А','Б','Ц','Д','Е','Ф','Г','Х','І','Й','К','Л','М','Н','О','П','-','Р','С','Т','У','В','В','-','-','З' };
+	for (int i = 0; i < n; ++i)
+	{
+		for (int k = 0; k < 26; ++k)
+		{
+			if (str[i] == L[k])
+				count_of_latinos++;
+			if (str[i] == K[k])
+				count_of_curylic++;
+		}
+	}
+	if (count_of_curylic < count_of_latinos)
+		return true;
+	else
+		return false;
+}
+void Replace_char(char str[50], int n)
+{
+	char L[] = { 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
+	char K[] = { 'А','Б','Ц','Д','Е','Ф','Г','Х','І','Й','К','Л','М','Н','О','П','-','Р','С','Т','У','В','В','-','-','З' };
+	int i;
+	if (Is_ok(str, n))
+	{
+		for (i = 0; i < n; ++i)
+		{
+			for (int k = 0; k < 26; ++k)
+			{
+				if (str[i] == L[k])
+				{
+					str[i] = K[k];
+					cout << str[i]<<endl;
+				}
+
+			}
+		}
+	}
+
+}
+
+
+
+//-----------------------------------------------
+
+
+
+#include"Oreration.h"
+#include"iostream"
+#include"windows.h"
+#include<string>
+using namespace std;
+int main()
+{
+
+	setlocale(LC_CTYPE, "rus");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	int m;
+	cout <<"How many groups?";
+	cin>>m;
+	for (int i = 0; i < m; ++i)
+	{
+		char SS[50];
+		int n;
+		cout << "n :";
+		cin >> n;
+		ReadGroup(SS, n);
+
+		PrintGroup(SS, n);
+
+		Replace_char(SS, n);
+		PrintGroup(SS, n);
+	}
+	system("pause");
+	return 0;
+}
