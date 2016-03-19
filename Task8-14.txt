@@ -1,0 +1,169 @@
+          cpp files:
+----------
+getData.cpp
+
+#include<iostream>
+#include"getData.h"
+using namespace std;
+
+int getNumberOfGroups()
+{
+	int m;
+	cout<<"how many groups? ";
+	cin>>m;
+	return m;
+}
+int getNumberOfElements()
+{
+	int n;
+	cout<<"how many elements in every group? ";
+	cin>>n;
+	return n;
+}
+char **Groups(int m,int n)
+{	
+	char **r=new char*[m];
+	for(int k=0;k<m;k++)
+	{
+		char *q=new char[n];
+		cout<<"enter group: ";
+		for (int i=0;i<n;i++)
+		{
+			cin>>q[i];
+		}
+		r[k]=q;
+	}
+	return r;
+}
+----------
+task.cpp
+
+#include<iostream>
+#include<algorithm>
+#include"task.h"
+using namespace std;
+
+int maxSymdols(char **r,int m,int n)
+{
+	int group=0;
+	int max=0;
+	int countsymbols;
+	for (int k=0;k<m;k++)
+	{
+		for(int i=0;i<n;i++)
+		{
+			countsymbols=count(r[k],r[k]+n,r[k][i]);
+			if(countsymbols>max)
+			{
+				max=countsymbols;
+				group=k;
+			}
+		}
+	}
+	return group;
+}
+----------
+delMatrix.cpp
+
+#include<iostream>
+#include"delMatrix.h"
+using namespace std;
+
+void deleteGroups(char **r,int m)
+{
+	for(int k=0;k<m;k++)
+	{
+		delete[] r[k];
+	}
+	cout<<"delete complite"<<endl;
+}
+----------
+print.cpp
+
+#include<iostream>
+#include"print.h"
+using namespace std;
+
+void printMatrix(char **r,int m,int n)
+{
+	cout<<"print groups:"<<endl;
+	for(int k=0;k<m;k++)
+	{
+		for(int i=0;i<n;i++)
+		{
+			cout<<r[k][i]<<"  ";
+		}
+		cout<<endl;
+	}
+}
+
+void printGroup(char **r,int n,int group)
+{
+	cout<<"Group with max number of common elements: "<<endl;
+	for(int i=0;i<n;i++)
+	{
+		cout<<r[group][i]<<"  ";
+	}
+	cout<<endl;
+}
+----------
+          h files:
+----------
+getData.h
+
+#ifndef GETDATA_H
+#define GETDATA_H
+int getNumberOfGroups();
+int getNumberOfElements();
+char **Groups(int m,int n);
+#endif
+----------
+task.h
+
+#ifndef TASK_H
+#define TASK_H
+int maxSymdols(char **r,int m,int n);
+#endif
+----------
+delMatrix.h
+
+#ifndef DELMATRIX_H
+#define DELMATRIX_H
+void deleteGroups(char **r,int m);
+#endif
+----------
+print.h
+
+#ifndef PRINT_H
+#define PRINT_H
+void printMatrix(char **r,int m,int n);
+void printGroup(char **r,int n,int group);
+#endif
+----------
+          main.cpp
+
+#include<iostream>
+#include<algorithm>
+#include"getData.h"
+#include"task.h"
+#include"delMatrix.h"
+#include"print.h"
+using namespace std;
+
+int main()
+{
+	int n,m;
+	char **r;
+	int group;
+	m=getNumberOfGroups();
+	n=getNumberOfElements();
+	r=Groups(m,n);
+	//printMatrix(r,m,n);
+	group=maxSymdols(r,m,n);
+	printGroup(r,n,group);
+	deleteGroups(r,m);
+	system("pause");
+	return 0;
+}
+----------
+
