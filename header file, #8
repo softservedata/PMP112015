@@ -1,0 +1,117 @@
+OperatingFile.cpp
+#include <iostream>
+using namespace std;
+
+void input(int ** array, int n, int m){
+	
+	for (int i = 0; i < n; ++i)
+	{
+		for (int a = 0; a < m; ++a)
+		{
+			cout << "Array[" << i << "][" << a << "] = " << endl;
+			cin >> array[i][a];
+		}
+	}
+}
+
+void output(int ** array, int n, int m)
+{
+	
+	for (int i = 0; i < n; ++i)
+	{
+		for (int a = 0; a < m; ++a)
+		{
+			cout << "Array[" << i << "][" << a << "] = " << array[i][a] << endl;
+		}
+	}
+}
+
+bool sameSign(int n1, int n2){
+	bool result = false;
+	result = (n1 ^ n2) >= 0;
+	return result;
+
+}
+
+void bubbleSort(int** array, int n, int m, int index)
+{
+	bool wasSwapped = true;
+	
+	for (int i = 1; (i <= m) && wasSwapped; ++i)
+	{
+		wasSwapped = false;
+		for (int j = 0; j < (m - i); ++j)
+		{
+			if (array[index][j] > array[index][j + 1])
+			{
+				std::swap(array[index][j], array[index][j + 1]);
+				wasSwapped = true;
+			}
+		}
+	}
+}
+void DeleteArray(int **array, int n, int m){
+	for (int i = 0; i < n; i++)
+		delete[]array[i];
+}
+_________________________________________________________________________________________________________________________________________________________________________________________________
+Main.cpp
+#include<iostream>
+#include "ArrayOperations.h"
+
+using namespace std;
+
+void input(int** array, int n, int m);
+void output(int** array, int n, int m);
+bool sameSign(int n1, int n2);
+void bubbleSort(int** array, int n, int m, int index);
+void DeleteArray(int** array, int n, int m);
+int main(){
+
+	int ** array;
+	int n, m;
+	cout << "Select number of groups (rows):";
+	cin >> n;
+	cout << "Select number of items (columns):";
+	cin >> m;
+
+	array = new int*[m];
+	for (int i = 0; i < n; ++i)
+		array[i] = new int[m];
+	
+	input(array, n, m);
+	for (int i = 0; i < n; ++i){
+		for (int j = 0; j < m - 1; ++j){
+			if (sameSign(array[i][j], array[i][j + 1]))
+				bubbleSort(array, n, m, i);
+			break;
+		}
+	}
+
+	output(array, n, m);
+	DeleteArray(array, n, m);
+	system("pause");
+	return 0;
+}
+______________________________________________________________________________________________
+ArrayOperations.h
+#ifndef ARRAYOPERATIONS_H
+#define ARRAYOPERATIONS_H
+
+//2-D array reader
+void input(int ** array);
+
+//2-D array writer
+void output(int ** array);
+
+// deleting array
+void DeleteArray(int **array, int n);
+
+//Test Same Sign
+bool sameSign(int n1, int n2);
+
+//Buble Sortig
+void bubbleSort(int* array, int size);
+
+
+#endif
