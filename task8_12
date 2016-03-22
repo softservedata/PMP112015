@@ -1,0 +1,190 @@
+          cpp files:
+----------
+main.cpp
+
+#include<iostream>
+#include<string>
+#include"in.h"
+#include"oper.h"
+#include"out.h"
+using namespace std;
+
+
+int main()
+{
+	int a, b, c;
+	a = geta();
+	b = getb();
+	c = getc();
+	out(a, b, c);
+	system("pause");
+}
+----------
+in.cpp
+
+#include<iostream>
+#include"in.h"
+using namespace std;
+
+int geta()
+{
+	int a;
+	cout << "Enter integer part"<<endl;
+	cin >> a;
+	return a;
+}
+
+int getb()
+{
+	int b;
+	cout << "Enter fractional part"<<endl;
+	cin >> b;
+	return b;
+}
+
+int getc()
+{
+	int c;
+	cout << "Enter power of number: E"<<endl;
+	cin >> c;
+	return c;
+}
+----------
+oper.cpp
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+int Ba(int a, int b, int c)
+{
+
+	int q = 1, l = 0, p = 10;
+	while (q != 0)
+	{
+		q = b / p;
+		p = p * 10;
+		l = l + 1;
+	}
+	a = a*int(pow(10, c));
+	if (a >= 0)
+	{
+		a = a + b / int(pow(10, (l - c)));
+	}
+	else
+	{
+		a = a - b / int(pow(10, (l - c)));
+	}
+	return a;
+}
+int Bb(int a, int b, int c)
+{
+	int q = 1, l = 0, p = 10;
+	while (q != 0)
+	{
+		q = b / p;
+		p = p * 10;
+		l = l + 1;
+	}
+	b = b % int(pow(10, (l - c)));
+	return b;
+}
+
+int Ma(int a, int b, int c)
+{
+	c = abs(c);
+	a = a / int(pow(10, c));
+	return a;
+}
+
+std::string Mb(int a, int b, int c)
+{
+	int q = 1, l = 0, p = 10, t, la = 0;
+	std::string res = "";
+	a = abs(a);
+	c = abs(c);
+	while (q != 0)
+	{
+		q = b / p;
+		p = p * 10;
+		l = l + 1;
+	}
+	q = 1;
+	p = 10;
+	while (q != 0)
+	{
+		q = a / p;
+		p = p * 10;
+		la = la + 1;
+	}
+	if (la < c)
+	{
+		for (int i = 0; i < (c - la); i++)
+		{
+			res = res + "0";
+		}
+	}
+	t = a % int(pow(10, c));
+	t = t*int(pow(10, l));
+	b = t + b;
+	res = res + std::to_string(b);
+	return res;
+}
+----------
+out.cpp
+
+#include<iostream>
+#include<string>
+#include"oper.h"
+using namespace std;
+
+int out(int a,int b, int c)
+{
+	int z;
+	std::string y;
+	if (c > 0)
+	{
+		z = Ba(a, b, c);
+		b = Bb(a, b, c);
+		cout << z << "." << b;
+	}
+	else
+	{
+		if (c < 0)
+		{
+			z = Ma(a, b, c);
+			y = Mb(a, b, c);
+			cout << z << "." << y;
+		}
+	}
+	return 0;
+}
+----------
+          h files:
+----------
+in.h
+
+#ifndef IN_H
+#define IN_H
+int geta();
+int getb();
+int getc();
+#endif 
+----------
+oper.h
+
+#ifndef OPER_H
+#define OPER_H
+int Ba(int a, int b, int c);
+int Bb(int a, int b, int c);
+int Ma(int a, int b, int c);
+std::string Mb(int a, int b, int c);
+#endif 
+----------
+out.h
+
+#ifndef OUT_H
+#define OUT_H
+int out(int a, int b, int c);
+#endif 
+----------
