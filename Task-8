@@ -1,0 +1,78 @@
+#include "Oreo.h"
+#include <iostream>
+#include <conio.h>
+
+	using namespace std;
+	int main () 
+	{
+	  double case1;
+	  double case2;
+
+	  cout << "Input number 1:";
+	  cin >> case1;
+
+	  cout << "Input number 2:";
+	  cin >> case2;
+	  
+	 int a;
+	 int b;
+	 int qrt;
+	 int qrt1;
+
+	 a = case1,qrt;
+	 b = case2,qrt1;
+
+	 case1 -= a;
+	 case2 -= b;
+
+	 int t;
+	 int z;
+
+	 t = 1;
+	 z = 1;
+
+	 while (t--)case1*=10;
+	 qrt=case1;
+	 while (z--)case2*=10;
+	 qrt1=case2;
+
+	 cout << "Number 1=" << a << ":" << qrt <<endl;
+	 cout << "Number 2=" << b << ":" << qrt1 <<endl;
+
+	
+		 double znak,zerro,koma,mantusa,e,propusk,poradok2;
+
+		 cout << "Znak:";
+		 cin >> znak;
+
+		 cout << "Zerro:";
+		 cin >> zerro;
+
+		 cout << "Koma:";
+		 cin >> koma;
+
+		 cout << "Mantusa:";
+		 cin >> mantusa;
+
+		 cout << "Number E:";
+		 cin >> e;
+
+		 cout << "Propusk:";
+		 cin >> propusk;
+
+		 cout << "Second Poradok:";
+		 cin >> poradok2;
+
+		 cout << scientific << "Znak=" << znak << endl
+			 << "Zerro=" << zerro << endl
+			 << "Koma=" <<  koma << endl
+			 << "Mantusa" << mantusa << endl 
+			 << "Number E=" << e << endl
+			 << "Propusk=" << propusk << endl
+			 << "Second Poradok=" << poradok2 << endl;
+
+
+	  _getch();
+	  return 0;
+	 
+}
