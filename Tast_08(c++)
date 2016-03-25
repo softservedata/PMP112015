@@ -1,0 +1,92 @@
+#include<iostream > 
+#include<time.h> 
+#include<stdlib.h>
+
+
+using namespace std; 
+
+int ** create(int x) {
+	int *c=new int [10];
+	int *c1=new int [10];
+	srand(time(NULL));
+	int max=c[0];
+	int g,y;
+	 int tmp;
+	
+
+	int **p = new int*[x];
+	if(x>=2 && x<=10){
+	for (int i = 0; i < x; ++i) { 
+		cout<<"\n------Start new array!------\n"<<endl;
+		g= rand()%100;
+			if (g<2){g=g+4;} 
+			if(g>=90){g=g-50;} 
+			if(g>=80 && g < 90){g=g-40;} 
+			if(g>=70 && g < 80){g=g-30;} 
+			if(g>=60 && g < 70){g=g-20;} 
+			if(g>=51 && g < 60){g=g-10;}
+			if(g>=4 && g<=50)
+				c[i]=g;
+			else
+				cout<<"Number of numbers must be from 4 to 50!";
+			
+			cout<<g<<"\n\n"<<endl;
+
+
+		p[i] = new int[g]; 
+
+		for (int j = 0; j < g; ++j) { 
+			int a; 
+			a = rand()%1000; 
+			if  (a < 100) { a = a + 100;if (a > 999){a = a - 99;}} 
+			p[i][j] = a; 
+			}}
+
+		for (int i=0; i<x; i++)		 //Poshuk max elem.
+			if (c[i]>max){ max=c[i];y=i;}//Poshuk max elem.
+			cout<<max<<"\n\n"<<endl;
+
+		
+
+			int f,n=0;
+	
+					do{n++;
+			          for(int j=0;j<max-1;++j){
+						if(p[y][j]>p[y][j+1]){
+							do{
+						  f=p[y][j];
+						  p[y][j]=p[y][j+1];
+						  p[y][j+1]=f;}
+							while(p[y][j]>p[y][j+1]);
+						}}}
+						while(n<550);
+					  
+						  
+				
+
+								
+					if(c[y]==max){for(int j=0;j<max;++j)
+						cout<<p[y][j]<<endl;}
+
+		
+					return p;}
+	else
+		cout<<"From 2 to 10!";
+}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#include<iostream>
+#include<time.h>
+#include<conio.h>
+#include<C:\Users\Winchester\Documents\Visual Studio 2012\Projects\Проект9\Проект9\Верхний колонтитул.h>
+
+
+using namespace std;
+
+int main(){
+	int x;cin>>x;
+	create(x);
+
+	_getch();
+	return 0;
+}
