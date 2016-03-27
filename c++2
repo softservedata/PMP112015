@@ -1,0 +1,89 @@
+#include<iostream>
+using namespace std;
+int** readDod()
+{
+    int kdod=0,dod=0,idod=0;
+    for(int i=0;groups[i]!=0;i++)
+    {
+        for(int j=0;groups[i][j]!=0;j++)
+        {
+            if(groups[i][j]>0)
+            {
+               kdod++;
+            }
+        }
+        if(kdod>dod)
+        {
+            dod=kdod;
+            idod=i;
+        }
+    }
+    return idod;
+}
+int** readVid()
+{
+    int kvid=0,vid=0,ivid=0;
+    for(int i=0;groups[i]!=0;i++)
+    {
+        for(int j=0;groups[i][j]!=0;j++)
+        {
+            if(groups[i][j]>0)
+            {
+               kvid++;
+            }
+        }
+        if(kvid>vid)
+        {
+            vid=kvid;
+            ivid=i;
+        }
+    }
+    return ivid;
+}
+int** sumaKvadVid()
+{
+    int sumakvad=0;
+    for(int i=0;i<n;i++)
+    {
+        sumakvad=sumakvad+pow(groups[ivid][i],2);
+    }
+    return sumakvad;
+}
+
+int sumaSer(int idod,передача масиву)
+{ 
+double sum=0;
+ for (int i=0;i <n;i++)
+ { 
+ sum=sum+groups[idod][i];
+ }
+ sum=sum/n;
+ } 
+
+return s; 
+
+
+
+int** readGroups()  
+ {  
+  	int m, n;  
+  	cout << "Enter how many groups (2-10)" << endl;  
+  	cin >> m;  
+  	cout << "Enter how many numbers in group(4-50)" << endl;  
+  	cin >> n;  
+  	int **groups;  
+ 	groups = new int*[m + 1];  
+  	groups[m] = NULL;  
+  	for (int i = 0; i < m; i++) {  
+  		groups[i] = new int[n + 1];  
+  		groups[i][n] = NULL;  
+ 	}  
+  	for (int i = 0; i < m; i++)  
+  	{  
+  		cout << "Enter numbers (100-999) for group " << i + 1 << endl;  
+  		for (int j = 0; j < n; j++)  
+  		{  
+  			cin >> groups[i][j];  
+ 		}  
+  	}  
+  	return groups;  
