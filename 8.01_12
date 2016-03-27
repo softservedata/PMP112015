@@ -1,0 +1,153 @@
+  cpp files:
+----------
+Source.cpp
+
+#include<iostream>
+#include<string>
+#include"in.h"
+#include"oper.h"
+
+using namespace std;
+
+int main()
+{
+  std::string a, b, res;
+	int c;
+	a=vvoda();
+	b=vvodb();
+	c=vvodc();
+	if(a[0]=='-')
+	{
+        a.erase(0,1);
+        res=oper(a,b,c);
+        res="-"+res;
+	}
+	else
+	{
+	res=oper(a,b,c);
+	}
+	cout<<res;
+	system("pause");
+}
+----------
+in.cpp
+
+#include<iostream>
+#include<string>
+#include"in.h"
+
+using namespace std;
+
+std::string vvoda()
+{
+    std::string a;
+    cout << "Enter integer part"<<endl;
+    cin>>a;
+    return a;
+}
+std::string vvodb()
+{
+    std::string b;
+    cout << "Enter fractional part"<<endl;
+    cin>>b;
+    return b;
+}
+int vvodc()
+{
+    int c;
+    cout << "Enter power of number: E"<<endl;
+    cin>>c;
+    return c;
+}
+----------
+oper.h
+
+#include<iostream>
+#include<string>
+#include"oper.h"
+
+using namespace std;
+
+std::string oper(std::string a, std::string b,int c)
+{
+        std::string res;
+    while(a[0]=='0')
+    {
+        a.erase(0,1);
+    }
+	if (c<0)
+	{
+		c = abs(c);
+		if (a.length()>c)
+		{
+			a.insert((a.length() - c), ".");
+			res = a + b;
+		}
+		else
+		{
+			if (a.length()<c)
+			{
+				res = "";
+				for (int i = 0; i<(c - a.length()); i++)
+				{
+					res = res + "0";
+				}
+				res = "0." + res + a + b;
+			}
+			else
+			{
+				res = "0." + a + b;
+			}
+		}
+	}
+	else
+	{
+		if (c>0)
+		{
+			if (b.length()>c)
+			{
+				b.insert(c, ".");
+				res = a + b;
+			}
+			else
+			{
+				if (b.length() == c)
+				{
+					res = a + b;
+				}
+				else
+				{
+					res = "";
+					for (int i = 0; i<(c - b.length()); i++)
+					{
+						res = res + "0";
+					}
+					res = a + b + res;
+				}
+			}
+		}
+		else
+		{
+			res = a + b;
+		}
+	}
+	return res;
+}
+----------
+ .h files:
+----------
+in.h
+
+#ifndef IN_H
+#define IN_H
+std::string vvoda();
+std::string vvodb();
+std::string vvodc();
+#endif
+----------
+oper.h
+
+#ifndef OPER_H
+#define OPER_H
+std::string oper(std::string a, std::string b, int c);
+#endif
