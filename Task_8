@@ -1,0 +1,198 @@
+#include <string>
+
+#ifndef ONE_H
+#define ONE_H
+
+string getA();
+string getB();
+int findE(string a,string b);
+
+#endif
+_________________________________________________________________________________________________________________________________
+
+#include <iostream>
+#include <string>
+#include "One.h"
+
+using namespace std;
+
+string getA()
+{
+string a;
+cout«"a=";
+cin»a;
+string t;
+int lenA,lent;
+lenA=a.size();
+lent=lenA;
+for(int i=0;i<lent;i++)
+{
+if(lenA!=1)
+{
+t=a[0];
+if(t=="0")
+{
+a.erase(a.begin());
+lenA=a.size();
+}
+}
+}
+return a;
+}
+string getB()
+{
+string b;
+cout«"b=";
+cin»b;
+int lenB,lent;
+string t;
+lenB=b.size();
+lent=lenB;
+for(int i=0;i<lent;i++)
+{
+t=b[lenB-1];
+if(t=="0")
+{
+b.erase(lenB-1,1);
+lenB=b.size();
+}
+}
+return b;
+}
+int findE(string a,string b)
+{
+int e,lenA,lenB,lent;
+string t;
+lenA=a.size();
+lenB=b.size();
+if (a=="0")
+{
+e=-1;
+lent=lenB;
+for(int i=0;i<lent;i++)
+{
+if(lenB!=1)
+{
+t=b[0];
+if(t=="0")
+{
+b.erase(b.begin());
+lenB=b.size();
+e--;
+}
+}
+}
+}
+else
+{
+e=lenA-1;
+}
+return e;
+}
+____________________________________________________________________________________________________________________________
+
+#include <iostream>
+#include <string>
+#include "One.h"
+
+using namespace std;
+
+#ifndef TWO_H
+#define TWO_H
+
+string newA(string a, string b);
+string newB(string a, string b);
+
+#endif
+______________________________________________________________________________________________________________________________
+
+#include <iostream>
+#include <string>
+#include "One.h"
+#include "Two.h"
+
+using namespace std;
+
+string newA(string a, string b)
+{
+int lenB,lent;
+string t;
+lenB=b.size();
+if (a=="0")
+{
+lent=lenB;
+for(int i=0;i<lent;i++)
+{
+if(lenB!=1)
+{
+t=b[0];
+if(t=="0")
+{
+b.erase(b.begin());
+lenB=b.size();
+}
+}
+}
+a=b[0];
+}
+else
+{
+a=a[0];
+}
+return a;
+}
+string newB(string a, string b)
+{
+int lenB,lent;
+string t;
+lenB=b.size();
+if (a=="0")
+{
+lent=lenB;
+for(int i=0;i<lent;i++)
+{
+if(lenB!=1)
+{
+t=b[0];
+if(t=="0")
+{
+b.erase(b.begin());
+lenB=b.size();
+}
+}
+}
+b.erase(b.begin());
+}
+else
+{
+a.erase(a.begin());
+b=a+b;
+}
+return b;
+}
+_____________________________________________________________________________________________________________________________
+
+#include <iostream>
+#include <string>
+#include "One.h"
+#include "Two.h"
+
+
+using namespace std;
+
+void print(string a,string b,int e)
+{
+cout«a«","«b«" E"«e«endl;
+}
+int main()
+{
+int e;
+string a,b,newa,newb;
+a=getA();
+b=getB();
+e=findE(a,b);
+newa=newA(a,b);
+newb=newB(a,b);
+print(newa,newb,e);
+system("pause");
+}
