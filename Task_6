@@ -1,0 +1,21 @@
+import math
+def exp(x,k=0):
+    m=0
+    if x**(k)/math.factorial(k)<0.001:
+        m=m+x**(k)/math.factorial(k)
+    else:
+        m=(x**(k))/math.factorial(k)+exp(x,k+1)
+    return m        
+        
+
+
+line=1
+while line==1:
+    x=float(input("Введіть х. "))
+    d=exp(x)
+    print("exp(", x, ")=", d, "Ряд Тейлора ")
+    k=math.exp(x)
+    print("exp(", x, ")=", k)
+    line=int(input('Чи ви хочете почати з початку? Введіть "1" якщо так, і "0" якщо ні. '))
+    if line==1:continue
+else:exit
