@@ -1,0 +1,161 @@
+CPP FILES:
+
+1)Sourse.cpp
+
+#include <iostream>
+#include "operations.h"
+using namespace std;
+int main()
+{
+	operations();
+	system("pause");
+}
+
+2)read.cpp
+
+#include <iostream>
+using namespace std;
+int read()
+{
+	int t;
+	cout << "1-add new element ;\n" << "2-see result and finish .\n" << "What you chose ?  ";
+	cin >> t;
+	return t;
+}
+
+3)push.cpp
+
+#include <iostream>
+#include "Node.h"
+using namespace std;
+void push(Node **top, int d)
+{
+	Node *pv = new Node;        
+	pv->d = d;                  
+	pv->p = *top;                
+	*top = pv;                   
+}
+
+4)pop.cpp
+
+#include <iostream>
+#include "Node.h"
+using namespace std;
+int pop(Node **top)
+{
+	int temp = (*top)->d;        
+	Node *pv = *top;           
+	(*top) = (*top)->p;           
+	delete pv;               
+	return temp;               
+}
+
+5)operations.cpp
+
+#include <iostream>
+#include "push.h"
+#include "pop.h"
+#include "Node.h"
+#include "read.h"
+using namespace std;
+Node *first(int d)
+{
+	Node *pv = new Node;
+	pv->d = d;
+	pv->p = 0;
+	return pv;
+}
+void operations()
+{
+	int g, n;
+	Node *top = NULL;
+	top = first(1);
+	n = 0;
+	do
+	{
+		g = read();
+		switch (g)
+		{
+		case 1:
+		{
+			int y;
+			cout << "input new element  ";
+			cin >> y;
+			push(&top, y);
+			n++;
+		}break;
+		case 2:
+		{
+			int*a = new int[n];
+			for (int j = 0; j < n; j++)
+			{
+				a[j] = pop(&top);
+			}
+			for (int i = n % 3; i < n; i = i + 3)
+			{
+				{
+					cout << a[i];
+					a[i] = 1001;
+				}
+			}
+			for (int j = n % 2; j < n; j = j = j + 2)
+			{
+				if (a[j] != 1001)
+				{
+					cout << a[j];
+					a[j] = 1001;
+				}
+
+			}
+			for (int k = 0; k < n; k++)
+			{
+				if (a[k] != 1001)
+					cout << a[k];
+			}
+		}break;
+		}
+	} while (g != 2);
+}
+
+HEADER FILES:
+
+1)read.h
+
+#ifndef READ_H
+#define READ_H
+int read();
+#endif
+
+2)Node.h
+
+#ifndef NODE_H
+#define NODE_H
+struct Node
+{
+	int d;         
+	Node *p;       
+};
+#endif
+
+3)push.h
+
+#ifndef PUSH_H
+#define PUSH_H
+#include "Node.h"
+void push(Node **top, int d);
+#endif
+
+4)pop.h
+
+#ifndef POP_H
+#define POP_H
+#include "Node.h"
+int pop(Node **top);
+#endif
+
+5)operations.h
+
+#ifndef OPERATIONS_H
+#define OPERATIONS_H
+void operations();
+#endif
