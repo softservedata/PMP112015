@@ -16,7 +16,7 @@ int push_kratne3 (int x)
 }
 void pop ()
 {
-    st[st_size] = 0; // обнуляем верхний элемент и уменьшаем размер стека
+    st[st_size] = 0;
 	st_size--;
 }
 int push2_ne_kratne3 (int x)
@@ -27,18 +27,18 @@ int push2_ne_kratne3 (int x)
 }
 void pop2 ()
 {
-    st2[st_size2] = 0; // обнуляем верхний элемент и уменьшаем размер стека
+    st2[st_size2] = 0;
 	st_size2--;
 }
  
 int top ()
 {
-    return st[st_size];// возвращаем значение самого верхнего элемента
+    return st[st_size];
 }
  
 int top2 ()
 {
-    return st2[st_size2]; // возвращаем значение самого верхнего элемента
+    return st2[st_size2];
 }
  
 bool empty ()
@@ -64,7 +64,7 @@ bool empty2 ()
  
  #include<iostream>
 #include<time.h>
-#include<c:\Users\Winchester\Documents\Visual Studio 2012\Projects\Ad\Ad\Верхний колонтитул.h>
+#include<.h>
 
 
 using namespace std;
