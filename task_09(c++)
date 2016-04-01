@@ -1,0 +1,103 @@
+#include<iostream>
+
+ 
+using namespace std;
+ 
+int st[100];
+int st_size=0;
+int st2[100]; 
+int st_size2=0;
+ 
+int push_kratne3 (int x)
+{
+    st[++st_size] = x;
+
+	return st_size;
+}
+void pop ()
+{
+    st[st_size] = 0; // обнуляем верхний элемент и уменьшаем размер стека
+	st_size--;
+}
+int push2_ne_kratne3 (int x)
+{
+    st2[++st_size2] = x; 
+
+	return st_size2;
+}
+void pop2 ()
+{
+    st2[st_size2] = 0; // обнуляем верхний элемент и уменьшаем размер стека
+	st_size2--;
+}
+ 
+int top ()
+{
+    return st[st_size];// возвращаем значение самого верхнего элемента
+}
+ 
+int top2 ()
+{
+    return st2[st_size2]; // возвращаем значение самого верхнего элемента
+}
+ 
+bool empty ()
+{
+    if (st_size >= 1)
+        return true;
+ 
+    return false; 
+}
+ 
+bool empty2 ()
+{
+    if (st_size2 >= 1)
+        return true;
+ 
+    return false; 
+}
+ 
+
+++++++++++++++++++++++++++++
+
+ Main: 
+ 
+ #include<iostream>
+#include<time.h>
+#include<c:\Users\Winchester\Documents\Visual Studio 2012\Projects\Ad\Ad\Верхний колонтитул.h>
+
+
+using namespace std;
+
+
+int main ()
+{
+	int number;double dilnuk=0;
+	srand(time(NULL));
+	cout<<"Enter number of numbers: "<<endl;
+	cin>>number;
+	int g;
+	
+	for(int i=0;i<number;i++){
+		g=rand()%100;
+		if(g==0){g=g+1;}
+		if(g%3==0){push_kratne3(g);}
+
+		else{push2_ne_kratne3(g);}
+		dilnuk=g/3.0;
+		cout<<"Random number: "<<g<<"\t"<<g<<"/3= "<<dilnuk<<endl;
+	}cout<<"\n"<<"   "<<"Chusla kratni 3 v obernenomy poryadky:\n "<<endl;
+		while(empty()!=false){
+		top();cout<<"\t\t"<<st[st_size]<<"    "<<endl;
+		pop();}
+		cout<<"\n"<<"   "<<"Chusla ne kratni 3 v obernenomy poryadky: \n"<<endl;
+	while(empty2()!=false){
+	
+		top2();cout<<"\t\t"<<st2[st_size2]<<"    "<<endl;
+		
+		pop2();}
+
+    system ("pause");
+    return 0;
+}
+ 
