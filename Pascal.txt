@@ -1,0 +1,6 @@
+if First < Last then
+ begin
+   Temp := First;
+   First := Last;
+   Last := Temp;
+ end;

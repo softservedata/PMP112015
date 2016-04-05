@@ -1,0 +1,103 @@
+Node.h
+---------------------
+#ifndef NODE_H
+#define NODE_H
+struct Node
+{
+	int Array[100];
+	int count;
+};
+#endif
+---------------------
+Stack.h
+---------------------
+#ifndef STACK_H
+#define STACK_H
+#include "Node.h"
+void Create(Node *Stack);
+void push (Node *Stack,int j);
+int pop(Node *Stack);
+bool isEmpty(Node *Stack);
+#endif
+---------------------
+Stack.cpp
+---------------------
+#include <iostream>
+#include "Stack.h"
+#include "Node.h"
+using namespace std;
+
+void Create(Node *Stack)
+{
+	Stack->count=0;
+}
+void push (Node *Stack,int j)
+{
+	Stack->Array[Stack->count]=j;
+	Stack->count++;
+}
+int pop(Node *Stack)
+{
+	if(Stack->count==0)
+	{
+		cout<<"error in pop: stack is empty"<<endl;
+	}
+	else
+	{
+	    Stack->count--;
+	    return Stack->Array[Stack->count+1];
+	}
+}
+bool isEmpty(Node *Stack)
+{
+	bool answer=false;
+	if(Stack->count==0)
+	{
+		answer=true;
+	}
+	return answer;
+}
+---------------------
+Main.cpp
+---------------------
+#include<iostream>
+#include<fstream>
+#include<string>
+#include "Node.h"
+#include "Stack.h"
+using namespace std;
+
+int main()
+{
+    ifstream MyFile("D:\\Ната\\Pascal.txt",ios::in);
+	char name[10];
+	string begin="begin";
+	string end1="end;";
+	string end2="end.";
+	Node *MyStack=new Node();
+	Create(MyStack);
+	while (MyFile)
+	{
+		MyFile>>name;
+		string NameStr=name;
+		cout<<name<<endl;
+		if(NameStr==begin)
+		{
+			cout<<"push is here"<<endl;
+			push(MyStack,1);
+		}
+		if((NameStr==end1)||(NameStr==end2))
+		{
+			cout<<"pop is here"<<endl;
+			pop(MyStack);
+		}
+	}
+	if(isEmpty(MyStack))
+	{cout<<"stack is empty\n"<<"Code is right"<<endl;}
+	else if (!isEmpty(MyStack))
+	{cout<<"stack is not empty\n"<<"Code is wrong"<<endl;}
+	MyFile.close();
+	delete[] MyStack;
+	system("pause");
+	return 0;
+}
