@@ -1,0 +1,157 @@
+/////////stack.h/////////
+
+
+#pragma once
+#ifndef STACK_H
+#define STACK_H
+#include "iostream"
+using std::cin;
+using std::cout;
+using std::endl;
+const int max_size = 10;
+struct Stack
+{
+private:
+	int top;
+	char data[max_size];
+public:
+	bool Is_Empty();
+	void Create_Stack();
+	int Push(char x);
+	char Pop();
+};
+#endif
+
+
+////////stack.cpp///////////
+
+
+
+
+#include "stack.h"
+#include"iostream"
+bool Stack::Is_Empty()
+{
+	return (top == 0);
+}
+
+void Stack::Create_Stack()
+{
+	top = 0;
+}
+
+int Stack::Push(char x)
+{
+	if (top == max_size)
+	{
+		cout << "Stack Overflov..."; return 0;
+	}
+	else
+	{
+		data[top] = x;
+		++top;
+		return 1;
+	}
+
+}
+char Stack::Pop()
+{
+	if (Is_Empty())
+	{
+		cout << "Stack is Empty..."; return 0;
+	}
+	else
+	{
+		--top;
+		return data[top];
+	}
+}
+
+
+///////header.h////////////
+
+
+#pragma once
+#include"stack.h"
+#include"fstream"
+using namespace std;
+void Read_from_file(ifstream& f,Stack Array[],int count);
+void Write_to_file(ofstream& f, Stack Array[], int count);
+
+
+////////header.cpp////////////
+
+
+
+#include "Header.h"
+#include "stack.h"
+#include "fstream"
+
+void Read_from_file(ifstream & f,Stack Array[], int count)
+{
+	char x;
+	for (int i = 0; i < count; i++) {
+		Array[i].Create_Stack();
+		f >> x;
+		Array[i].Push(x);
+	}
+}
+
+void Write_to_file(ofstream & f, Stack Array[], int count)
+{
+	
+	for (int i = 0;i < count;i++)
+	{
+		f << Array[i].Pop() << " ";
+	}
+}
+
+
+
+
+////////main.cpp////////
+
+
+
+#include "stack.h"
+#include"iostream"
+#include"fstream"
+#include"Header.h"
+using namespace std;
+
+int main()
+{
+	const int count = 2;
+	int n;
+	char x;
+	Stack V[count];
+	ofstream web("Result.txt");
+	ifstream in_file("Data.txt");
+	in_file >> n;
+	Read_from_file(in_file, V, n);
+	Write_to_file(web, V, n);
+	for (int i = 0;i<count;i++)
+	{
+		V[i].Create_Stack();
+		cout << "\ncount of symbols in " << i + 1 << " line=";
+		cin >> n;
+		for (int j = 0;j<n;j++)
+		{
+			cout << "\nnext symbols : ";
+			in_file >> x;
+			V[i].Push(x);
+		}
+	}
+	for (int i = 0;i<count;i++)
+	{
+		while (!V[i].Is_Empty())
+			cout<< V[i].Pop() << " ";
+		cout << "\n____________________________\n\n\n";
+	}
+	in_file.close();
+	web.close();
+	system("pause");
+	return 0;
+}
+
+///////end///////
