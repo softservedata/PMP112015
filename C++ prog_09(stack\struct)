@@ -1,0 +1,193 @@
+Stack.h:
+
+class Stack
+{
+public:
+	Stack();
+    ~Stack();
+
+    double pop();
+    void push(const double & value);
+    bool isEmpty() const;
+
+private:
+    struct Element
+    {
+        Element();
+        Element(const double & value, Element * prevElement);
+
+        double mValue;
+        Element * mpPrevElem;
+    };
+
+    Element * mTopElement;
+};
+
+class Stack2
+{
+public:
+	Stack2();
+    ~Stack2();
+
+    double pop2();
+    void push2(const double & value2);
+    bool isEmpty2() const;
+
+private:
+    struct Element2
+    {
+        Element2();
+        Element2(const double & value2, Element2 * prevElement2);
+
+        double mValue2;
+        Element2 * mpPrevElem2;
+    };
+
+    Element2 * mTopElement2;
+};
+-----------------------------------------------
+Stack.cpp:
+
+#include "stack.h"
+#include<iostream>
+#include<time.h>
+using namespace std;
+Stack::Stack() :
+	mTopElement(nullptr)
+{
+}
+
+Stack::~Stack()
+{
+ 
+    while (!isEmpty())
+    {
+        pop();
+    }
+}
+
+double Stack::pop()
+{
+    if (!isEmpty())
+    {
+        double retVal = mTopElement->mValue;
+        mTopElement = mTopElement->mpPrevElem;
+        return retVal;
+    }
+    else
+    {
+        return 0.0;
+    }
+}
+
+void Stack::push(const double & value)
+{
+    mTopElement = new Element(value, mTopElement);
+}
+
+bool Stack::isEmpty() const
+{
+    return (mTopElement == nullptr);
+}
+
+
+Stack::Element::Element() :
+    mValue(0.0),
+    mpPrevElem(nullptr)
+{
+}
+
+Stack::Element::Element(const double & value, Element * prevElement) :
+    mValue(value),
+    mpPrevElem(prevElement)
+{
+}
+/////////////////////////////////////////////////////////////////
+Stack2::Stack2() :
+	mTopElement2(nullptr)
+{
+}
+
+Stack2::~Stack2()
+{
+ 
+    while (!isEmpty2())
+    {
+        pop2();
+    }
+}
+
+double Stack2::pop2()
+{
+    if (!isEmpty2())
+    {
+        double retVal2 = mTopElement2->mValue2;
+        mTopElement2 = mTopElement2->mpPrevElem2;
+        return retVal2;
+    }
+    else
+    {
+        return 0.0;
+    }
+}
+
+void Stack2::push2(const double & value2)
+{
+    mTopElement2 = new Element2(value2, mTopElement2);
+}
+
+bool Stack2::isEmpty2() const
+{
+    return (mTopElement2 == nullptr);
+}
+
+
+Stack2::Element2::Element2() :
+    mValue2(0.0),
+    mpPrevElem2(nullptr)
+{
+}
+
+Stack2::Element2::Element2(const double & value2, Element2 * prevElement2) :
+    mValue2(value2),
+    mpPrevElem2(prevElement2)
+{
+}
+
+
+
+
+void main(){
+
+	Stack kratne_3; 
+	Stack2 ne_kratne_3;
+	
+	int number;double dilnuk=0;
+	srand(time(NULL));
+	cout<<"Enter number of numbers: ";
+	cin>>number;
+	cout<<endl;
+	int g;
+
+	for(int i=0;i<number;++i){
+		g=rand()%1000;
+		if(g==0){g=g+1;}
+
+
+	if(g%3==0){kratne_3.push(g);}
+	else{ne_kratne_3.push2(g);}
+	dilnuk=g/3.0;
+	cout<<"Random number: "<<g<<"\t"<<g<<"/3= "<<dilnuk<<endl;}
+	
+	cout<<endl;
+
+	
+		while(kratne_3.isEmpty()==0){
+			cout<<"Chuslo kratne 3: "<<kratne_3.pop()<<endl;}
+		cout<<endl;
+		while(ne_kratne_3.isEmpty2()==0){
+			cout<<"Chuslo ne kratne 3: "<<ne_kratne_3.pop2()<<endl;}
+	
+	system("pause");
+
+}
