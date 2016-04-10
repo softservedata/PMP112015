@@ -1,0 +1,62 @@
+#ifndef STACK_H
+# define STACK_H
+#include "Node.h"
+void Create(Node *Stack);
+void push(Node *Stack, int j);
+int pop(Node *Stack);
+#endif
+ 
+ #include <iostream>
+#include "Stack.h"
+#include "Node.h"
+using namespace std;
+
+void Create(Node *Stack)
+{
+	Stack->count = 0;
+	}
+void push(Node *Stack, int j)
+ {
+	Stack->Array[Stack->count] = j;
+	Stack->count++;
+
+ }
+int pop(Node *Stack)
+{
+	Stack->count--;
+	return Stack->Array[Stack->count + 1];
+}
+
+#ifndef NODE_H
+#define NODE_H
+ struct Node
+{
+	int Array[100];
+	int count;
+};
+#endif
+
+
+#include<iostream>
+#include<fstream>
+#include<string>
+#include "Node.h"
+#include "Stack.h"
+using namespace std;
+
+int main()
+{
+	Node *MyStack = new Node();
+	Create(MyStack);
+	for (int i = 1;i < 100;i + 2)
+	{
+		cout << i << endl;
+	}
+	for (int i = 0;i < 100;i + 2)
+	{
+		cout << i << endl;
+	}
+		delete[] MyStack;
+		system("pause");
+		return 0;
+}
