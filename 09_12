@@ -1,0 +1,72 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+struct Node
+{
+ int Array[100];
+ int count;
+};
+
+void Create(Node *Stack)
+{
+ Stack->count=0;
+}
+void push (Node *Stack,int j)
+{
+ Stack->Array[Stack->count]=j;
+ Stack->count++;
+}
+int pop(Node *Stack)
+{
+ if(Stack->count==0)
+	{
+ cout<<"error in pop: stack is empty"<<endl;
+	}
+ else
+	{
+ Stack->count--;
+ return Stack->Array[Stack->count+1];
+	}
+}
+bool isEmpty(Node *Stack)
+{
+ bool answer=false;
+ if(Stack->count==0)
+	{
+ answer=true;
+	}
+ return answer;
+}
+
+int main()
+{
+ std::string mystr;
+ cout<<endl<<"str:"<<endl;
+ cin>>mystr;
+ char begin='(';
+ char end1=')';
+ char end2='}';
+ Node *MyStack=new Node();
+ Create(MyStack);
+ for(int i=0;i<mystr.length();i++)
+	{
+ char NameStr=mystr[i];
+ if(NameStr==begin)
+		{
+ cout<<"push is here"<<endl;
+ push(MyStack,1);
+		}
+ if((NameStr==end1)||(NameStr==end2))
+		{
+ cout<<"pop is here"<<endl;
+ pop(MyStack);
+		}
+	}
+ if(isEmpty(MyStack))
+ {cout<<"stack is empty\n"<<"Code is right"<<endl;}
+ else if (!isEmpty(MyStack))
+ {cout<<"stack is not empty\n"<<"Code is wrong"<<endl;}
+ delete[] MyStack;
+ return 0;
+}
