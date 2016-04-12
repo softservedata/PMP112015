@@ -1,0 +1,144 @@
+CPP FILES:
+
+1)Sourse.cpp
+
+#include <iostream>
+#include <string>
+#include "NewResult.h"
+#include "Class.h"
+using namespace std;
+int main()
+	{
+		char t, l;
+		cout << "input first element ( a,b,c,d or e )  ";
+		cin >> t;
+		cout << "input second element ( a,b,c,d or e , obviosly , it should not be equal first ) ";
+		cin >> l;
+		NewResult(t, l);
+		system("pause");
+	}
+
+2)NewResult.cpp
+
+#include <iostream>
+#include <string>
+#include "Class.h"
+using namespace std;
+
+void NewResult(char t, char l)
+{
+	Way a;       //Data
+	a.add('b');  //Data
+	a.add('c');  //Data
+	Way b;       //Data
+	b.add('c');  //Data
+	Way c;       //Data
+	Way d;       //Data
+	d.add('a');  //Data
+	Way e;       //Data
+	e.add('d');  //Data
+	switch (t)
+	{
+	case 'a':
+	{
+		if (a.GetWay(l))
+		{
+			cout << "there is a way from 'a' to " << l << endl;
+		}
+		else
+		{
+			cout << "there is no way from 'a' to" << l << endl;
+		}break;
+	}
+	case 'b':
+	{
+		if (b.GetWay(l))
+		{
+			cout << "there is a way from 'b' to " << l << endl;
+		}
+		else
+		{
+			cout << "there is no way from 'b' to" << l << endl;
+		}break;
+	}
+	case 'c':
+	{
+		if (c.GetWay(l))
+		{
+			cout << "there is a way from 'c' to " << l << endl;
+		}
+		else
+		{
+			cout << "there is no way from 'c' to" << l << endl;
+		}break;
+	}
+	case 'd':
+	{
+		if (d.GetWay(l))
+		{
+			cout << "there is a way from 'd' to " << l << endl;
+		}
+		else
+		{
+			cout << "there is no way from 'd' to" << l << endl;
+		}break;
+	}
+	case 'e':
+	{
+		if (e.GetWay(l))
+		{
+			cout << "there is a way from 'e' to " << l << endl;
+		}
+		else
+		{
+			cout << "there is no way from 'e' to" << l << endl;
+		}break;
+	}
+	default:
+	{
+		cout << "You inputed element , which does not exist . ";
+	}
+	}
+}
+
+HEADER FILES:
+
+1)New Result.h
+
+#ifndef NEWRESULT
+#define NEWRESULT
+using namespace std;
+
+void NewResult(char t, char l);
+
+
+#endif
+
+2)Class.h
+
+class Way
+{
+private:
+	char Mass[6] = { 'v','v','v','v','v' };
+public:
+	void add(char n)
+	{
+		for (int i = 0; i < 5; i++)
+			if (Mass[i] == 'v')
+			{
+				Mass[i] = n; break;
+			}
+	}
+	int GetWay(char k)
+	{
+		int z = 0;
+		for (int i = 0; i < 5; i++)
+		{
+			if (Mass[i] == k)
+			{
+				z++;
+			}
+		}
+		return z;
+	}
+};
