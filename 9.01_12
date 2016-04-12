@@ -1,0 +1,133 @@
+Main.cpp
+
+#include<iostream>
+#include<fstream>
+#include<string>
+#include "Node.h"
+#include "Stack.h"
+using namespace std;
+int main()
+{
+	std::string mystr;
+	cout<<endl<<"str:"<<endl;
+	cin>>mystr;
+	char begin1 = '(';
+	char begin2 = '{';
+	char begin3 = '[';
+	char end1 = ')';
+	char end2 = '}';
+	char end3 = ']';
+	Node *MyStack = new Node();
+	Create(MyStack);
+	for (int i = 0;i < mystr.length();i++)
+	{
+		char NameStr = mystr[i];
+		if ((NameStr == begin1) || (NameStr == begin2) || (NameStr == begin3))
+		{
+			push(MyStack, NameStr);
+		}
+		if (NameStr == end1)
+		{
+			if (MyStack->Array[(MyStack->count) - 1] == begin1)
+			{
+				pop(MyStack);
+			}
+			else
+			{
+				break;
+			}
+		}
+		if (NameStr == end2)
+		{
+			if (MyStack->Array[(MyStack->count) - 1] == begin2)
+			{
+				pop(MyStack);
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		if (NameStr == end3)
+		{
+			if (MyStack->Array[(MyStack->count) - 1] == begin3)
+			{
+				pop(MyStack);
+			}
+			else
+			{
+				break;
+			}
+		}
+
+	}
+	if (isEmpty(MyStack))
+	{
+		cout<<"stack is empty\n"<<"Code is right"<<endl;
+	}
+	else if (!isEmpty(MyStack))
+	{
+		cout<<"stack is not empty\n"<<"Code is wrong"<<endl;
+	}
+	delete[] MyStack;
+	system("pause");
+	return 0;
+}
+
+Stack.cpp
+
+#include "Node.h"
+using namespace std;
+void Create(Node *Stack)
+{
+	Stack->count = 0;
+}
+void push(Node *Stack, int j)
+{
+	Stack->Array[Stack->count] = j;
+	Stack->count++;
+}
+int pop(Node *Stack)
+{
+	if (Stack->count == 0)
+	{
+		cout<<"error in pop: stack is empty"<<endl;
+	}
+	else
+	{
+		Stack->count--;
+		return Stack->Array[Stack->count];
+	}
+}
+bool isEmpty(Node *Stack)
+{
+	bool answer = false;
+	if (Stack->count == 0)
+	{
+		answer = true;
+	}
+	return answer;
+}
+
+Stack.h
+
+#ifndef STACK_H
+#define STACK_H
+#include "Node.h"
+void Create(Node *Stack);
+void push(Node *Stack, int j);
+int pop(Node *Stack);
+bool isEmpty(Node *Stack);
+#endif
+
+Node.h
+
+#ifndef NODE_H
+#define NODE_H
+ struct Node
+ {
+  char Array[100];
+	int count;
+	};
+#endif
