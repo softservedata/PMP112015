@@ -1,0 +1,84 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+#include "Node.h"
+#include "Stack.h"
+using namespace std;
+
+int main()
+{
+	Node *MyStack = new Node();
+	Create(MyStack);
+	double x;
+	int n;
+	cout << "n";
+	cin >> n;
+	double *a = new double[n];
+	for (int i = 0;i < n;i++)
+	{
+		cin >> a[i];
+	}
+
+	for (int i = 0;i <n ;i=i + 2)
+	{
+		push(MyStack, a[i]);
+	}
+	for (int i = 1;i <n ;i=i + 2)
+	{
+		push(MyStack,a[i]);
+	}
+	for (int i = 0;i < n;i++)
+	{
+		x = pop(MyStack);
+		cout << x;
+	}
+		delete[] MyStack;
+		delete[] a;
+		system("pause");
+		return 0;
+}
+
+
+
+
+#ifndef NODE_H
+#define NODE_H
+ struct Node
+{
+	double Array[100];
+	int count;
+};
+#endif
+
+
+#ifndef STACK_H
+# define STACK_H
+#include "Node.h"
+void Create(Node *Stack);
+void push(Node *Stack, double j);
+int pop(Node *Stack);
+#endif
+ 
+ 
+ #include <iostream>
+#include "Stack.h"
+#include "Node.h"
+using namespace std;
+
+void Create(Node *Stack)
+{
+	Stack->count = 0;
+}
+void push(Node *Stack, double j)
+ {
+	Stack->Array[Stack->count] = j;
+	Stack->count++;
+
+ }
+int pop(Node *Stack)
+{
+	Stack->count--;
+	return Stack->Array[Stack->count];
+}
+
+
