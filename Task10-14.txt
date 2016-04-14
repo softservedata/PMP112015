@@ -1,0 +1,75 @@
+Main.cpp
+
+#include<iostream>
+#include"Set.h"
+using namespace std;
+
+void main()
+{
+	Set a;
+	unsigned long int number;
+	int n;
+	cout<<"enter integer numder > 0 and < 4 294 967 295"<<endl;
+	cin>>number;
+	cout<<"Your number= "<<number<<endl;
+	a.create(20);
+	while (number!=0)
+	{
+	    n=number%10;
+            number=number/10;
+	    a.addElem(n);
+	}
+	cout<<"n= "<<a.getCount();
+	a.del();
+	system("pause");
+}
+------------------
+Set.cpp
+
+#include<iostream>
+#include"Set.h"
+using namespace std;
+
+void Set:: create(int amound)
+{
+	n=amound;
+	a=new int[n];
+	k=0;
+}
+void Set:: addElem(int elem)
+{	
+	bool exist=false;
+	for(int i=0;i<k;i++)
+	{
+		if(a[i]==elem)
+		{
+			exist=true;
+			break;
+		}
+	}
+	if(!exist)
+	{
+		a[k]=elem;
+		k++;
+	}
+}
+int Set:: getCount()
+{ return k;}
+void Set::  del()
+{ delete[] a;}
+---------------------
+Set.h
+
+#ifndef SET_H
+#define SET_H
+class Set{
+private:
+	int *a;
+	int n,k;
+public:
+	void create(int amound);
+	void addElem(int elem);
+	int getCount();
+	void del();
+};
+#endif
