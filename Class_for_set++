@@ -1,0 +1,101 @@
+#include"iostream"
+
+using namespace std; 
+class Sett
+{
+private:
+	float *Array;
+	int m;
+public:
+	
+	Sett(int size)
+	{
+		m = size;
+		Array = new float[m];
+	}
+	~Sett()
+	{
+		delete[]Array;
+	}
+	int fsize()
+	{
+		return m;
+	}
+	void add(float ellem, int index)
+	{
+		if (index < m)
+			Array[index] = ellem;
+	}
+
+	/*void Cut_of_SEtt(int ellem)
+	{
+		bool exist = false;
+		for (int i = 0; i < k; i++)
+		{
+			if (Sett[i] == ellem)
+			{
+				exist = true;
+				break;
+			}
+			if (exist)
+			{
+				k--;
+				Sett[k] = ellem;
+			}
+		}
+	}*/
+
+	float show(int index)
+	{
+		if (index < m)
+			return Array[index];
+		else
+			return -1;
+	}
+	void seek(int n)
+	{
+		int index;
+		int dop;
+		int x;
+		while (n != 0)
+		{
+			int max;
+			x = n;
+			dop = n % 10;
+			for (int index = 0;index < m; index++)
+			{
+
+				if (dop == Array[index])
+				{
+					cout << dop << " ";
+
+				}
+			}
+			n = x / 10;
+		}
+	}
+};
+int main()
+{
+	setlocale(LC_ALL, "ukr");
+	Sett Mr(5);
+	int i;
+	int n, nat;
+	for (int i = 0; i < Mr.fsize();i++)
+	{
+		cout << "Введiть " << i+1 << " елемент :";
+		cin >> n;
+		Mr.add(n, i);
+	}
+	cout << endl;
+	for (int i = 0; i < Mr.fsize();i++)
+	{
+		cout << Mr.show(i) << " ";
+	}
+	cout <<"\n\n"<< "Натуральне число :";
+	cin >> nat;
+	Mr.seek(nat);
+	cout << endl; 
+	system("pause");
+	return 0; 
+}
