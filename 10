@@ -1,0 +1,59 @@
+#include<iostream> 
+using namespace std;
+
+
+
+class Set {
+public:
+	int i;
+	Set** arr;
+	Set() :i(0) { arr = new Set*[5]; }
+
+
+	void add(Set a) {
+
+		arr[i] = &a;
+		++i;
+
+	}
+
+
+
+};
+class Graf {
+public:
+	int i;
+
+
+	Set** arr2;
+	Graf() :i(0) { arr2 = new Set*[5]; }
+
+
+	void add(Set a) {
+
+		arr2[i] = &a;
+		++i;
+		int j = a.i;
+	}
+	
+	bool perevrka(){
+		for (int k = 0; k < i; ++k){
+			if (arr2[k]->i % 2 == 0){ k = k + 1; if (k == i){ cout << "Ye tsukl" << endl; } }
+
+
+			else{ cout << "nema tsuklu" << endl; }
+		}
+	}
+
+};
+
+void main() {
+	Set a;
+	Set b;
+	Graf g;
+
+	a.add(b);
+	g.add(a);
+
+	cout << a.i << endl;
+	system("pause");
