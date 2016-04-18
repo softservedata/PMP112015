@@ -1,0 +1,108 @@
+#include"iostream"
+using namespace std; 
+class Sett
+{
+private:
+	float *Array;
+	int m;
+	float *derby;
+public:
+	
+	Sett(int size)
+	{
+		m = size;
+		Array = new float[m];
+		derby = new float[m]  { 0 };
+	}
+	~Sett()
+	{
+		delete[]Array;
+		delete[]derby;
+	}
+	int fsize()
+	{
+		return m;
+	}
+	void add(float ellem, int index)
+	{
+		if (index < m)
+			Array[index] = ellem;
+	}
+	float show(int index)
+	{
+		if (index < m)
+			return Array[index];
+		else
+			return -1;
+	}
+	void seek(int n)
+	{
+		int index;
+		int count = 0;
+		int dop;
+		int x;
+		int size = 5;
+		while (n != 0)
+		{
+			x = n;
+			dop = n % 10;
+			for (int index = 0;index < m; index++)
+			{
+				if (dop == Array[index])
+				{
+					derby[index] = dop;
+				}
+
+			}
+			n = x / 10;
+			count++;
+
+		}
+		int k;
+		for (k = 1; k < m; k++)
+		{
+			for (int i = 0;i < m - k;i++)
+			{
+				if (derby[i] > derby[i + 1])
+				{
+					swap(derby[i], derby[i + 1]);
+				}
+			}
+		}
+		cout << "V poryadky :";
+		for (int i = m-count; i < m;i++)
+		{
+			cout << derby[i] << " ";
+		}
+		
+	}
+	
+};
+int main()
+{
+	
+	
+
+	setlocale(LC_ALL, "ukr");
+	Sett Mr(5);
+	int i;
+	int n, nat;
+	for (int i = 0; i < Mr.fsize();i++)
+	{
+		cout << "Введiть " << i + 1 << " елемент :";
+		cin >> n;
+		Mr.add(n, i);
+	}
+	cout << endl;
+	for (int i = 0; i < Mr.fsize();i++)
+	{
+		cout << Mr.show(i) << " ";
+	}
+	cout << "\n\n" << "Натуральне число :";
+	cin >> nat;
+	Mr.seek(nat);
+	
+	cout << endl;
+	system("pause"); 
+	return 0; 
+}
