@@ -1,0 +1,99 @@
+#include <stdlib.h>
+#include <iostream>
+#include <Windows.h>
+#include<string>
+using namespace std;
+
+struct Node       
+{
+	char x;  
+	Node *Next, *Prev; 
+};
+
+class List   
+{
+	Node *Head, *Tail; 
+public:
+	List() :Head(NULL), Tail(NULL){}; 
+	~List();
+	void Show(); 
+	void Add(char x); 
+};
+
+List::~List() 
+{
+	while (Head) 
+	{
+		Tail = Head->Next;
+		delete Head; 
+		Head = Tail; 
+	}
+}
+
+void List::Add(char x)
+{
+	Node *temp = new Node; 
+	temp->Next = NULL;  
+	temp->x = x;
+
+	if (Head != NULL)
+	{
+	  temp->Prev = Tail; 
+		Tail->Next = temp; 
+		Tail = temp; 
+	}
+	else 
+	{
+		temp->Prev = NULL; 
+		Head = Tail = temp; 
+	}
+}
+
+void List::Show()
+{
+	//з кінця
+	Node *temp = Tail;
+	while (temp != NULL) 
+	{
+		cout << temp->x << " "; 
+		temp = temp->Prev;
+	}
+	cout << "\n";
+
+	////з початку
+	//temp = Head; 
+	//while (temp != NULL) 
+	//{
+	//	cout << temp->x << " "; 
+	//	temp = temp->Next; 
+	//}
+	//cout << "\n";
+}
+int main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251); 
+	string lst;
+	cin>>lst;
+	List lat; 
+	List kyr;
+	for (int i = 0; i < lst.size(); i++)
+	{
+		if (int((lst[i]) <= -1))
+		{
+			kyr.Add(lst[i]);
+		}
+		else
+		{
+			lat.Add(lst[i]);
+		}
+	}
+	kyr.Show();
+	cout << endl;
+	lat.Show();
+	cout << endl;
+	kyr.~List();
+	lat.~List();
+	system("pause");
+}
+ 
