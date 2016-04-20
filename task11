@@ -2,22 +2,29 @@
 using namespace std;
 int main()
 {
-	char s1[253];
-	int l,i,j,x;
+	char s1[253],s2[253];
+	int l,i,j,x=0;
 	cout<<"s1=";
-    gets(s1);
+    gets_s(s1);
 	l=strlen(s1);
 	for(int j=0;j<l;j++)
 	{
-		x=1;
 		for(int i=j+1;i<l;i++)
 		{
 			if (s1[i]==s1[j])
-			{x=0;}
+			{s1[i]='~';}
 		}
-		if(x)
-		{cout<<s1[j];}
 	}
+	for(int j=0;j<l;j++)
+	{
+		if (s1[j]!='~')
+		{
+			s2[x]=s1[j];
+			x++;
+		}
+	}
+	for(int j=0;j<x;j++)
+	{cout<<s2[j];}
 	cout<<"\n";
 	system("pause");
 }
