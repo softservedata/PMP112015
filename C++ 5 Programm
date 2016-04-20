@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+	int pos=0,posnext=0,number=0;
+	char name[253];
+	cout << "input string  ";
+	cin.getline(name,253);
+	for (int i = 0; i < 253; i++)
+	{
+		if (name[i] != '\0')
+			number++;
+	}
+	for (int i = 0; i < number; i++)
+	{
+		if (name[i] == ' ') 
+		{
+			if (name[i + 1] == ' ') { continue; }
+			else
+			{
+				posnext = i;
+				for (int j = posnext; j >= pos; j--)
+				{
+					if(name[j]!=' ')
+					cout << name[j];
+				}
+				cout << endl;
+				pos = posnext;
+			}
+		}
+	}
+	for (int i = number+1; i <= posnext; i--)
+	{
+		if (name[i] != ' ')
+		{
+			cout << name[i];
+		}
+	}
+	cout << endl;
+	system("pause");
+}
