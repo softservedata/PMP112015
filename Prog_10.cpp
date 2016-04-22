@@ -199,7 +199,7 @@ void main() {
 	int pozn[6];
 	int numbNextVersh=0;
 	int count1=1;
-
+	int j=0;
 
 
 	pozn[0]=nepozn[0];
@@ -207,73 +207,66 @@ void main() {
 	
 		#pragma region Sumijni z A
 
-			int j=0;
-			do
-			{
+			
 				for(int i=0;i<2;++i)
 				{
 				if(A.a_arr[i]=='b')
 					{
 						pozn[1]=nepozn[1];
 						nepozn[1]=0;
+						cout<<"A.B"<<endl;
 						++count1;
-						continue;
+						break;
 					}
 				if(A.a_arr[i]=='c')
 					{
 						pozn[2]=nepozn[2];
 						nepozn[2]=0;
 						++count1;
-						continue;
+						break;
+
 					}
 				if(A.a_arr[i]=='d')
 					{
 						pozn[3]=nepozn[3];
 						nepozn[3]=0;
 						++count1;
-						continue;
+						break;
 					}
 				if(A.a_arr[i]=='e')
 					{
 						pozn[4]=nepozn[4];
 						nepozn[4]=0;
 						++count1;
-						continue;
+						break;
 					}
 				if(A.a_arr[i]=='f')
 					{
 						pozn[5]=nepozn[5];
 						nepozn[5]=0;
 						++count1;
-						continue;
+						break;
 					}
 				}
-				++j;
-			}
-
-			while(j<2);
+			
 			#pragma endregion
-		#pragma region nextVersh
-			for(int i=1;i<6;++i)
-			{
-
-				if(nepozn[i]!=0)
-				{
-					pozn[i]=nepozn[i];
-					nepozn[i]=0;
-					numbNextVersh=i;  //Наступна вершина під номером "i"
-					break;
-				}
-		
-			}
-			#pragma endregion
+		//#pragma region nextVersh
+		//	for(int i=1;i<6;++i)
+		//	{
+		//		if(nepozn[i]!=0)
+		//		{
+		//			pozn[i]=nepozn[i];
+		//			nepozn[i]=0;
+		//			numbNextVersh=i;  //Наступна вершина під номером "i"
+		//			break;
+		//		}
+		//
+		//	}
+		//	#pragma endregion
 	
 	if(count1==2)
 	{
 		#pragma region Sumijni z B
-	j=0;
-	do
-	{
 		for(int i=0;i<2;++i)
 		{
 		if(B.b_arr[i]=='b')
@@ -281,63 +274,60 @@ void main() {
 				pozn[1]=nepozn[1];
 				nepozn[1]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(B.b_arr[i]=='c')
 			{
 				pozn[2]=nepozn[2];
 				nepozn[2]=0;
+				cout<<"B.C"<<endl;
 				++count1;
-				continue;
+				break;
 			}
 		if(B.b_arr[i]=='d')
 			{
 				pozn[3]=nepozn[3];
 				nepozn[3]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(B.b_arr[i]=='e')
 			{
 				pozn[4]=nepozn[4];
 				nepozn[4]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(B.b_arr[i]=='f')
 			{
 				pozn[5]=nepozn[5];
 				nepozn[5]=0;
 				++count1;
-				continue;
+				break;
 			}
 		}
-		++j;
-	}
-
-	while(j<2);
-	#pragma endregion
-		#pragma region nextVersh
-	for(int i=2;i<6;++i)
-	{
-
-		if(nepozn[i]!=0)
-		{
-			pozn[i]=nepozn[i];
-			nepozn[i]=0;
-			numbNextVersh=i;  //Наступна вершина під номером "i"
-			break;
-		}
-		
-	}
+	
 #pragma endregion
+		//		#pragma region nextVersh
+		//	for(int i=2;i<6;++i)
+		//	{
+		//
+		//		if(nepozn[i]!=0)
+		//		{
+		//			pozn[i]=nepozn[i];
+		//			nepozn[i]=0;
+		//			numbNextVersh=i;  //Наступна вершина під номером "i"
+		//			break;
+		//		}
+		//		
+		//	}
+		//#pragma endregion
 	}
 	if(count1==3)
 	{
 		#pragma region Sumijni z C
-	j=0;
-	do
-	{
+	
+	
 		for(int i=0;i<3;++i)
 		{
 		if(C.c_arr[i]=='b')
@@ -345,63 +335,60 @@ void main() {
 				pozn[1]=nepozn[1];
 				nepozn[1]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(C.c_arr[i]=='c')
 			{
 				pozn[2]=nepozn[2];
 				nepozn[2]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(C.c_arr[i]=='d')
 			{
 				pozn[3]=nepozn[3];
 				nepozn[3]=0;
+				cout<<"C.D"<<endl;
 				++count1;
-				continue;
+				break;
 			}
 		if(C.c_arr[i]=='e')
 			{
 				pozn[4]=nepozn[4];
 				nepozn[4]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(C.c_arr[i]=='f')
 			{
 				pozn[5]=nepozn[5];
 				nepozn[5]=0;
 				++count1;
-				continue;
+				break;
 			}
 		}
-		++j;
-	}
-
-	while(j<2);
-	#pragma endregion
-		#pragma region nextVersh
-	for(int i=3;i<6;++i)
-	{
-
-		if(nepozn[i]!=0)
-		{
-			pozn[i]=nepozn[i];
-			nepozn[i]=0;
-			numbNextVersh=i;  //Наступна вершина під номером "i"
-			break;
-		}
-		
-	}
+	
 #pragma endregion
+		//		#pragma region nextVersh
+		//	for(int i=3;i<6;++i)
+		//	{
+		//
+		//		if(nepozn[i]!=0)
+		//		{
+		//			pozn[i]=nepozn[i];
+		//			nepozn[i]=0;
+		//			numbNextVersh=i;  //Наступна вершина під номером "i"
+		//			break;
+		//		}
+		//		
+		//	}
+		//#pragma endregion
+		
 	}
 	if(count1==4)
 	{
 		#pragma region Sumijni z D
-	j=0;
-	do
-	{
+	
 		for(int i=0;i<3;++i)
 		{
 		if(D.d_arr[i]=='b')
@@ -409,62 +396,60 @@ void main() {
 				pozn[1]=nepozn[1];
 				nepozn[1]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(D.d_arr[i]=='c')
 			{
 				pozn[2]=nepozn[2];
 				nepozn[2]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(D.d_arr[i]=='d')
 			{
 				pozn[3]=nepozn[3];
 				nepozn[3]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(D.d_arr[i]=='e')
 			{
 				pozn[4]=nepozn[4];
 				nepozn[4]=0;
 				++count1;
-				continue;
+				cout<<"D.E"<<endl;
+				break;
 			}
 		if(D.d_arr[i]=='f')
 			{
 				pozn[5]=nepozn[5];
 				nepozn[5]=0;
 				++count1;
-				continue;
+				break;
 			}
 		}
-		++j;
-	}
-	while(j<2);
+	
 	#pragma endregion
-		#pragma region nextVersh
-	for(int i=4;i<6;++i)
-	{
-
-		if(nepozn[i]!=0)
-		{
-			pozn[i]=nepozn[i];
-			nepozn[i]=0;
-			numbNextVersh=i;  //Наступна вершина під номером "i"
-			break;
-		}
-		
+		//		#pragma region nextVersh
+		//	for(int i=4;i<6;++i)
+		//	{
+		//
+		//		if(nepozn[i]!=0)
+		//		{
+		//			pozn[i]=nepozn[i];
+		//			nepozn[i]=0;
+		//			numbNextVersh=i;  //Наступна вершина під номером "i"
+		//			break;
+		//		}
+		//		
+		//	}
+		//#pragma endregion
 	}
-#pragma endregion
-	}
+	
 	if(count1==5)
 	{
 		#pragma region Sumijni z E
-	j=0;
-	do
-	{
+	
 		for(int i=0;i<2;++i)
 		{
 		if(E.e_arr[i]=='b')
@@ -472,63 +457,59 @@ void main() {
 				pozn[1]=nepozn[1];
 				nepozn[1]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(E.e_arr[i]=='c')
 			{
 				pozn[2]=nepozn[2];
 				nepozn[2]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(E.e_arr[i]=='d')
 			{
 				pozn[3]=nepozn[3];
 				nepozn[3]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(E.e_arr[i]=='e')
 			{
 				pozn[4]=nepozn[4];
 				nepozn[4]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(E.e_arr[i]=='f')
 			{
 				pozn[5]=nepozn[5];
 				nepozn[5]=0;
 				++count1;
-				continue;
+				cout<<"E.F"<<endl;
+				break;
 			}
 		}
-		++j;
-	}
-
-	while(j<2);
+	
 	#pragma endregion
-		#pragma region nextVersh
-	for(int i=5;i<6;++i)
-	{
-
-		if(nepozn[i]!=0)
-		{
-			pozn[i]=nepozn[i];
-			nepozn[i]=0;
-			numbNextVersh=i;  //Наступна вершина під номером "i"
-			break;
-		}
-		
-	}
-#pragma endregion
+		//		#pragma region nextVersh
+		//	for(int i=5;i<6;++i)
+		//	{
+		//
+		//		if(nepozn[i]!=0)
+		//		{
+		//			pozn[i]=nepozn[i];
+		//			nepozn[i]=0;
+		//			numbNextVersh=i;  //Наступна вершина під номером "i"
+		//			break;
+		//		}
+		//		
+		//	}
+		//#pragma endregion
 	}
 	if(count1==6)
 	{
 		#pragma region Sumijni z F
-	j=0;
-	do
-	{
+	
 		for(int i=0;i<2;++i)
 		{
 		if(F.f_arr[i]=='b')
@@ -536,62 +517,59 @@ void main() {
 				pozn[1]=nepozn[1];
 				nepozn[1]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(F.f_arr[i]=='c')
 			{
 				pozn[2]=nepozn[2];
 				nepozn[2]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(F.f_arr[i]=='d')
 			{
 				pozn[3]=nepozn[3];
 				nepozn[3]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(F.f_arr[i]=='e')
 			{
 				pozn[4]=nepozn[4];
 				nepozn[4]=0;
 				++count1;
-				continue;
+				break;
 			}
 		if(F.f_arr[i]=='f')
 			{
 				pozn[5]=nepozn[5];
 				nepozn[5]=0;
 				++count1;
-				continue;
+				break;
 			}
 		}
-		++j;
-	}
 
-	while(j<2);
 	#pragma endregion
-		#pragma region nextVersh
-	for(int i=6;i<6;++i)
-	{
-
-		if(nepozn[i]!=0)
-		{
-			pozn[i]=nepozn[i];
-			nepozn[i]=0;
-			numbNextVersh=i;  //Наступна вершина під номером "i"
-			break;
-		}
-		
-	}
-#pragma endregion
+		//		#pragma region nextVersh
+		//	for(int i=6;i<6;++i)
+		//	{
+		//
+		//		if(nepozn[i]!=0)
+		//		{
+		//			pozn[i]=nepozn[i];
+		//			nepozn[i]=0;
+		//			numbNextVersh=i;  //Наступна вершина під номером "i"
+		//			break;
+		//		}
+		//		
+		//	}
+		//#pragma endregion
 	}
 
 	#pragma region Perevirka na mostu
 	int count=0;
 	for(int i=0;i<6;++i)
-	{
+	{cout<<nepozn[i]<<endl;
 		if(nepozn[i]!=0)
 		{
 			++count;
