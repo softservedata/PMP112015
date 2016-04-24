@@ -1,0 +1,11 @@
+n=int(input('n='))
+m=0
+for i in range (n):
+      a=abs(int(input('a=')))
+      z=1
+      while a>0 and z==1:
+          if a%10==5:
+              m=m+1
+              z=0
+          a=a//10
+print(m)
