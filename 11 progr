@@ -1,0 +1,46 @@
+#include <iostream>
+
+using namespace std;
+
+void main() {
+
+	char a[512];
+	char b[512];
+	
+	cin.getline(a, 512);
+	int i = 0;
+	int s = 1;
+	
+while (a[i]) { if (a[i] == ' ') { ++s; }
+	++i;
+	}
+	cout << s << endl;
+	s = s / 2;
+	int j = 0;
+	int h = i;
+	while (s != 0) {
+		--i;
+		if (a[i] == ' ') { --s;
+	}
+	
+	}
+	int z = i;
+	while (i != h) {
+		b[j] = a[i];
+		++i;
+		++j;
+	}
+	i = 0;
+	b[j] = ' ';
+	++j;
+	while ( i!= z) {
+		b[j] = a[i];
+		++i;
+		++j;
+	}
+
+	
+	for (int k = 1; k < j; k++) { cout << b[k]; }
+	cout << endl;
+
+}
