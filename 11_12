@@ -1,0 +1,55 @@
+#include<iostream>
+
+using namespace std;
+
+bool prov(char *A)
+{
+	bool res = true;
+	char b[100];
+	int i = 0;
+	do {
+		b[i] = A[i];
+		for (int j = 0; j < i; j++)
+		{
+			if ((b[j] == A[i])&(i != j))
+			{
+				res = false;
+				break;
+			}
+		}
+		i++;
+	} while (i != strlen(A));
+	return res;
+}
+
+int main()
+{
+	int n;
+	cout << "n=";
+	cin >> n;
+	char **A = new char *[n];
+	for (int i = 0; i < n; i++)
+	{
+		A[i] = new char[100];
+	}
+
+	cin.getline(A[0], 100);
+	for (int i = 0; i < n; i++)
+	{
+		cout << "str=";
+		cin.getline(A[i], 100);
+	}
+	for (int i = 0; i < n; i++)
+	{
+		if (prov(A[i]))
+		{
+			cout << A[i]<<endl;
+		}
+	}
+	for (int i = 0; i < n; i++)
+	{
+		delete[] A[i];
+	}
+	delete[] A;
+	system("pause");
+}
