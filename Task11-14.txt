@@ -1,0 +1,61 @@
+//task for practic ¹11, using strings type char[n]
+#include<iostream>
+using namespace std;
+
+void main()
+{
+	int i,j,k;
+	int n;
+	int len;
+	char *tempArray=new char[50];
+	char temp1,temp2;
+	cout<<"enter n<21"<<endl;
+	cin>>n;
+	char **array=new char*[n];
+    for(i=0;i<n;i++)
+	{
+		char *row=new char[50];
+		cout<<"write word: ";
+		cin>>row;
+		array[i]=row;
+	}
+	for(i=0;i<n;i++)
+	{
+		len=strlen(array[i]);
+		strcpy(tempArray,array[i]);
+		temp1=array[i][len-2];
+		temp2=array[i][len-1];
+		for(j=0;j<(len-1);)
+		{
+			if((array[i][j]==temp1)&&(array[i][j+1]==temp2))
+			{
+				for(k=j;k<(len-2);k++)
+				{
+					array[i][k]=array[i][k+2];
+	    		}
+				array[i][len-2]='\0';
+				len=strlen(array[i]);
+				j=0;
+			}
+			else
+			{
+				j++;
+			}
+		}
+		if(array[i][0]=='\0')
+		{
+			strcpy(array[i],tempArray);
+		}
+	}
+	for(i=0;i<n;i++)
+	{
+		cout<<array[i]<<endl;
+	}
+	for(i=0;i<n;i++)
+	{
+		delete[] array[i];
+	}
+	delete[] array;
+	delete[] tempArray;
+	system("pause");
+}
