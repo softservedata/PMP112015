@@ -1,0 +1,29 @@
+# PMP112015
+Ivan Franko  University of L'viv, Group PMP-11 of 2015-2016
+#include <iostream>
+#include <cmath> 
+using namespace std;
+double cos(double x, double e) {
+	double x2, c, n, f, z;
+	x2 = x*x;
+	f = 2;
+	c = 1;
+	n = 2;
+	z = -1;
+	while ((x2 / f) >= e) {
+		c = c + z*x2 / f;
+		n = n + 2;
+		x2 = x2*x*x;
+		f = f*(n - 1)*n;
+		z = z*(-1);
+	}
+	return c;
+}
+int main() {
+	double x, e;
+	cin >> x;
+	cin >> e;
+	cout << cos(x, e) << endl;
+	system("pause");
+	return 0;
+}
