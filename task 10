@@ -1,0 +1,90 @@
+# PMP112015
+Ivan Franko  University of L'viv, Group PMP-11 of 2015-2016
+#include <cstdlib>
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class stack {
+public:
+    int len = 0;
+    
+    struct Data{
+        char value;
+        Data* next = NULL;
+    };
+   
+    Data * data;
+    void push (char new_data) {
+        if (len == 0) {
+            data = new Data;
+            data->value = new_data;
+            len++;
+        }
+        else {
+            Data * last_data = data;
+            while (last_data->next) {
+                last_data = last_data->next;
+            }
+            last_data->next = new Data;
+            last_data->next->value = new_data;
+            len++;
+        }
+    
+    }
+    
+    void pop () {
+        Data * last_data = data;
+        len--;
+     
+        if (len == -1) {
+            len = 0;
+            cout << "\nStack is already empty!";
+        }
+        else if (len == 0) {
+            delete [] data;
+            data = new Data;
+            
+        }
+        else {
+            for (int i=1;i<len;i++) {
+                cout << "\nlastd : " << last_data->value;
+                last_data = last_data->next;
+            }
+        
+        delete[] last_data->next;
+        last_data->next = NULL;
+        }
+    }
+    
+    void report () {
+        Data * last_data = data;
+        cout << "\n";
+        if (len == 0) {
+            cout << "\nNone!";
+            return;
+        }
+        while (last_data->next) {
+            cout << last_data->value << " ";
+            last_data = last_data->next;
+        }
+        cout << last_data->value << endl;
+    }
+    
+    int count_operators () {
+        int amount = 0;
+        Data * last_data = data;
+        for (int i=0;i<len;i++) {
+            if (    last_data->value == '+'  || 
+                    last_data->value == '*' || 
+                    last_data->value == '-') amount++;
+        
+            last_data = last_data->next;
+        }
+        return amount;
+    }
+    
+    
+    
+};
