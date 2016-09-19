@@ -1,0 +1,108 @@
+---------------main.cpp
+#include<iostream>
+#include"Class.h"
+using namespace std;
+
+int main()
+{
+	MyStrings matrix(4,10);
+	matrix.print();
+	matrix.MyTask();
+	system("pause");
+	return 0;
+}
+----------------class.h
+#ifndef CLASS_H
+#define CLASS_H
+#include<iostream>
+using namespace std;
+
+class MyStrings
+{
+private:
+	int lenght;
+	int count;
+	char** string;
+public:
+	MyStrings()
+	{
+		this->count = 1;
+		this->lenght = 1;
+		this->string = new char*[this->count];
+		this->string[0] = new char[this->lenght];
+		this->string[0][0] = '\0';
+		cout << "constructor1 " << this->count << " " << this ->lenght<< endl;
+	}
+	MyStrings(int count,int lenght=10)
+	{
+		this->count = count;
+		this->lenght = lenght;
+		this->string = new char*[this->count];/////
+		for (int i = 0; i < count; i++)
+		{
+			this->string[i] = new char[this->lenght + 1];
+			cout << "enter a string - max " << lenght << " elements: ";
+			cin.getline(this->string[i], this->lenght + 1);
+			this->string[i][strlen(this->string[i])] = '\0';
+		}
+		cout << "constructor2  " << this->count  << endl;
+	}
+	MyStrings(MyStrings& temp)
+	{
+		this->count = temp.count;
+		this->lenght = temp.lenght;
+		this->string = new char*[this->count];
+		for (int i = 0; i < count; i++)
+		{
+			this->string[i] = new char[strlen(temp.string[i])];/////
+			for (int j = 0; j < count; j++)
+			{
+				this->string[i][j] = temp.string[i][j];
+			}
+			this->string[i][strlen(temp.string[i])] = '\0';
+		}
+		cout << "constructor3  " << this->count << endl;
+	}
+	void print()
+	{
+		for (int i = 0; i < count; i++)
+		{
+			cout << "your string= " << string[i] << endl;
+		}
+	}
+	void MyTask()
+	{
+		bool t = true;
+		for (int i = 0; i < this->count; i++)
+		{
+			t = true;
+			for (int j = 0; j < strlen(this->string[i]); j++)
+			{
+				for (int k = strlen(this->string[i]); k>j; k--)
+				{
+					if (this->string[i][j] == this->string[i][k])
+					{
+						t = false;
+					}
+				}
+
+			}
+			if (t)
+			{
+				cout << string[i]<<endl;
+			}
+		}
+	}
+	~MyStrings()
+	{
+		cout << "delete" << endl;
+		for (int i = 0; i < count; i++)
+		{
+			delete[] this->string[i];
+		}
+		delete[] this->string;
+		cout << "destructor" << endl;
+	}
+};
+
+#endif
