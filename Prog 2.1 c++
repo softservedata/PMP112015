@@ -21,7 +21,6 @@ public:
 	{
 		this->rozmir = temp.rozmir;
 		this->arr = temp.arr;
-		
 	}
 
 	~Reversed()
@@ -43,7 +42,6 @@ public:
 				pch[i] = pch[len - i - 1];
 				pch[len - i - 1] = temp;
 			}
-			cout << rozmir << endl;
 			cout << pch << "\n";
 			pch = strtok_s(NULL, " ", &token);
 		}
