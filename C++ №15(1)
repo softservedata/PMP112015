@@ -1,0 +1,86 @@
+App:
+
+#include<iostream>
+#include"NewClass.h"
+using namespace std;
+
+int main()
+{
+	int n;
+	cout << "how many words? ";
+	cin >> n;
+	Words a;
+	a.create(n);
+	a.Write();
+	a.Reverse();
+	a.Read();
+	system("pause");
+}
+
+class:
+
+#include"iostream"
+using namespace std;
+
+class Words
+{
+private:
+	int*firstmas;
+	char**secondmas;
+	int n;
+public:
+	void create(int m)
+	{
+		int i;
+		n = m;
+		secondmas = new char*[n];
+		for (i = 0; i < n; i++)
+		{
+			secondmas[i] = new char[20];
+		}
+		firstmas = new int[n];
+	}
+	void Write()
+	{
+		char s[20];
+		int i, j;
+		gets_s(s);
+		for (i = 0; i < n; i++)
+		{
+			cout << "input word " << i + 1 << ' ';
+			gets_s(s);
+			firstmas[i] = strlen(s);
+			for (j = 0; j < strlen(s); j++)
+			{
+				secondmas[i][j] = s[j];
+			}
+		}
+	}
+	void Reverse()
+	{
+		char z;
+		cout << "Reverse began..." << endl;
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < (firstmas[i]) / 2; j++)
+			{
+				z = secondmas[i][j];
+				secondmas[i][j] = secondmas[i][j + (firstmas[i]+1) / 2];
+				secondmas[i][j + (firstmas[i]+1) / 2] = z;
+			}
+		}
+		cout << "Reverse end..." << endl;
+	}
+	void Read()
+	{
+		int i, j;
+		for (i = 0; i < n; i++)
+		{
+			for (j = 0; j < firstmas[i]; j++)
+			{
+				cout << secondmas[i][j];
+			}
+			cout << endl;
+		}
+	}
+};
