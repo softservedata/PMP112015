@@ -20,10 +20,8 @@ public:
 	Reversed(Reversed& temp)
 	{
 		this->rozmir = temp.rozmir;
-		for (int i = 0; i < this->rozmir; ++i)
-		{
-			this->arr = temp.arr;
-		}
+		this->arr = temp.arr;
+		
 	}
 
 	~Reversed()
