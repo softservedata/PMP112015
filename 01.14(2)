@@ -1,0 +1,158 @@
+Source.cpp
+-------------
+#include<iostream>
+#include"str.h"
+
+using namespace std;
+
+int main()
+{
+	int n;
+	cout << "write an amount of words ";
+	cin >> n;
+	words A(n);
+	A.create();
+	A.oper();
+	A.print();
+	system("pause");
+} 
+--------------
+str.h
+--------------
+#include<iostream>
+using namespace std;
+#ifndef STR_H
+class words
+{
+private:
+	char** word;
+	int n;
+	void copy(char str1[], char str2[])
+	{
+		int i = 0;
+		while ((str1)[i] != '\0')
+		{
+			str2[i] = str1[i];
+			i++;
+		}
+		str2[i] = '\0';
+	}
+	void del(char &str, int k)
+	{
+		while ((&str)[k] != '\0')
+		{
+			(&str)[k] = (&str)[k + 1];
+			k++;
+		}
+		(&str)[k] = '\0';
+	}
+	int len(char &str)
+	{
+		int i = 0;
+		while ((&str)[i] != '\0')
+		{
+			i++;
+		}
+		return i;
+	}
+public:
+	words()
+	{
+		this->n = 1;
+		this->word = new char*[this->n];
+		this->word[0] = new char[21];
+		for (int i = 0; i < 21; i++)
+		{
+			this->word[0][i] = '0';
+		}
+		word[20] = '\0';
+		cout << "constructor1 " << this->n << " " << word[0] << endl;
+	}
+	words(words& temp)
+	{
+		this->n = temp.n;
+		this->word = new char*[this->n];
+		for (int i = 0; i < n; i++)
+		{
+			this->word[i] = new char[strlen(temp.word[i])];
+			for (int j = 0; j < n; j++)
+			{
+				this->word[i][j] = temp.word[i][j];
+			}
+			this->word[i][strlen(temp.word[i])] = '\0';
+		}
+		cout << "constructor2  " << this->n  << endl;
+	}
+	words(int amount)
+	{
+		this->n = amount;
+		word = new char *[n];
+		for (int i = 0; i < n; i++)
+		{
+			this->word[i] = new char[21];
+		}
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j<20; j++)
+			{
+				this->word[i][j] = '0';
+			}
+			word[i][20] = '\0';
+		}
+		cout << "constructor3  " << this->n  << endl;
+
+	}
+	void create()
+	{
+		cin.getline(this->word[0], 21);
+		for (int i = 0; i < n; i++)
+		{
+			cout << "write a word\n";
+			cin.getline(this->word[i], 21);
+		}
+	}
+	void oper()
+	{
+		for (int i = 0; i < n; i++)
+		{
+			char copys[21];
+			copy(word[i], copys);
+			int j = 0;
+			while (j<len(*word[i]))//cleaner
+			{
+				if ((word[i][j] == word[i][len(*word[i]) - 2]) && (word[i][j + 1] == word[i][len(*word[i]) - 1]))
+				{
+					del(*word[i], j);
+					del(*word[i], j);
+				}
+				else
+				{
+					j++;
+				}
+
+			}
+			if (word[i][0] == '\0')
+			{
+				copy(copys, this->word[i]);
+			}
+		}
+	}
+	void print()
+	{
+		for (int i = 0; i < n; i++)
+		{
+			cout << "\nword " << i + 1 << " " << word[i] << endl;
+		}
+	}
+	~words()
+	{
+		for (int i = 0; i < n; i++)
+		{
+			delete[] word[i];
+		}
+		delete[] word;
+		cout << "\nsuccessful delete";
+	}
+};
+#define STR_H
+#endif
