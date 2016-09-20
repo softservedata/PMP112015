@@ -1,0 +1,68 @@
+#include<iostream>
+using namespace std;
+
+class Reversed
+{
+private:
+	char **arr;
+	int rozmir;
+	
+public:
+
+	Reversed(int n)
+	{
+		arr = new char*[n];
+		rozmir = n;
+		for (int i = 0; i < n; ++i)
+		{
+			arr[i] = new char[256];
+			cin.getline(arr[i], 256);
+		}
+	}
+	Reversed(Reversed& temp)
+	{
+		this->rozmir = temp.rozmir;
+		for (int i = 0; i < this->rozmir; ++i)
+		{
+			this->arr[i] = temp.arr[i];
+		}
+	}
+
+	void revers(char arr[])
+	{
+		char temp;
+		int i, len = strlen(arr);
+		for (i = 0; i < len / 2; i++)
+		{
+			temp = arr[i];
+			arr[i] = arr[len - i - 1];
+			arr[len - i - 1] = temp;
+		}
+	}
+
+	void perevirka()
+	{
+		cout << '\n';
+		for (int m = 0; m < rozmir; ++m)
+		{
+			revers(arr[m]);
+			cout << arr[m] << endl;
+		}
+		cout << '\n';
+	}
+
+	~Reversed()
+	{
+	}
+};
+
+
+
+
+void main()
+{
+	Reversed A(2);
+	A.perevirka();
+
+	system("pause");
+}
