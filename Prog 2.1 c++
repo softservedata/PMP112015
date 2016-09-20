@@ -1,34 +1,57 @@
 #include<iostream>
+#include<cstring>
 using namespace std;
 
 class Reversed
 {
 private:
-	char **arr;
+	char *arr;
 	int rozmir;
-	
+	char *token;
+	char * pch;
 public:
 
 	Reversed(int n)
 	{
-		arr = new char*[n];
 		rozmir = n;
-		for (int i = 0; i < n; ++i)
-		{
-			arr[i] = new char[256];
-			cin.getline(arr[i], 256);
-		}
+		this->arr = new char[253];
+		cin.getline(arr, 253);
 	}
 	Reversed(Reversed& temp)
 	{
 		this->rozmir = temp.rozmir;
 		for (int i = 0; i < this->rozmir; ++i)
 		{
-			this->arr[i] = temp.arr[i];
+			this->arr = temp.arr;
 		}
 	}
 
-	void revers(char arr[])
+	~Reversed()
+	{
+	}
+
+	void sep()
+	{
+		char temp;
+		int len;
+		pch = strtok_s(arr, " ", &token);
+		while (pch != NULL)   // пока есть лексемы
+		{
+			
+			len = strlen(pch);
+			for (int i = 0; i < len / 2; i++)
+			{
+				temp = pch[i];
+				pch[i] = pch[len - i - 1];
+				pch[len - i - 1] = temp;
+			}
+			cout << rozmir << endl;
+			cout << pch << "\n";
+			pch = strtok_s(NULL, " ", &token);
+		}
+	}
+
+	/*void revers(char arr[])
 	{
 		char temp;
 		int i, len = strlen(arr);
@@ -38,9 +61,9 @@ public:
 			arr[i] = arr[len - i - 1];
 			arr[len - i - 1] = temp;
 		}
-	}
+	}*/
 
-	void perevirka()
+	/*void perevirka()
 	{
 		cout << '\n';
 		for (int m = 0; m < rozmir; ++m)
@@ -49,11 +72,7 @@ public:
 			cout << arr[m] << endl;
 		}
 		cout << '\n';
-	}
-
-	~Reversed()
-	{
-	}
+	}*/
 };
 
 
@@ -61,8 +80,8 @@ public:
 
 void main()
 {
-	Reversed A(2);
-	A.perevirka();
-
+	Reversed A(253);
+	A.sep();
+	
 	system("pause");
 }
