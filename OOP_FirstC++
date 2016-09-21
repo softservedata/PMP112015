@@ -1,0 +1,167 @@
+str.h
+------
+#ifndef STR_H
+#define STR_H
+#include<iostream>
+using namespace std;
+struct R
+{
+	char StringInStuct[40];
+	int amound;
+
+
+};
+
+
+class MyClass
+{
+public:
+	MyClass();
+	void struc();
+	~MyClass();
+	void PrintMax()
+	{
+		int m = 0;
+		for (int i = 0; i < this->numb; i++)
+		{
+			if (this->string[i].amound > m) { m = this->string[i].amound; }
+		}
+		for (int i = 0; i < this->numb; i++)
+		{
+			if (this->string[i].amound==m) 
+			{ 
+				cout<<this->string[i].StringInStuct<<endl; 
+			}
+		}
+	}
+private:
+	int amount;//кылькысть різних слів
+	R* string;
+	char mas[256];//mas YAK masiv... pereymenuvatu!!
+	int numb;
+	void amount1()
+	{
+		this->amount = 0;
+		bool word = false;
+		for (int i = 0; i < strlen(mas)+1; i++)
+		{
+			if ((mas[i] == ' ') || (mas[i] == '\0'))
+			{
+				if (word == true)
+				{
+					this->amount++;
+					word = false;
+				}
+			}
+			else
+			{
+				word = true;
+			}
+		}
+	}
+	int ifwas(char *str,int Amoun)
+	{
+		if (Amoun == 0)
+		{
+			for (int i = 0; i < strlen(str); i++)
+			{
+				this->string[0].StringInStuct[i] = str[i];
+			}
+			this->string[0].StringInStuct[strlen(str)] = '\0';
+			this->string[0].amound=1;
+			Amoun++;
+		}
+		else
+		{
+			for (int i = 0; i < Amoun; i++)
+			{
+				if (strcmp(str, this->string[i].StringInStuct) == 0)
+				{
+					this->string[i].amound++;
+				}
+				else 
+				{
+					if(i+1==Amoun)
+					{
+						for (int j = 0; j < strlen(str); j++)
+						{
+							this->string[i + 1].StringInStuct[j] = str[j];
+						}
+						this->string[i + 1].StringInStuct[strlen(str)] = '\0';
+						this->string[i + 1].amound = 1;
+						Amoun++;
+						break;
+					}
+				}
+			}
+		}
+		return Amoun;
+	}
+};
+	
+MyClass::MyClass()
+{
+	cout << "write your words ";
+	cin.getline(mas, 256);
+	amount1();
+	this->string = new R[this->amount];
+	for (int i = 0; i < this->amount; i++)
+	{
+		this->string[i].amound = 0;
+	}
+}
+
+MyClass::~MyClass()
+{
+	delete[] string;
+}
+void MyClass::struc()
+{
+	int i = 0;
+	int AmountOfWords = 0;
+	for(int j = 0; j < amount; j++)
+	{
+		char copy[256];
+		int q = 0;
+		bool word = false;
+		for (; i < strlen(mas)+1; i++)
+		{
+			if ((mas[i] == ' ') || (mas[i] == '\0'))
+			{
+				if (word == true)
+				{
+					copy[q] = '\0';
+					q = 0;
+					AmountOfWords=ifwas(copy,AmountOfWords);
+					this->numb = AmountOfWords;
+					break;
+				}
+			}
+			else
+			{
+				copy[q] = mas[i];
+				q++;
+				word = true;
+			}
+
+		}
+	}
+}
+
+
+#endif
+---------
+source.cpp
+---------
+#include<iostream>
+#include"str.h"
+
+using namespace std;
+
+int main()
+{
+	MyClass A;
+	A.struc();
+	A.PrintMax();
+	system("pause");
+}
