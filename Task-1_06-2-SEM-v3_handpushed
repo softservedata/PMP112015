@@ -1,0 +1,106 @@
+myLine.h:
+#pragma once
+#include<iostream>
+using namespace std;
+class myLine
+{
+private:
+	char* line;
+	char* mas;
+	char *mas2;
+	int n;
+	int y;
+
+public:
+	myLine()
+	{
+		int n = 253;
+		this->n = n;
+		line = new char[n];
+		mas = new char[n];
+		mas2 = new char[n];
+		cout << "\n DEFAULT Constructor Done!";
+	}
+	myLine(myLine& temp)
+	{
+		this->n = temp.n;
+		this->line = temp.line;
+		this->mas = temp.mas;
+		this->mas2 = temp.mas2;
+		cout << "\n COPY Constructor Done!";
+	}
+
+	void read()
+	{
+		cout << "\n Input row = ";
+		cin.getline(line, n);
+	}
+	void print()
+	{
+		cout << "\n Final version of row is: " << endl;
+		for (int k = 0; k<y; k++)
+		{
+			cout << mas2[k];
+
+		}
+		cout << endl;
+		cout << endl;
+		cout << endl;
+	}
+	void change()
+	{
+
+		int s = strlen(line);
+		int j = 0;
+		y = 0;
+
+
+		mas2 = new char[30];
+		for (int i = 0; i < s; i++)
+		{
+			if (line[i] == 'x')
+			{
+				mas2[y] = 'i';
+				mas2[y + 1] = 'k';
+				mas2[y + 2] = 's';
+				y = y + 3;
+			}
+			else
+			{
+				mas2[y] = line[i];
+				y++;
+			}
+
+
+
+
+
+		}
+
+
+	}
+
+	~myLine()
+	{
+		delete[] line;
+		cout << "\n Destructor Done!\n";
+		
+	}
+
+};
+#pragma once
+
+
+source.cpp:
+#include<iostream>
+#include "myLine.h"
+using namespace std;
+void main()
+{
+
+	myLine a;
+	a.read();
+	a.change();
+	a.print();
+	system("pause");
+}
