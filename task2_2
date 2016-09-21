@@ -1,0 +1,88 @@
+header
+
+#pragma once
+#include<iostream>
+class MyString
+{
+private:
+	int maxn;
+	int s;
+	char* name;
+public:
+	MyString()
+	{
+		this->maxn = 1;
+		this->name = new char[maxn];
+		this->name[0] = '\0';
+		cout << "\ndefault constructor done";
+	}
+	MyString(int maxn)
+	{
+		this->maxn = maxn;
+		this->name = new char[maxn];
+		for (int i = 0; i<maxn; i++)
+		{
+			this->name[i] = '\0';
+		}
+		cout << "\nspecial constructor done";
+	}
+MyString(MyString& temp)
+	{
+		this->s = temp.s;
+		this->name = new char[s];
+		this->name[0] = '\0';
+		cout « "\nConstructor COPY";
+	}
+	~MyString()
+	{
+		delete[] name;
+		cout << "\ndestructor done\n";
+	}
+	void read()
+	{
+		cout << "\ninput row = ";
+		//cin>>name;
+		cin.getline(name, maxn);
+	}
+	void deldoub()
+	{
+		int z = 0;
+		char* slist = new char[maxn];
+		char* newname = new char[maxn];
+		slist[0] = ' \0';
+		for (int i = 0; i < strlen(name); i++)
+		{
+			for (int j = 0; j < strlen(slist); j++)
+			{
+				if (name[i] == newname[j])
+					break;
+				else
+				{
+					newname[z] = newname[i];
+					z++;
+					break;
+				}
+			}
+
+
+		}
+	}
+	void print()
+	{
+		cout << "row is: " << name;
+	}
+};
+
+
+cpp
+
+#include<iostream>
+#include"class_s.h"
+using namespace std;
+void main()
+{
+	MyString mstr(30);
+	mstr.read();
+	mstr.deldoub();
+	mstr.print();
+}
