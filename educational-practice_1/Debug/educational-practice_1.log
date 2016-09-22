@@ -1,0 +1,7 @@
+﻿  Source.cpp
+f:\projects\educational-practice_1\educational-practice_1\myclass.h(29): warning C4018: <: несоответствие типов со знаком и без знака
+f:\projects\educational-practice_1\educational-practice_1\myclass.h(37): warning C4018: <: несоответствие типов со знаком и без знака
+f:\projects\educational-practice_1\educational-practice_1\myclass.h(39): warning C4018: <: несоответствие типов со знаком и без знака
+f:\projects\educational-practice_1\educational-practice_1\myclass.h(47): warning C4018: <: несоответствие типов со знаком и без знака
+f:\projects\educational-practice_1\educational-practice_1\myclass.h(49): warning C4018: <: несоответствие типов со знаком и без знака
+  educational-practice_1.vcxproj -> F:\Projects\educational-practice_1\Debug\educational-practice_1.exe
