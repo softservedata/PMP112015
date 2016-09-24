@@ -1,0 +1,77 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+using namespace std;
+
+class Array
+{
+private:
+	char *arr;
+	int size;
+public:
+
+	Array(int n)
+	{
+		size = n;
+		this->arr = new char[253];
+		cout << "input your string:";
+		cin.getline(arr, 253);
+	}
+	Array(Array& temp)
+	{
+		this->size = temp.size;
+		this->arr = temp.arr;
+	}
+
+	~Array()
+	{
+	}
+
+	void change()
+	{
+		string str = arr;
+		const string delims = ",.;?!: ";
+		for (string::iterator it = str.begin(); it != str.end(); ++it)
+		{
+			if (delims.find(*it) != string::npos)
+				*it = ' ';
+		}
+		string tmp;
+		vector<string> Vec;
+		istringstream ist(str);
+		while (ist >> tmp)
+			Vec.push_back(tmp);
+		string max_word;
+		size_t max_str_len = Vec[0].size();
+		string min_word;
+		size_t min_str_len = Vec[0].size();
+		for (vector<string>::const_iterator It = Vec.begin(); It != Vec.end(); ++It)
+		{
+			if (max_str_len < It->size())
+			{
+				max_str_len = It->size();
+				max_word = *It;
+			}
+			else if (min_str_len > It->size())
+			{
+				min_str_len = It->size();
+				min_word = *It;
+			}
+		}
+		cout << "Max word is " << max_word << '\n';
+		cout << "Min word is " << min_word << '\n';
+	}
+};
+
+
+#include"Array.h"
+
+
+void main()
+{
+	Array A(253);
+	A.change();
+
+	system("pause");
+}
