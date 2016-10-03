@@ -1,0 +1,116 @@
+#include <iostream>
+using namespace std;
+
+
+class Completion {
+
+public:
+	int** arr;
+	int i;
+	int j;
+	int n;
+	Completion() {
+		cout << "Enter n=";
+		cin >> this->n;
+		this->arr = new int*[2];
+		for (int i = 0; i < 2; ++i) {
+			this->arr[i] = new int[n];
+		}
+		for (int i = 0; i < n; ++i) {
+			arr[0][i] = i+1;
+			cout << "Enter arr[" << i << "]";
+			cin >> arr[1][i];
+		}
+		this->j = 0;
+	
+	}
+	
+
+	Completion operator*(Completion temp)
+	{
+		
+			for (int i = 0; i < n; ++i) {
+				
+				while (this->arr[1][i] != temp.arr[0][j]) {
+					
+					++j;
+					
+				}
+				
+				this->arr[1][i] = temp.arr[1][j];
+				
+				j = 0;
+			}
+		
+		return *this;}
+
+
+
+	int** totosh() {
+		int **brr = new int*[2];
+		for (int i = 0; i < 2; ++i) {
+			brr[i] = new int[n];
+
+		}
+		for (int i = 0; i < n; ++i) {
+			brr[0][i] = i + 1;
+			brr[1][i] = 0;
+		}
+
+	
+
+
+	
+		j = 0;
+		for (int i = 0; i < n; ++i) {
+
+			while (this->arr[1][i] != brr[0][j]) {
+
+				++j;
+
+			}
+
+			brr[1][j] = arr[0][i];
+
+			j = 0;
+		}
+		return brr;
+	
+	
+	}
+
+		
+	
+
+
+	
+	void ekran() {
+		for (int i = 0; i < 2; ++i) {
+			for (int j = 0; j < 5; ++j) {
+				cout << arr[i][j] << "  ";
+
+			}
+			cout << endl;
+		}
+	
+	
+	}
+
+
+};
+
+
+
+
+void main() 
+{
+	
+
+	Completion a,c;
+	//a * b;
+
+	c.arr=a.totosh();
+	
+	a*c;
+
+}
