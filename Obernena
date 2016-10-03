@@ -1,0 +1,218 @@
+#ifndef CLASS_H
+#define CLASS_H
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+class Equation
+{
+private:
+	char file[100];
+	int n;
+	double** A;
+	double** b;
+	double** x;
+public:
+	Equation()
+	{
+		cout << "constructor 0" << endl;
+		n = 1;
+		A = new double*[n];
+		A[0] = new double[n];
+		b = new double*[n];
+		b[0] = new double[n];
+		x = new double*[n];
+		x[0] = new double[n];
+		A[0][0] = 0;
+		b[0][0] = 1;
+		x[0][0] = 0;
+	}
+	Equation(char* file)
+	{
+		strcpy_s(this->file, file);
+		cout << "constructor 1" << endl;
+		ifstream  data(file);
+		data >> n;
+		b = new double*[n];
+		x = new double*[n];
+		A = new double*[n];
+		for (int i = 0; i < n; i++)
+		{
+			A[i] = new double[n];
+			x[i] = new double[n];
+			b[i] = new double[n];
+			for (int j = 0; j < n; j++)
+			{
+				x[i][j] = 0;
+				b[i][j] = 0;
+				data >> A[i][j];
+			}
+			b[i][i] = 1;
+		}
+		data.close();
+	}
+	void method()
+	{
+		double m;
+		double suma = 0;
+		for (int k = 0; k < (n - 1); k++)
+		{
+			if (A[k][k] == 0)
+			{
+				int t = k + 1;
+				double temp;
+				do {
+					for (int i = 0; i < n; i++)
+					{
+						temp = A[k][i];
+						A[k][i] = A[t][i];
+						A[t][i] = temp;
+						temp = b[k][i];
+						b[k][i] = b[t][i];
+						b[t][i] = temp;
+					}
+					t++;
+				} while ((A[k][k] == 0) && (t<n));
+			}
+			for (int i = k + 1; i < n; i++)
+			{
+				if (A[i][k] == 0)
+				{
+					continue;
+				}
+				m = -A[i][k] / A[k][k];
+				for (int j = k + 1; j < n; j++)
+				{
+					A[i][j] = A[i][j] + m*A[k][j];
+				}
+				for (int j = 0; j < n; j++)
+				{
+					b[i][j] = b[i][j] + m*b[k][j];//
+				}
+			}
+		}
+		for (int i = 0; i < n; i++)
+		{
+			x[n - 1][i] = b[n - 1][i] / A[n - 1][n - 1];
+			for (int k = n - 2; k >= 0; k--)
+			{
+				for (int j = k + 1; j < n; j++)
+				{
+					suma = suma + A[k][j] * x[j][i];
+				}
+				x[k][i] = (b[k][i] - suma) / A[k][k];
+				suma = 0;
+			}
+		}
+	}
+	void print()
+	{
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				cout << A[i][j] << " ";
+			}
+			cout << endl;
+		}
+		cout << endl;
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				cout << b[i][j] << " ";
+			}
+			cout << endl;
+		}
+		cout << endl;
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				cout << x[i][j] << " ";
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+	void write()
+	{
+		ofstream data;
+		data.open(file, std::fstream::app);
+		data << "\nanswer is: \n";
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				data << x[i][j] << " ";
+			}
+			data << endl;
+		}
+		data << endl;
+		data.close();
+		cout << "writing in file is done\n";
+	}
+	~Equation()
+	{
+		cout << "destructor" << endl;
+		for (int i = 0; i < n; i++)
+		{
+			delete[] A[i];
+		}
+		for (int i = 0; i < n; i++)
+		{
+			delete[] b[i];
+		}
+		for (int i = 0; i < n; i++)
+		{
+			delete[] x[i];
+		}
+		delete[] x;
+		delete[] A;
+		delete[] b;
+	}
+};
+
+#endif
+
+--------------------------------
+
+#include<iostream>
+#include"class.h"
+using namespace std;
+
+int main()
+{
+	//choose any file: "matrix1.txt"/"matrix2.txt"/"matrix3.txt"/"matrix4.txt"
+	Equation first("matrix4.txt");
+	first.print();
+	first.method();
+	first.print();
+	first.write();
+	system("pause");
+	return 0;
+}
+
+-------------------
+
+4
+3 -2 -5  1
+2 -3  1  5
+1  2  0 -4
+1 -1 -4  9
+
+3
+1 2 1
+2 5 4
+1 4 6
+
+3
+3 -3 -3
+22 2  5
+3  5  7
+
+4
+0 0 1 -1
+0 3 1  4
+2 7 6 -1
+1 2 2 -1
