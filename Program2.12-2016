@@ -1,0 +1,144 @@
+#ifndef CLASS_H
+#define CLASS_H
+
+#include<fstream>
+#include<iostream>
+using namespace std;
+
+class file
+{
+private:
+	char filename[256];
+	char text[256];
+	ofstream data_w;
+public:
+	file()
+	{
+		cout << "constructor1" << endl;
+		strcpy_s(filename ,"new file.txt");
+		data_w.open(filename);
+	}
+	file(char *string)
+	{
+		cout << "constructor2" << endl;
+		strcpy_s(filename, string);
+		data_w.open(filename, std::fstream::app);
+	}
+
+
+	file& operator=(file& temp)
+	{
+		if (data_w.is_open())
+		{
+			data_w.close();
+		}
+		data_w.open(filename);
+		ifstream data_r(temp.filename);
+		while (data_r.getline(temp.text, 256))
+		{
+			data_w << temp.text << endl;
+		}
+		data_r.close();
+		data_w.close();
+		return *this;
+	}
+	file& operator=(char* string)
+	{
+		if (data_w.is_open())
+		{
+			data_w.close();
+		}
+		data_w.open(filename);
+		data_w << string << endl;
+		data_w.close();
+		return *this;
+	}
+	file& operator+(char* string)
+	{
+		if (!data_w.is_open())
+		{
+			data_w.open(filename, std::fstream::app);
+		}
+		data_w <<'\n'<<string << endl;
+		data_w.close();
+		return *this;
+	}
+	file& operator+(file& temp)
+	{
+		if (!data_w.is_open())
+		{
+			data_w.open(filename, std::fstream::app);
+		}
+		ifstream data_r(temp.filename);
+		while (data_r.getline(temp.text, 256))
+		{
+			data_w << temp.text << endl;
+		}
+		data_r.close();
+		data_w.close();
+		return *this;
+	}
+	friend ostream& operator<<(ostream& s,file& a)  //for reading from file
+	{
+		s << "information from file " << a.filename << endl;
+		ifstream data_r(a.filename);
+		while (data_r.getline(a.text,256))
+		{
+			s << a.text << endl;
+		}
+		data_r.close();
+		return s;
+	}
+	friend istream& operator >> (istream& s, file& a)  //for writing in file
+	{
+		cout << "enter text" << endl;
+		s.getline(a.text,256);
+		if (!a.data_w.is_open())
+		{
+			a.data_w.open(a.filename, std::fstream::app);
+		}
+		a.data_w <<'\n'<< a.text;
+		a.data_w.close();
+		return s;
+	}
+
+	~file()
+	{
+		cout << "destructor" << endl;
+		if (data_w.is_open())
+		{
+			data_w.close();
+		}
+	}
+};
+
+
+#endif
+
+
+
+
+
+
+
+
+#include<iostream>
+#include"Class.h"
+using namespace std;
+
+int main()
+{
+	file a;
+	file b("myfile2.txt"); 
+	file c("try.txt"); 
+	b = "this is text for\nb";
+	cin >> b;
+	cout << b;
+	a + "i do not know who am i";
+	c + a; 
+	(b = c) + a;
+	cout << b;
+	(b = c) + "no, i actually know";
+	system("pause");
+	return 0;
+}
