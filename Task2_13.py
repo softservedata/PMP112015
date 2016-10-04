@@ -5,7 +5,8 @@ a=float(raw_input('A='))
 b=float(raw_input('B='))
 e=0.0001
 def f(x):
-    return (math.log10(x))+x**2-4
+    return (((math.log10(x))+x*x)-4)
+
 y1 = f(a)
 y2 = f(b)
 if y1 * y2 >= 0:

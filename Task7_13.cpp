@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ñstlib>
 using namespace std;
 
 
@@ -25,6 +26,8 @@ int main()
 
 	}
 	    cout << S << endl;
+
+		system("color F0");
 		system("PAUSE");
 		return 0;
 }
