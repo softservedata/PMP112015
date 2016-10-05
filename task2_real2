@@ -1,0 +1,67 @@
+#include <iostream>
+#include <stdexcept>
+#include <cstdlib>
+#include <cmath>
+using namespace std;
+class Drib
+{
+private:
+	int znam;
+	int chys;
+public:
+	Drib(int chys = 0, int znam = 1)
+	{
+		if (znam == 0)
+		{
+			cout << "error it can`t be 0 in znamennyk. znamennyk=1"<<endl;
+			znam = 1;
+		}
+		this->znam = znam;
+		this->chys = chys;
+	}
+	Drib(Drib& temp)
+	{
+		this->znam = temp.znam;
+		this->chys = temp.chys;	
+	}
+	~Drib()
+	{
+	}
+	int gcd(int a, int b)
+	{
+		if (b == 0) return a;
+		return gcd(b, a % b);
+	}
+	int lcm(int a, int b)
+	{
+		return a / gcd(a, b) * b;
+	}
+	friend ostream& operator<<(ostream& out, Drib& temp)
+	{
+		out << temp.chys << "/" << temp.znam << endl;
+		return out;
+	}
+	friend istream& operator>>(istream& in, Drib& temp)
+	{
+		cout << "Enter chyselnyk " << endl;
+		in >> temp.chys;
+		cout << "enter znamennyk" << endl;
+		in >> temp.znam;
+		return in;
+	}
+	Drib& operator*(double n)
+	{
+		Drib temp(n);
+		return *(new Drib(this->znam * temp.znam, this->chys * temp.chys));
+	}
+	Drib& operator+(double n)
+	{
+		Drib temp(n);
+		return *(new Drib(this->znam + temp.znam,lcm(this->chys ,temp.chys)));
+	}
+	Drib& operator-(double n)
+	{
+		Drib temp(n);
+		return *(new Drib(this->znam - temp.znam, lcm(this->chys, temp.chys)));
+	}
+}
