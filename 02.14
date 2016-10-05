@@ -1,0 +1,180 @@
+Source.spp
+--------------
+#include<iostream>
+#include"Stack.h"
+using namespace std;
+
+
+int main()
+{
+	int n;
+	t start;
+	int *mas;
+	cout << "write an amount of el ";
+	cin >> n;
+	mas = new int[n];
+	for (int i = 0; i < n; i++)
+	{
+		cout << "element ";
+		cin >> mas[i];
+	}
+	start.root = mas[0];
+	for (int i = 1; i < n; i++)
+	{
+		addel(mas[i],start);
+	}
+	Stack stack;
+	stack.push(start,'q');
+	while (!stack.isEmpty())
+	{
+		if (((stack.top()).left == NULL) && ((stack.top()).right == NULL))
+		{
+			cout << stack.pop().root<<endl;
+		}
+		else
+		{
+			if ((stack.top()).left == NULL)
+			{
+
+				stack.push(*(stack.top().right),'r');
+			}
+			else
+			{
+				stack.push(*(stack.top().left),'l');
+			}
+		}
+	}
+	stack + 3;
+	stack + 9;
+	1 + stack;
+	stack.peek();
+	system("pause");
+}
+-------------
+Stack.h
+-------------
+#include<iostream>
+using namespace std;
+
+#ifndef STACK_H
+struct t
+{
+	int root = NULL;
+	t *left = NULL;
+	t *right = NULL;
+};
+void addel(int el, t& start)
+{
+
+	if (&start == NULL)
+	{
+		start = *(new t);
+		start.root = el;
+		return;
+	}
+	if (el > start.root)
+	{
+		if (start.right == NULL)
+		{
+			start.right = new t;
+			(*(start.right)).root = el;
+			return;
+		}
+		else {
+			addel(el, *(start.right));
+			return;
+		}
+	}
+	else
+	{
+		if (start.left == NULL)
+		{
+			start.left = new t;
+			(*(start.left)).root = el;
+			return;
+		}
+		else
+		{
+			addel(el, *(start.left));
+			return;
+		}
+	}
+}
+class Stack
+{
+private:
+	t mas[100];
+	int i;
+public:
+	Stack()
+	{
+		this->i = -1;
+	}
+	int size()
+	{
+		return i+1;
+	}
+	void push(t numb, char side)
+	{
+		if (side == 'r')
+		{
+			mas[i].right = NULL;
+		}
+		if (side == 'l')
+		{
+			mas[i].left = NULL;
+		}
+		this->i++;
+		this->mas[i].root = numb.root;
+		this->mas[i].left = (numb).left;
+		this->mas[i].right = (numb).right;
+	}
+	t pop()
+	{
+		this->i--;
+		return this->mas[i + 1];
+	}
+	void peek()
+	{
+		cout << "stack: ";
+		for (int q = 0; q < i+1; q++)
+		{
+			cout << this->mas[q].root << " ";
+		}
+	}
+	bool isEmpty()
+	{
+		if (i == -1) { return true; }
+		else { return false; }
+	}
+	t top()
+	{
+		return this->mas[i];
+	}
+	void operator+(int temp)
+	{
+		this->i++;
+		this->mas[i].root = temp;
+		this->mas[i].left = NULL;
+		this->mas[i].right = NULL;
+	}
+	void operator+(t& temp)
+	{
+		this->i++;
+		this->mas[i].root = temp.root;
+		this->mas[i].left = temp.left;
+		this->mas[i].right = temp.right;
+	}
+	friend void operator+(int a, Stack& temp)
+	{
+		return temp + a;
+	}
+	void operator--()
+	{
+		this->pop();
+	}
+};
+
+#define STACK_H
+#endif // !STACK_H
+#pragma once
