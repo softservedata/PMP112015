@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+class Vector
+{
+public:
+	void Scalar(double multiplier);
+	void PrintVector();
+	Vector();
+	~Vector();
+	void InputVector(int x ,int y);
+	
+private:
+	int x;
+	int y;
+
+};
+
+/*void Vector::Scalar(double multiplier)
+{
+	
+}*/
+
+
+void Vector::PrintVector()
+{
+	cout << "X: " << x <<endl;
+	cout << "Y: " << y <<endl;
+
+}
+
+void Vector::InputVector(int x,int y)
+{
+	this->x=x;
+	this->y=y;
+}
+
+
+Vector::~Vector()
+{
+}
+int main()
+{
+	Vector obj;
+	obj.InputVector(3,8);
+	obj.PrintVector();
+	cout << ("-----------------------------------") << endl;
+	system("pause");
+	return 0;
+}
