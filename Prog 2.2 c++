@@ -31,6 +31,7 @@ public:
 
 	~Reversed()
 	{
+		delete[] new_arr;
 		cout << "Destructor done!\n";
 	}
 	void Cout_arr()
