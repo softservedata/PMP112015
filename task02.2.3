@@ -1,0 +1,48 @@
+#include<iostream>
+#include<string>
+#include<cmath>
+using namespace std;
+class Pohibka {
+private:
+	double A;
+	double a;
+	double delta_a;
+	double beta_a;
+	
+	
+
+public:
+	void read_A() {
+		cout << "Enter A=";
+		cin >> A;
+	}
+	void search_a() {
+		a = int(A);
+		//cout << a;
+	}
+	void print_A() {
+		cout <<endl<< A;
+	}
+
+	void search_delta_a() {
+		delta_a = abs(A - a);
+	}
+	void search_beta_a() {
+		beta_a = (delta_a /abs( a));
+	}
+	//зона проверки 
+	void all_print() {
+		cout << "Check" << "A=" << A << endl << "a=" << a << endl << "delta a=" << delta_a << endl << "Beta a" << beta_a << endl << "yraaaaaaaaaaaaaaaaaa";
+	}
+};
+int main() {
+	Pohibka chek;
+	chek.read_A();
+	chek.search_a();
+	chek.search_delta_a();
+	chek.search_beta_a();
+	
+	chek.all_print();
+	system("pause");
+	return 0;
+}
