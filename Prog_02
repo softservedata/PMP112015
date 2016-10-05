@@ -1,0 +1,222 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+class Reversed
+{
+private:
+	char *new_arr = new char[253];
+	int rozmir;
+
+public:
+
+	Reversed(char arr[20] = "")
+	{
+		cin.getline(arr, 253);
+		rozmir = Strlen(arr);
+		cout << rozmir;
+
+		for (int i = 0; i < Strlen(arr); ++i)
+		{
+			this->new_arr[i] = arr[i];
+		}
+		cout << "Constructor done!\n";
+	}
+	Reversed(Reversed& temp)
+	{
+		this->rozmir = temp.rozmir;
+		*this->new_arr = *temp.new_arr;
+		cout << "Constructor COPY done!\n";
+	}
+
+	~Reversed()
+	{
+		cout << "Destructor done!\n";
+	}
+	void Cout_arr()
+	{
+		for (int i = 0; i < rozmir; ++i)
+		{
+			cout << this->new_arr[i];
+		}
+		cout << endl;
+	}
+
+	int Strlen(char arr[])//Correct
+	{
+		int len = 0;
+		do
+		{
+			++len;
+		} while (arr[len] != '\0');
+
+		return len;
+	}
+
+	char Strcpy(char copied_arr, char arr_for_copy, int z_chusla, int do_chusla)
+	{
+		//vuvestu na ekran len of arr_for_copy!!!!!
+		for (int *i = &z_chusla; *i < do_chusla; ++i)
+		{
+			copied_arr[i] = arr_for_copy[i];
+		}
+		return copied_arr;
+	}
+
+	char Strcat(char first_arr[], int f_a_len, char str_for_add[], int s_f_len)//Correct
+	{
+		char *mn = new char[253];
+		if (253 - f_a_len >= s_f_len)
+		{
+			for (int i = f_a_len; i < f_a_len + s_f_len; ++i)
+			{
+				first_arr[i] = str_for_add[i - f_a_len];
+			}
+		}
+		for (int i = 0; i < f_a_len + s_f_len; ++i)
+		{
+			mn[i] = first_arr[i];
+		}
+		return *mn;
+	}
+
+	void Strstr(char main_char[], char second_char[])
+	{
+		if (strstr(main_char, second_char) != NULL)
+		{
+			cout << "Yes!" << endl;
+		}
+		else
+			cout << "No!" << endl;
+	}
+
+	Reversed& operator=(Reversed& temp)
+	{
+		for (int i = 0; i < rozmir + temp.rozmir; ++i)
+		{
+			this->new_arr[i] = temp.new_arr[i];
+		}
+		/*for (int i = 0; i < rozmir + temp.rozmir; ++i)
+		{
+			cout << new_arr[i];
+		}*/
+		return *this;
+	}
+	Reversed& operator+(Reversed& temp)
+	{
+		if (253 - rozmir >= temp.rozmir)
+		{
+			for (int i = rozmir; i < rozmir + temp.rozmir; ++i)
+			{
+				this->new_arr[i] = temp.new_arr[i - rozmir];
+			}
+			/*for (int i = 0; i < rozmir + temp.rozmir; ++i)
+			{
+			cout << new_arr[i];
+			}*/
+		}
+		return *this;
+
+		/*if (rozmir >= this->rozmir)
+		{
+		for (int i = 0; i < Strlen(temp.new_arr); ++i)
+		{
+		this->new_arr[i] =+ temp.new_arr[i];
+		}
+		return *this;
+		}
+		else
+		{
+		for (int i = 0; i < rozmir; ++i)
+		{
+		temp.new_arr[i] += new_arr[i];
+		}
+		return temp;
+		}*/
+	}
+	Reversed& operator-(Reversed& temp)
+	{
+		for (int i = 0; i <= rozmir; ++i)
+		{
+			for (int j = 0; j < temp.rozmir; ++j)
+			{
+				if (new_arr[i] == temp.new_arr[j])
+				{
+					this->new_arr[i] = ' ';
+				}
+			}
+		}
+		return *this;
+	} 
+	friend Reversed& operator-(Reversed& temp, int number)
+	{
+		temp.new_arr[number] = NULL;
+		return temp;
+	}
+	friend Reversed& operator-(Reversed& temp, char number)
+	{
+		for (int i = 0; i < temp.rozmir; ++i)
+		{
+			if (temp.new_arr[i] == number){ temp.new_arr[i] = NULL; }
+		}
+		return temp;
+	}
+
+	friend istream& operator>>(istream& s, Reversed& temp)
+	{
+		cout << "<<elements: ";
+		for (int i = 0; i < temp.rozmir; ++i)
+		{
+			cout << "Element new_arr[" << i << "] = ";
+			s >> temp.new_arr[i];
+		}
+		return s;
+	}
+	friend ostream& operator<<(ostream& s, Reversed& temp)
+	{
+		cout << "Oper osr<<";
+
+		for (int i = 0; i < temp.rozmir; ++i)
+		{
+			s << temp.new_arr[i];
+		}
+		return s;
+	}
+};
+
+
+
+
+void main()
+{
+	char m[23];
+	cin.getline(m, 23);
+	char n[23];
+	cin.getline(n, 23);
+	char arr[253];
+	//cin.getline(arr, 253);
+	char arr2[253];
+	//cin.getline(arr2, 253);
+	char arr3[253];
+	Reversed  A(arr), B(arr2), C(arr3);
+	//C = B - A;
+	//C - '2';C - 3;
+	//cout << C << endl;
+	A.Strstr(m, n);
+	//char *m = new char[253];//Strcat
+	//cin.getline(m, 253);//Strcat
+	//char *n = new char[253];//Strcat
+	//cin.getline(n, 253);//Strcat
+	//int len_m = 0, len_n = 0;//Strcat
+	//len_m = A.Strlen(m);//Strcat
+	//len_n = A.Strlen(n);//Strcat
+	//A.Strcat(m, len_m, n, len_n);//Strcat
+	//cout << "done" << endl;//Strcat
+	//for (int i = 0; i < len_m + len_n; ++i)//Strcat
+	//{//Strcat
+	//	cout << m[i];//Strcat
+	//}//Strcat
+	//delete[] m,n;//Strcat
+
+	system("pause");
+}
