@@ -1,0 +1,108 @@
+#include<iostream>
+using namespace std;
+
+class Vector
+{
+private:
+	int size;
+	double *mas;
+public:
+	Vector(double mas = 0.)
+	{
+		this->mas = new double[size];
+		*this->mas = mas;
+		for (int i = 0; i < size; i++)
+		{
+			this->mas[i] = mas;
+			cout << this->mas[i];
+		}
+
+		cout << "First constructor done!   " << ' ';
+
+	}
+
+	Vector()
+	{
+		this->mas = new double[size];
+		//*this->mas = mas;
+		for (int i = 0; i < size; i++)
+			mas[i] = 0.0;
+
+		cout << " mas=" << *this->mas << endl;
+
+		cout << "Initializing constructor done!   " << ' ';
+
+	}
+	Vector(Vector& temp)
+	{
+		this->mas = new double;
+		*this->mas = *temp.mas;
+		cout << "Constructor COPY, mas=" << *this->mas << endl;
+	}
+
+	/*~Vector()
+	{
+	cout << "Destructor DONE, mas=" << *this->mas << endl;
+	delete[] mas;
+	}*/
+	double getMas()
+	{
+		return *this->mas;
+	}
+	Vector& operator+(Vector & temp)
+	{
+		cout << "&oper+ mas=" << temp.getMas() << endl;
+
+		return *(new Vector(*this->mas + *temp.mas));
+	}
+
+	Vector& operator+(double number)
+	{
+		cout << "double oper+ number=" << number << endl;
+		Vector temp(number);
+		return *this + temp;
+	}
+	Vector operator=(Vector &temp)
+	{
+		cout << "oper= mas=" << temp.getMas() << endl;
+		this->mas = temp.mas;
+		return *this;
+	}
+
+	friend Vector& operator+(double number, Vector& temp)
+	{
+		cout << "friend oper+ mas=" << temp.getMas() << endl;
+		return temp.operator+(number);
+
+	}
+
+	/*friend istream& operator>>(istream& s, Vector& temp)
+	{
+	cout << "\nEnter mas=";
+	s >> *temp.mas;
+	return s;
+	}*/
+	friend ostream& operator<<(ostream& s, Vector& temp)
+	{
+		s << "\nmas=" << *temp.mas;
+
+		return s;
+	}
+};
+
+void main()
+{
+	Vector a(1);
+	cout << "Mas_a:" << a.getMas() << endl;
+	Vector b(5);
+	//added operator +, =
+	Vector  c = b + a;
+	Vector d = b + 2;
+	Vector r = 1 + a;
+	cout << "Mas_r:" << r.getMas() << endl;
+	cout << "Mas_d:" << d.getMas() << endl;
+	cout << "Mas_c:" << c.getMas() << endl;
+	system("pause");
+}
+
+
