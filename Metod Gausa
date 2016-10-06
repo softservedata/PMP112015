@@ -1,0 +1,82 @@
+#include<iostream>
+
+using namespace std;
+
+int main()
+{
+	int n, m;
+
+	cout << "Enter number of rivnyann: ";
+	cin >> n;
+	cout << "Enter number of iksiv: ";
+	cin >> m;
+	m += 1;
+	float **matrix = new float *[n];
+	for (int i = 0; i<n; ++i)
+	  matrix[i] = new float[m];
+
+
+	for (int i = 0; i<n; ++i)
+  {
+		for (int j = 0; j<m; ++j)
+		{
+			cout << "Element " << "[" << i + 1 << " , " << j + 1 << "]: ";
+			cin >> matrix[i][j];
+		}
+  }
+
+	cout << "Matrix: " << endl;
+	for (int i = 0; i<n; ++i)
+	{
+		for (int j = 0; j<m; ++j)
+    {
+			cout << matrix[i][j] << " ";
+    }
+		cout << endl;
+	}
+	cout << endl;
+
+	
+	float  tmp, xx[6];
+
+	for (int i = 0; i<n; ++i)
+	{
+		tmp = matrix[i][i];
+		for (int j = n; j >= i; --j)
+			{matrix[i][j] /= tmp;}
+		for (int j = i + 1; j<n; ++j)
+		{
+			tmp = matrix[j][i];
+			for (int k = n; k >= i; --k)
+				{matrix[j][k] -= tmp*matrix[i][k];}
+		}
+	}
+
+	cout << "Matrix: " << endl;
+	for (int i = 0; i<n; ++i)
+	{
+		for (int j = 0; j<m; ++j)
+			{cout << matrix[i][j] << " ";}
+		cout << endl;
+	}
+	cout << endl;
+
+
+	xx[n - 1] = matrix[n - 1][n];
+	for (int i = n - 2; i >= 0; --i)
+	{
+		xx[i] = matrix[i][n];
+		for (int j = i + 1; j<n; ++j) {xx[i] -= matrix[i][j] * xx[j];}
+	}
+
+
+	for (int i = 0; i < n; ++i)
+	{
+		cout << xx[i] << " ";
+	}
+	cout << endl;
+
+	delete[] matrix;
+
+	system("pause");
+}
