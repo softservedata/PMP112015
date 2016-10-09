@@ -1,0 +1,180 @@
+#pragma once
+class MatrixGraph
+{
+private:
+	bool **graph;
+	int vertexNumber;
+public:
+	MatrixGraph(int n);
+	~MatrixGraph();
+	int CountVErtex()
+	{
+		return vertexNumber;
+	}
+	void delArc(int, int);
+	void AddArc(int from, int to);
+	bool HasArc(int from, int to);
+};
+
+
+
+/////////////////////////////////////////////////////
+
+
+
+
+#include"iostream"
+#include"cstring"
+#include "Header.h"
+
+using namespace std;
+MatrixGraph::MatrixGraph(int n)
+{
+	graph = new bool*[vertexNumber = n];
+	for (int i = 0; i < n; i++)
+	{
+		bool*row = graph[i] = new bool[n];
+		for (int j = 0; j < n; j++)
+		{
+			row[j] = false;
+		}
+	}
+	cout << "constructur with 'n' DONE" << endl;
+}
+
+void MatrixGraph::delArc(int from, int to)
+{
+	graph[from][to] = false;
+}
+void MatrixGraph::AddArc(int from, int to) {
+	if (from < 0 || from >= vertexNumber || to < 0 || to >= vertexNumber)
+		return;
+	graph[from][to] = true;
+	cout << "ADDARC done!" << endl;
+}
+bool MatrixGraph::HasArc(int from, int to)
+{
+	if (from < 0 || from >= vertexNumber || to < 0 || to >= vertexNumber)
+	{
+		cout << "False" << endl;
+	}
+	return graph[from][to];
+	cout << "has arc DONE!" << endl;
+}
+//void MatrixGraph::investigation(int from,int p)
+//{
+//	const int max_n=6;
+//	bool used[max_n]; 
+//	int timer, tin[max_n], fup[max_n];
+//	used[from] = true;
+//	tin[from] = fup[from] = timer++;
+//	for (size_t i = 0; i<5; ++i)
+//	{
+//		int to = graph[from][i];
+//		if (to == p)
+//			continue;
+//		if (used[to])
+//			fup[from] = (fup[from] < tin[to] ? fup[from] : tin[to]);
+//			//min(fup[from], tin[to]);
+//		else
+//		{
+//			investigation(to, from);
+//			fup[from] = (fup[from]< fup[to]? fup[from]:fup[to]);
+//			if (fup[to] > tin[from])
+//				cout<<"e1("<<from<<","<< to<<")-МІСТ! ";
+//		}
+//	}
+//}
+
+
+MatrixGraph::~MatrixGraph()
+{
+	for (int i = 0; i < vertexNumber; i++)
+	{
+		delete graph[i];
+	}
+	delete graph;
+	cout << "destructor DONE !" << endl;
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+#include"iostream"
+#include"Header.h"
+using namespace std;
+void Print( MatrixGraph & g)
+{
+	int n = g.CountVErtex();
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			cout << (g.HasArc(i,j) ? '1' : '0') << " ";
+		}
+		cout << endl;
+	}
+}
+const int max_n = 5;
+bool used[max_n];
+int timer, tin[max_n], fup[max_n];
+void investigation(int from, int p,MatrixGraph&g)
+{
+	
+	used[from] = true;
+	tin[from] = fup[from] = timer++;
+	for (size_t i = 0; i<5; ++i)
+	{
+		int to = g.HasArc(from,i);
+		if (to == p)
+			continue;
+		if (used[to])
+			fup[from] = (fup[from] < tin[to] ? fup[from] : tin[to]);
+		//min(fup[from], tin[to]);
+		else
+		{
+			investigation(to, from,g);
+			fup[from] = (fup[from]< fup[to] ? fup[from] : fup[to]);
+			if (fup[to] > tin[from])
+				cout << "e1(" << from << "," << to << ")-МІСТ! ";
+		}
+	}
+}
+void find_bridges() {
+	timer = 0;
+	int n = max_n;
+	for (int i = 0; i<n; ++i)
+		used[i] = false;
+	for (int i = 0; i < n; ++i)
+		if (!used[i])
+			cout <<"HLOP "<< i <<")"<< endl;
+}
+int main()
+{
+	MatrixGraph g_graph(6);
+	g_graph.AddArc(0, 1);
+	g_graph.AddArc(0,2);
+	g_graph.AddArc(1,0);
+	g_graph.AddArc(1,2);
+	g_graph.AddArc(2,0);
+	g_graph.AddArc(2,1);
+	g_graph.AddArc(2,3);
+	g_graph.AddArc(3,4);
+	g_graph.AddArc(3,5);
+	g_graph.AddArc(3,2);
+	g_graph.AddArc(5,3);
+	g_graph.AddArc(5,4);
+	g_graph.AddArc(4,3);
+	g_graph.AddArc(4,5);
+	cout << "Graph initialy :" << endl;
+	Print(g_graph);
+	investigation(0, -1, g_graph);
+	find_bridges();
+	cout << endl;
+	system("pause");
+	return 0;
+}
+
+///////////////////////////////////////
