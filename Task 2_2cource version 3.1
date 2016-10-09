@@ -1,0 +1,150 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+class Complex         
+{
+private:
+	double re, im;      
+
+public:
+	// constructors 
+
+	Complex()
+	{
+	};
+
+	Complex(double r)
+	{
+		re = r;
+		im = 0;
+	}
+
+	Complex(double r, double i)
+	{
+		re = r;// diysna
+		im = i;//uyavna
+	}
+
+	Complex(const Complex &c)   // copying constructor
+	{
+		re = c.re;
+		im = c.im;
+	}
+
+	// destructor
+	~Complex()
+	{
+	}
+
+	
+
+	// Modul
+	double abs()
+	{
+		cout << "Modul:";
+		return sqrt(re * re + im * im);
+	}
+
+	double stepen(double x, int N)
+	{
+		if (N == 0)
+			return 1;
+		else if (N < 0)
+			return 1 / stepen(x, -N);
+		else
+			return x * stepen(x, N - 1);
+	}
+
+	// operator =
+	Complex& operator = (Complex &c)
+	{
+		re = c.re;
+		im = c.im;
+
+		return (*this);
+	}
+
+
+	/*// operator+=
+	Complex& operator += (Complex &c)
+	{
+		re += c.re;
+		im += c.im;
+		return *this;
+	}*/
+
+	// operator +
+	Complex operator + (const Complex &c)
+	{
+		return Complex(re + c.re, im + c.im);
+	}
+
+	// operator -
+	Complex operator - (const Complex &c)
+	{
+		return Complex(re - c.re, im - c.im);
+	}
+
+	// operator *
+	Complex operator * (const Complex &c)
+	{
+		return Complex(re * c.re - im * c.im, re * c.im + im * c.re);
+	}
+
+	// operator /
+	Complex operator / (const Complex &c)
+	{
+		Complex temp;
+
+		double r = c.re * c.re + c.im * c.im;
+		temp.re = (re * c.re + im * c.im) / r;
+		temp.im = (im * c.re - re * c.im) / r;
+
+		return temp;
+	}
+
+	// friend functions
+	friend ostream & operator<< (ostream &, const Complex &);
+	friend istream & operator>> (istream &, Complex &);
+
+};
+
+// operator <<
+ostream& operator<< (ostream &out, const Complex &c)
+{
+	out << "(" << c.re << ", " << c.im << ")";
+	return out;
+}
+
+// operator >>
+istream& operator>> (istream &in, Complex &c)
+{
+	in >> c.re >> c.im;
+	return in;
+}
+
+int
+main()
+{
+	Complex a(5, 2);
+	Complex b(3, -3);
+
+	cout << "a = " << a << "; b =" << b << endl;
+
+	a = a + b;
+
+	cout << "a = " << a << "; b =" << b << endl;
+
+	Complex c = a + b;
+
+	cout << c << endl;
+	cout << a + b << endl;
+	cout << a * b << endl;
+	cout << "ABS:";
+	Complex abs();
+	//Complex stepen(c, 2);
+	system("pause");
+	return 0;
+}
