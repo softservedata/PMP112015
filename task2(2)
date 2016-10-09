@@ -1,0 +1,182 @@
+#include <iostream>
+using namespace std;
+class Matr
+{
+private:
+	int size;
+	double **mas;
+public:
+	Matr()
+	{
+		size = 0;
+		mas = NULL;
+		
+	}
+	Matr(int l)
+	{
+		size = l;
+		mas = new double*[l];
+		for (int i = 0; i < l; i++)
+			mas[i] = new double[l];
+		
+	}
+	Matr(int l, int a)
+	{
+		size = l;
+		mas = new double*[l];
+		for (int i = 0; i < l; i++)
+			mas[i] = new double[l];
+		for (int i = 0; i < size; i++)
+			for (int j = 0; j < size; j++)
+			{	
+				mas[i][j]=a;
+			}
+	}
+
+	void Koff()
+	{
+		double temp;
+		for (int k = 1; k < size; k++)
+		{
+			for (int j = k; j < size; j++)
+			{
+				temp = mas[j][k - 1] / mas[k - 1][k - 1];
+				for (int i = 0; i < size; i++)
+				{
+					mas[j][i] = mas[j][i] - temp * mas[k - 1][i];
+				}
+			}
+		}
+	}
+
+	void det()
+	{
+		int i, j, t, kst;
+		int p = 0;
+		for (i = 0; i<size - 1; i++)
+		{
+			t = 1;
+			while (mas[i][i] == 0)
+			{
+				for (j = 0; j<size; j++)
+				{
+					mas[i][j] = kst;
+					mas[i][j] = mas[i + t][j];
+					mas[i + t][j] = kst;
+				}
+				p++;
+				t++;
+			}
+
+			for (int k = i + 1; k<size; k++)
+			{
+				kst = mas[k][i] / mas[i][i];
+				for (j = 0; j<size; j++)
+					mas[k][j] -= mas[i][j] * kst;
+			}
+		}
+
+		kst = pow(-1, p);
+		for (i = 0; i<size; i++)
+			kst *= mas[i][i];
+		cout << "Determinant:" << kst<<endl;
+	}
+
+	/*~Matr()
+	{
+		for (int i = 0; i < size; i++)
+			delete mas[i];
+		delete mas;
+	}*/
+
+	Matr operator+(Matr & ob)
+	{
+		Matr temp(this->size);
+		int i, j;
+		for (i = 0; i < size; i++)
+			for (j = 0; j < size; j++)
+			{	
+				temp.mas[i][j]=this->mas[i][j]+ob.mas[i][j];
+			}
+		return (temp);
+	}
+	Matr operator+(int a)
+	{
+		Matr temp(this->size);
+		int i, j;
+		for (i = 0; i < size; i++)
+			for (j = 0; j < size; j++)
+			{
+				temp.mas[i][j] = this->mas[i][j] +a;
+			}
+		return (temp);
+	}
+	Matr operator*(int a)
+	{
+		Matr temp(this->size);
+		int i, j;
+		for (i = 0; i < size; i++)
+			for (j = 0; j < size; j++)
+			{
+				temp.mas[i][j] = this->mas[i][j]*a;
+			}
+		return (temp);
+	}
+	Matr operator*(Matr & ob)
+	{
+		Matr temp(this->size);
+		int i, j,s=0,k;
+		for (i = 0; i < this->size; i++)
+			for (j = 0; j < this->size; j++)
+			{
+				for (k = 0; k <this-> size; k++)
+				{
+					s = s + (this->mas[i][k])*(ob.mas[k][j]);
+				}
+				temp.mas[i][j] = s;
+				s = 0;
+			}
+		return (temp);
+	}
+	friend ostream& operator<<(ostream& s, Matr & temp)
+	{
+		for (int i = 0; i < temp.size; i++)
+		{
+
+			for (int j = 0; j < temp.size; j++)
+			{
+				cout << temp.mas[i][j] << ' ';
+			}
+			cout << endl;
+		}
+		cout << endl;
+		return s;
+	}
+	friend istream& operator >> (istream& s, Matr & temp)
+	{
+
+		for (int i = 0; i < temp.size; i++)
+			for (int j = 0; j < temp.size; j++)
+
+			{
+				cout << i << j << '=';
+				cin >> temp.mas[i][j];
+			}
+		return s;
+	}
+
+};
+int main()
+{
+	int l;
+	cout << "l=";
+	cin >> l;
+	Matr a(l),b(l,1),c(l);
+	cin >> a;
+	cout << a;
+	cout << a*b;
+	//a.Koff();
+	//a.det();
+	//
+	system("pause");
+}
