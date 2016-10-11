@@ -1,0 +1,135 @@
+Source.cpp
+-----------
+#include<iostream>
+#include<string>
+#include"plural.h"
+using namespace std;
+
+
+int main()
+{
+	string str;
+	plural A, B;
+	cout << "write your word\n";
+	cin>>str;
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (A.ifis(str[i]) == true)
+		{
+			B.push(str[i]);
+		}
+		else 
+		{
+			A.push(str[i]);
+		}
+	}
+	while (!B.isEmpty())
+	{
+		cout << B.minel();
+		B.pop(B.minel());
+	}
+	
+	system("pause");
+}
+-----------
+plural.h
+-----------
+#include<iostream>
+using namespace std;
+
+#ifndef PLURAL_H
+
+class plural
+{
+private:
+	char mas[100];
+	int size;
+public:
+	plural()
+	{
+		this->size = 0;
+	}
+	int getSize()
+	{
+		return size;
+	}
+	bool push(char s)
+	{
+		bool res = true;
+		for(int i = 0; i < size; i++)
+		{
+			if (mas[i] == s)
+			{
+				res = false;
+				break;
+			}
+		}
+		if (res == true)
+		{
+			this->mas[this->size] = s;
+			this->size++;
+		}
+		return res;
+	}
+	bool isEmpty()
+	{
+		if (size == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	char minel()
+	{
+		char m = mas[0];
+		for (int i = 1; i < size; i++)
+		{
+			if (mas[i] < m)
+			{
+				m = mas[i];
+			}
+		}
+		return m;
+	}
+	bool pop(char s)
+	{
+		bool res = false;
+		for (int i = 0; i < size; i++)
+		{
+			if (mas[i] == s)
+			{
+				this->size--;
+				for (int j = i; j < size; j++)
+				{
+					mas[j] = mas[j + 1];
+				}
+				res = true;
+				break;
+			}
+		}
+		return res;
+	}
+	bool ifis(char s)
+	{
+		bool res = false;
+		for (int i = 0; i < size; i++)
+		{
+			if (mas[i] == s)
+			{
+				res = true;
+				break;
+			}
+		}
+		return res;
+	}
+	~plural()
+	{
+	}
+};
+
+#define PLURAL_H
+#endif 
+#pragma once
