@@ -1,0 +1,231 @@
+#include<iostream>
+#include"header.h"
+using namespace std;
+
+int main()
+{
+	//choose any file: "matrix1.txt"/"matrix2.txt"/"matrix3.txt""
+	Equation task1("matrix2.txt");
+	task1.MethodUTU();
+	task1.print();
+	system("pause");
+	return 0;
+  
+  
+  
+  #ifndef HEADER_H
+#define HEADER_H
+#include<iostream>
+#include<fstream>
+#include<math.h>
+using namespace std;
+
+class Equation
+{
+private:
+	char file[100];
+	int n;
+	double **A;
+	double **U;
+	double *x;
+	double *y;
+	double *b;
+	bool isSymmetrical()
+	{
+		bool answer = true;
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				if (A[i][j] != A[j][i])
+				{
+					answer = false;
+				}
+			}
+		}
+		return answer;
+	}
+	void countU()
+	{
+		double suma1 = 0;
+		double suma2 = 0;
+		for (int i = 0; i < n; i++)
+		{
+			for (int k = 0; k <= i - 1; k++)
+			{
+				suma1 = suma1 + pow(U[k][i], 2);
+			}
+			U[i][i] = sqrt(A[i][i] - suma1);
+			U[i][i] = ((double)((int)(U[i][i] * 1000))) / 1000;
+			suma1 = 0;
+			for (int j = i + 1; j < n; j++)
+			{
+				for (int k = 0; k <= i - 1; k++)
+				{
+					suma2 = suma2 + U[k][i] * U[k][j];
+				}
+				U[i][j] = (A[i][j] - suma2) / U[i][i];
+				suma2 = 0;
+			}
+		}
+	}
+	void county()
+	{
+		double suma = 0;
+		for (int i = 0; i < n; i++)
+		{
+			for (int k = 0; k <= i - 1; k++)
+			{
+				suma = suma + U[k][i] * y[k];
+			}
+			y[i] = (b[i] - suma) / U[i][i];
+			suma = 0;
+		}
+	}
+	void countx()
+	{
+		double suma = 0;
+		for (int i = n - 1; i >= 0; i--)
+		{
+			for (int k = i + 1; k < n; k++)
+			{
+				suma = suma + U[i][k] * x[k];
+			}
+			x[i] = (y[i] - suma) / U[i][i];
+			suma = 0;
+		}
+	}
+public:
+	Equation()
+	{
+		cout << "constructor 0" << endl;
+		n = 1;
+		A = new double*[n];
+		A[0] = new double[n];
+		U = new double*[n];
+		U[0] = new double[n];
+		b = new double[n];
+		x = new double[n];
+		y = new double[n];
+		A[0][0] = 0;
+		U[0][0] = 0;
+		b[0] = 0;
+		y[0] = 0;
+		x[0] = 0;
+	}
+	Equation(char* file)
+	{
+		strcpy_s(this->file, file);
+		cout << "constructor 1" << endl;
+		ifstream  data(file);
+		data >> n;
+		b = new double[n];
+		x = new double[n];
+		y = new double[n];
+		A = new double*[n];
+		U = new double*[n];
+		for (int i = 0; i < n; i++)
+		{
+			A[i] = new double[n];
+			U[i] = new double[n];
+			x[i] = 0;
+			y[i] = 0;
+			for (int j = 0; j < n; j++)
+			{
+				U[i][j] = 0;
+				data >> A[i][j];
+			}
+		}
+		for (int i = 0; i < n; i++)
+		{
+			data >> b[i];
+		}
+		data.close();
+	}
+	void write()
+	{
+		ofstream data;
+		data.open(file, std::fstream::app);
+		data << "\nanswer is: \n";
+		for (int i = 0; i < n; i++)
+		{
+			data << x[i] << " ";
+		}
+		data << endl;
+		data.close();
+		cout << "writing in file is done\n";
+	}
+	void MethodUTU()
+	{
+		if (isSymmetrical())
+		{
+			countU();
+			county();
+			countx();
+			write();
+		}
+		else
+		{
+			cout << "ERROR: unable to count X: matrix is not symmetric" << endl;
+		}
+	}
+	void print()
+	{
+		cout << "A=\n";
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				cout << A[i][j] << " ";
+			}
+			cout << endl;
+		}
+		cout << "b=\n";
+		for (int i = 0; i < n; i++)
+		{
+			cout << b[i] << " ";
+		}
+		cout << endl;
+		cout << "U=\n";
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				cout << U[i][j] << " ";
+			}
+			cout << endl;
+		}
+		cout << endl;
+		cout << "y=\n";
+		for (int i = 0; i < n; i++)
+		{
+			cout << y[i] << " ";
+		}
+		cout << endl;
+		cout << "x=\n";
+		for (int i = 0; i < n; i++)
+		{
+			cout << x[i] << " ";
+		}
+	}
+	~Equation()
+	{
+		cout << "destructor" << endl;
+		for (int i = 0; i < n; i++)
+		{
+			delete[] A[i];
+		}
+		for (int i = 0; i < n; i++)
+		{
+			delete[] U[i];
+		}
+		delete[] x;
+		delete[] y;
+		delete[] U;
+		delete[] A;
+		delete[] b;
+	}
+
+};
+
+#endif
