@@ -1,0 +1,177 @@
+App.cpp :
+
+
+#include <iostream>
+#include "class.h"
+using namespace std;
+
+int main()
+{
+	Graf f(5);
+	int a, b;
+	cout << "input a  " << endl;
+	cin >> a;
+	cout << "input b  " << endl;
+	cin >> b;
+	int result = f.Graftest(f, a, b);
+	cout << "shortest way from " << a << " to " << b << " = " << result << endl;
+	system("pause");
+}
+
+
+class.h  :
+
+
+#include<iostream>
+using namespace std;
+
+class Graf
+{
+protected:
+	int** graf;
+	int** grafnew;
+	int size;
+public:
+	Graf(int a)
+	{
+		size = a;
+		graf = new int*[size];
+		for (int i = 0; i < size; i++)
+		{
+			graf[i] = new int[size];
+		}
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				cout << "input [" << i + 1 << "][" << j + 1 << "] elem  " << endl;
+				cin >> graf[i][j];
+			}
+		}
+		grafnew = new int*[size];
+		for (int i = 0; i < size; i++)
+		{
+			grafnew[i] = new int[size];
+		}
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				grafnew[i][j] = 0;
+			}
+		}
+	}
+	Graf(const Graf& ob)
+	{
+		size = ob.size;
+		graf = new int*[size];
+		for (int i = 0; i < size; i++)
+		{
+			graf[i] = new int[size];
+		}
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				graf[i][j] = ob.graf[i][j];
+			}
+		}
+		grafnew = new int*[size];
+		for (int i = 0; i < size; i++)
+		{
+			grafnew[i] = new int[size];
+		}
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				grafnew[i][j] = ob.grafnew[i][j];
+			}
+		}
+	}
+	Graf()
+	{
+		size = 5;
+		graf = new int*[size];
+		for (int i = 0; i < size; i++)
+		{
+			graf[i] = new int[size];
+		}
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				cout << "input [" << i + 1 << "][" << j + 1 << "] elem  " << endl;
+				cin >> graf[i][j];
+			}
+		}
+		int** grafnew;
+		grafnew = new int*[size];
+		for (int i = 0; i < size; i++)
+		{
+			grafnew[i] = new int[size];
+		}
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				grafnew[i][j] = 0;
+			}
+		}
+	}
+	~Graf()
+	{
+		delete[] graf;
+		delete[] grafnew;
+	}
+	void showgraf()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				cout << graf[i][j] << "   ";
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+	void showgrafnew()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				cout << grafnew[i][j] << "   ";
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+	int Graftest(Graf d, int a, int b)
+	{
+		const int B = 100;
+		a = a - 1;
+		b = b - 1;
+		for (int i = 0; i < d.size; i++)
+		{
+			for (int j = 0; j < d.size; j++)
+			{
+				if (d.graf[i][j] == 0) d.grafnew[i][j] = B;
+				else d.grafnew[i][j] = d.graf[i][j];
+			}
+		}
+		for (int k = 0; k < d.size; k++)
+		{
+			for (int i = 0; i < d.size; i++)
+			{
+				for (int j = 0; j < d.size; j++)
+				{
+					if (d.grafnew[i][j]>(d.grafnew[i][k] + d.grafnew[k][j]))
+						d.grafnew[i][j] = d.grafnew[i][k] + d.grafnew[k][j];
+				}
+			}
+		}
+		return d.grafnew[a][b];
+	}
+};
