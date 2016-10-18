@@ -121,6 +121,14 @@ public:
 	}
 	~Graf()
 	{
+		for (int i = 0; i < size; i++)
+		{
+			delete[] graf[i];
+		}
+		for (int i = 0; i < size; i++)
+		{
+			delete[] grafnew[i];
+		}
 		delete[] graf;
 		delete[] grafnew;
 	}
