@@ -1,0 +1,148 @@
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+class Reversed
+{
+private:
+	int *new_arr = new int[253];
+	int size;
+	//int count_equel = 0, count_plus = 0, count_minus = 0;
+
+public:
+	int count_equel = 0, count_plus = 0, count_minus = 0;
+	Reversed(int arr[], int Size)
+	{
+		size = Size;
+		for (int i = 0; i < size; ++i)
+		{ 
+			cin >> arr[i]; 
+		}
+		cout << size;
+
+		for (int i = 0; i < size; ++i)
+		{
+			this->new_arr[i] = arr[i];
+		}
+		cout << "Constructor done!\n";
+	}
+	Reversed(int Size)
+	{
+		size = Size;
+		int *arr = new int[size];
+		for (int i = 0; i < size; ++i)
+		{
+			arr[i] = 0;
+		}
+		cout << size;
+
+		for (int i = 0; i < size; ++i)
+		{
+			this->new_arr[i] = arr[i];
+		}
+		cout << "Constructor done!\n";
+	}
+	Reversed(Reversed& temp)
+	{
+		this->size = temp.size;
+		*this->new_arr = *temp.new_arr;
+		cout << "Constructor COPY done!\n";
+	}
+
+	~Reversed()
+	{
+		delete[] new_arr;
+		cout << "Destructor done!\n";
+	}
+	void Cout_arr()
+	{
+		for (int i = 0; i < size; ++i)
+		{
+			cout << this->new_arr[i];
+		}
+		cout << endl;
+	}
+
+	void Plus(int element, int number)
+	{
+		new_arr[element] += number;
+	}
+	void Minus(int element, int number)
+	{
+		new_arr[element] -= number;
+	}
+
+	Reversed& operator=(Reversed& temp)
+	{
+		count_equel += 1;
+		for (int i = 0; i < size + temp.size; ++i)
+		{
+			this->new_arr[i] = temp.new_arr[i];
+		}
+		return *this;
+	}
+	Reversed& operator+(Reversed& temp)///
+	{
+		count_plus += 1;
+		for (int i = size; i < size + temp.size; ++i)
+		{
+			this->new_arr[i] = temp.new_arr[i - size];
+		}
+		return *this;
+	}
+	Reversed& operator-(Reversed& temp)
+	{
+		count_minus += 1;
+		for (int i = 0; i <= size; ++i)
+		{
+			for (int j = 0; j < temp.size; ++j)
+			{
+				if (new_arr[i] == temp.new_arr[j])
+				{
+					this->new_arr[i] = 0;
+				}
+			}
+		}
+		return *this;
+	}
+	/*friend Reversed& operator-(Reversed& temp, int number)
+	{
+		temp.new_arr[number] = NULL;
+		return temp;
+	}
+	friend Reversed& operator-(Reversed& temp, char number)
+	{
+		for (int i = 0; i < temp.rozmir; ++i)
+		{
+			if (temp.new_arr[i] == number){ temp.new_arr[i] = NULL; }
+		}
+		return temp;
+	}*/
+
+	
+};
+
+
+
+
+void main()
+{
+	int arr[1];
+	int arr2[1];
+	Reversed A(arr, 5), B(arr, 6), C(10);
+	C = A + B;
+	//C = C - A;
+	//cout << "=: " << C.count_equel;
+	cout << "A: ";
+	A.Cout_arr();
+
+	cout << "B: ";
+	B.Cout_arr();
+
+	cout << "C: ";
+	C.Cout_arr();
+
+
+	system("pause");
+}
