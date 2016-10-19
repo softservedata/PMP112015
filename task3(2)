@@ -1,0 +1,169 @@
+#include"iostream"
+using namespace std;
+
+class list
+{
+private:
+	char*a;
+	int l;
+public:
+
+	list()
+	{
+		char s[20];
+		int k,i,j,x,n=0;
+		cout << "input word "  << ' ';
+		gets_s(s);
+		k = strlen(s);
+		for (i = 0; i < k; i++)
+		{
+			x = 1;
+			for (j = 0; j < i; j++)
+			{
+				if (s[i] == s[j]) x = 0;
+			}
+			if (x == 1)n++;
+			else s[i] = '~';
+		}
+		l = n;
+		a = new char[l];
+		x = 0;
+		for (int i = 0; i < k; i++)
+		{
+			if (s[i] != '~')
+			{
+				a[x] = s[i];
+				x++;
+			}
+		}
+	}
+
+	list(char*x,int y)
+	{
+		l = y;
+		a = new char[l];
+		for (int i = 0; i < l; i++)
+		{
+			a[i] = x[i];
+		}
+	}
+
+	list(list &x)
+	{
+		l = x.l;
+		a = x.a;
+	}
+
+	friend ostream& operator<<(ostream& s, list & temp)
+	{
+		for (int j = 0; j < temp.l; j++)
+		{
+			cout << temp.a[j];
+		}
+		cout << endl;
+		return s;
+	}
+
+	list operator+(list & ob)
+	{
+		int i, j, x, n = 0,l2;
+		char* c = new char[ob.l];
+		c=ob.a;
+		for (i = 0; i < ob.l; i++)
+		{
+			x = 1;
+			for (j = 0; j < this->l; j++)
+			{
+				if (c[i] == this->a[j]) x = 0;
+			}
+			if (x == 1)n++;
+			else c[i] = '~';
+		}
+		l2 = this->l + n;
+		char*d = new char[l2];
+		for (i = 0; i < this->l; i++)
+		{
+			d[i] = this->a[i];
+		}
+		x = this->l;
+		for (i = 0; i <ob.l; i++)
+		{
+			if (c[i] != '~')
+			{
+				d[x] = c[i];
+				x++;
+			}
+		}
+		list z(d, l2);
+		return(z);
+	}
+
+	list operator-(list & ob)
+	{
+		int i, j, x,n=0, l2=0;
+		char* c = new char[this->l];
+		c =this->a;
+		for (i = 0; i < this->l; i++)
+		{
+			x = 1;
+			for (j = 0; j < ob.l; j++)
+			{
+				if (c[i] == ob.a[j]) x = 0;
+			}
+			if (x == 1)l2++;
+			else c[i] = '~';
+		}
+		char*d = new char[l2];
+		for (i = 0; i <this->l; i++)
+		{
+			if (c[i] != '~')
+			{
+				d[n] = c[i];
+				n++;
+			}
+		}
+		list z(d, l2);
+		return(z);
+	}
+
+	void count()
+	{
+		char*y="aeiouy";
+		char*x="bcdfghjklmnpqrstvwxz";
+		int m = 0, n = 0,i,j;
+		
+		for (i = 0; i < l; i++)
+		{
+			for (j = 0; j < 6; j++)
+			{
+				if (a[i] == y[j]) n++;
+			}
+		}
+
+		for (i = 0; i < l; i++)
+		{
+			for (j = 0; j < 20; j++)
+			{
+				if (a[i] == x[j]) m++;
+			}
+		}
+
+		cout << n <<" hol"<< endl << m<<" pryhol"<<endl;
+	}
+
+	/*~list()
+	{
+	cout << "game over" << endl;
+	delete a;
+	}*/
+};
+
+int main()
+{
+	list a, b;
+	cout << a<<endl<<b;
+	list c =a - b;
+	cout << c;
+	c.count();
+	system("pause");
+}
