@@ -1,60 +1,80 @@
-
 #include<iostream>
-#include<cstring>
+
 using namespace std;
 
 class Reversed
 {
 private:
-	int *new_arr = new int[253];
+	int *new_arr;
+	//int *arr;
 	int size;
-	//int count_equel = 0, count_plus = 0, count_minus = 0;
+	int count_equel, count_plus, count_minus;
+	//this->count_equel = 0, this->count_plus = 0, this->count_minus = 0;
 
 public:
-	int count_equel = 0, count_plus = 0, count_minus = 0;
+	//this->count_equel = 0, this->count_plus = 0, this->count_minus = 0;
 	Reversed(int arr[], int Size)
 	{
-		size = Size;
+		this->count_equel = 0; this->count_plus = 0; this->count_minus = 0;
+		new_arr = new int[253];
+		this->size = Size;
 		for (int i = 0; i < size; ++i)
-		{ 
-			cin >> arr[i]; 
+		{
+			cin >> arr[i];
 		}
+		
 		cout << size;
 
 		for (int i = 0; i < size; ++i)
 		{
 			this->new_arr[i] = arr[i];
 		}
+		
+		for (int i = 0; i < size; ++i)
+		{
+			for (int j = i + 1; j < size; ++j)
+			{
+				if (new_arr[i] == new_arr[j])
+				{
+					for (int m = j; m < size-1; ++m)
+					{
+						swap(new_arr[m], new_arr[m+1]);
+					}
+					new_arr[size] = '\0';
+					--size;
+				
+				}
+			}
+		}
+
 		cout << "Constructor done!\n";
 	}
 	Reversed(int Size)
 	{
-		size = Size;
-		int *arr = new int[size];
+		this->size = Size;
+		new_arr = new int[size];
 		for (int i = 0; i < size; ++i)
 		{
-			arr[i] = 0;
+			new_arr[i] = 0;
 		}
 		cout << size;
-
-		for (int i = 0; i < size; ++i)
-		{
-			this->new_arr[i] = arr[i];
-		}
+		
 		cout << "Constructor done!\n";
 	}
-	Reversed(Reversed& temp)
+	Reversed(const Reversed& temp)
 	{
+		this->count_equel = temp.count_equel;
 		this->size = temp.size;
+		this->sizeC = temp.size;
 		*this->new_arr = *temp.new_arr;
 		cout << "Constructor COPY done!\n";
 	}
-
 	~Reversed()
 	{
-		delete[] new_arr;
+		//delete[] new_arr;
 		cout << "Destructor done!\n";
 	}
+
 	void Cout_arr()
 	{
 		for (int i = 0; i < size; ++i)
@@ -63,7 +83,6 @@ public:
 		}
 		cout << endl;
 	}
-
 	void Plus(int element, int number)
 	{
 		new_arr[element] += number;
@@ -75,25 +94,49 @@ public:
 
 	Reversed& operator=(Reversed& temp)
 	{
-		count_equel += 1;
+		this->count_equel += 1;
+
 		for (int i = 0; i < size + temp.size; ++i)
 		{
 			this->new_arr[i] = temp.new_arr[i];
+		}
+
+		for (int i = 0; i < size; ++i)
+		{
+			for (int j = i + 1; j < size; ++j)
+			{
+				if (new_arr[i] == new_arr[j])
+				{
+					for (int m = j; m < size - 1; ++m)
+					{
+						swap(new_arr[m], new_arr[m + 1]);
+					}
+					new_arr[size] = '\0';
+					--size;
+				}
+			}
 		}
 		return *this;
 	}
 	Reversed& operator+(Reversed& temp)///
 	{
-		count_plus += 1;
+		this->count_plus += 1;
+		
 		for (int i = size; i < size + temp.size; ++i)
 		{
 			this->new_arr[i] = temp.new_arr[i - size];
+			if (this->new_arr[i] != temp.new_arr[i - size])
+			{
+				this->new_arr[i] = temp.new_arr[i - size];
+			}
+			
 		}
+		
 		return *this;
 	}
 	Reversed& operator-(Reversed& temp)
 	{
-		count_minus += 1;
+		this->count_minus += 1;
 		for (int i = 0; i <= size; ++i)
 		{
 			for (int j = 0; j < temp.size; ++j)
@@ -101,6 +144,7 @@ public:
 				if (new_arr[i] == temp.new_arr[j])
 				{
 					this->new_arr[i] = 0;
+					
 				}
 			}
 		}
@@ -108,41 +152,62 @@ public:
 	}
 	/*friend Reversed& operator-(Reversed& temp, int number)
 	{
-		temp.new_arr[number] = NULL;
-		return temp;
+	temp.new_arr[number] = NULL;
+	return temp;
 	}
 	friend Reversed& operator-(Reversed& temp, char number)
 	{
-		for (int i = 0; i < temp.rozmir; ++i)
-		{
-			if (temp.new_arr[i] == number){ temp.new_arr[i] = NULL; }
-		}
-		return temp;
+	for (int i = 0; i < temp.rozmir; ++i)
+	{
+	if (temp.new_arr[i] == number){ temp.new_arr[i] = NULL; }
+	}
+	return temp;
 	}*/
+	int Cout_equel(int equel)
+	{
+		//cout << "Equel = " << this->count_equel << endl;
+		equel = this->count_equel;
+		return equel;
+	}
+	int Cout_plus(int plus)
+	{
+		//cout << "Equel = " << this->count_equel << endl;
+		plus = this->count_plus;
+		return plus;
+	}
+	int Cout_minus(int minus)
+	{
+		//cout << "Equel = " << this->count_equel << endl;
+		minus = this->count_minus;
+		return minus;
+	}
 
-	
 };
-
-
 
 
 void main()
 {
 	int arr[1];
 	int arr2[1];
-	Reversed A(arr, 5), B(arr, 6), C(10);
-	C = A + B;
-	//C = C - A;
-	//cout << "=: " << C.count_equel;
+	Reversed A(arr, 4), B(arr2, 4), C(8);
+
 	cout << "A: ";
 	A.Cout_arr();
 
 	cout << "B: ";
 	B.Cout_arr();
 
-	cout << "C: ";
-	C.Cout_arr();
 
+	C = A + B;
+	
+
+	int m = 0;
+	int equel = C.Cout_equel(m);
+	cout << equel << endl;
+	int plusA = A.Cout_plus(m);
+	cout << plusA << endl;
+
+	cout << "C: ";
 
 	system("pause");
 }
