@@ -1,0 +1,134 @@
+#include <iostream>
+#include <fstream>
+#include <string.h>
+#include <stdio.h>
+using namespace std;
+
+int reverse_gauss(int size, double **mass)
+{
+	double ** Rev_M;
+	int i, j, k;
+	
+	
+	//single matrix: 
+	Rev_M = new double*[size];
+	for (i = 0; i<size; i++)
+	{
+		Rev_M[i] = new double[size];
+		for (j = 0; j< size; j++)Rev_M[i][j] = 0;
+		Rev_M[i][i] = 1;
+	}
+	//straight road of gauss's method
+	double a, b;
+	for (i = 0; i< size; i++)
+	{
+		a = mass[i][i];
+		for (j = i + 1; j<size; j++)
+		{
+			b = mass[j][i];
+			for (k = 0; k<size; k++)
+			{
+				mass[j][k] = mass[i][k] * b - mass[j][k] * a;
+				Rev_M[j][k] = Rev_M[i][k] * b - Rev_M[j][k] * a;
+			}
+		}
+	}
+	//reverse road of gauss's method:
+	double sum;
+	for (i = 0; i<size; i++)
+	{
+		for (j = size - 1; j >= 0; j--)
+		{
+			sum = 0;
+			for (k = size - 1; k>j; k--)
+				sum += mass[j][k] * Rev_M[k][i];
+			if (mass[j][j] == 0)
+			{
+				for (i = 0; i<size; i++)
+					delete[]Rev_M[i];
+				delete[]Rev_M;
+				return 0;
+			}
+			Rev_M[j][i] = (Rev_M[j][i] - sum) / mass[j][j];
+		}
+	}
+	//Outputting to file:
+	ofstream fout;
+
+	fout.open("matrix.txt");
+	for (i = 0; i < size; i++)
+	{
+		for (j = 0; j < size; j++)
+		{
+			fout << Rev_M[i][j] << "    ";
+
+		}
+		fout << endl;
+	}
+
+	fout.close();
+	cout << endl << "Written to file" << endl;
+	return 1;
+}
+
+int main()
+{
+	double **mat;
+	double **mat_ob;
+	int num;//size of matrix
+	cout << "input n  ";
+	cin >> num;
+	//creating our matrix
+	mat = new double*[num];
+	for (int i = 0; i < num; i++)
+	{
+		mat[i] = new double[num];
+	}
+	
+	
+	//inputting elements of our matrix
+	
+	
+	
+	/*double src[500];
+	//ifstream fileread("IN.txt");
+	ifstream fileread("IN2.txt");
+	for (int i = 0; i < num; i++)
+	{
+		for (int j = 0; j < num; j++)
+		{
+			while (!fileread.eof())
+			{
+				fileread >> **mat;
+				//cout << "Original:" << src << endl;
+			}
+		}
+	}
+	fileread.close(); // close file
+	cout << "Done!" << endl;
+
+	*/
+	for (int i = 0; i < num; i++)
+	{
+		for (int j = 0; j < num; j++)
+		{
+			cout << "Enter [" << i + 1 << "][" << j + 1 << "]   " << endl;
+			cin >> mat[i][j];
+		}
+		cout << endl;
+	}
+	
+	
+	//running function:
+	int k = reverse_gauss(num, mat);
+	//checking:
+	if (k == 1)
+	{
+		cout << "Successfully done! " << endl;
+	}
+	else
+	{
+		cout << "Failed! something is wrong! " << endl;
+	}
+	system("pause");
+}
