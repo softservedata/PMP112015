@@ -1,0 +1,114 @@
+ifndef CLASS_H
+#define CLASS_H
+
+#include<iostream>
+using namespace std;
+
+class Set
+{
+private:
+	int n;
+	char set[100];
+	void push(char a)
+	{
+		bool f = false;
+		for (int i = 0; i < n; i++)
+		{
+			if (set[i] == a)
+			{
+				f = true;
+			}
+		}
+		if (!f)
+		{
+			set[n] = a;
+			set[n+1] = '\0';
+			n++;
+		}
+	}
+	void pop(char a)
+	{
+		bool f = false;
+		for (int i = 0; i < n; i++)
+		{
+			if (set[i] == a)
+			{
+				f = true;
+				n--;
+				for (int k = i; k < n; k++)
+				{
+					set[k] = set[k + 1];
+				}
+				break;
+			}
+		}
+	}
+public:
+	Set(int n=0)
+	{
+		cout << "constructor1" << endl;
+		this->n = n;
+	}
+	Set(char* temp)
+	{
+		cout << "constructor2" << endl;
+		this->n = 0;
+		for (int i = 0; i < strlen(temp); i++)
+		{
+			(*this).push(temp[i]);
+		}
+		this->n = strlen(this->set);
+	}
+	Set(const Set& temp)
+	{
+		cout << "constructor copy" << endl;
+		this->n = temp.n;
+		strcpy_s(set, temp.set);
+	}
+	void getMas()
+	{
+		for (int i = 0; i < n; i++)
+		{
+			cout<< this->set[i]<< " ";
+		}
+		cout << endl;
+	}
+	void sort()
+	{
+		char t;
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = i+1; j < n; j++)
+			{
+				if (int(set[i]) > int(set[j]))
+				{
+					t = set[i];
+					set[i] = set[j];
+					set[j] = t;
+				}
+			}
+		}
+	}
+	~Set()
+	{
+		cout << "destructor" << endl;
+	}
+};
+
+#endif
+
+
+
+
+#include<iostream>
+#include"Class.h"
+using namespace std;
+
+int main()
+{
+	Set a("akyEcgdAbeCxcfakyA");
+	a.sort();
+	a.getMas();
+	system("pause");
+	return 0;
+}
