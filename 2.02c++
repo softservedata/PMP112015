@@ -1,0 +1,121 @@
+#include <iostream>	
+#include<math.h>
+using namespace std;
+
+const int n = 3;
+
+class Matrix {
+public:
+
+	int matr[n][n];
+	int *operator[](int k) {
+		return matr[k];
+	}
+
+	Matrix operator+(Matrix obj) {
+		Matrix tmp(0);
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				tmp[i][j] = matr[i][j] + obj[i][j];
+		return tmp;
+	}
+
+	Matrix operator*(Matrix obj) {
+		Matrix tmp(0);
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				for (int k = 0; k < n; k++)
+					tmp[i][j] += matr[i][k] * obj[k][j];
+		return tmp;
+	}
+
+	Matrix operator *(int m) {
+		Matrix tmp(0);
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++)
+				tmp[i][j] = matr[i][j] * m;
+		}
+		return tmp;
+	}
+
+	double show_norm()
+	{
+		double norm = 0., k=0.;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				k += matr[i][j] * matr[i][j];
+			}
+		}norm = sqrt(k);
+		return norm;
+	}
+
+	int trace()
+	{
+		int trace = 0;
+		for (int i = 0; i < n; i++) {
+			trace += matr[i][i];
+		}
+		return trace;
+	}
+		
+	void show() {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				printf("%3d", matr[i][j]);
+			}
+			cout << endl;
+		}
+	}
+	
+	Matrix(int k) {
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				matr[i][j] = k;
+	}
+	/*
+	Matrix() {
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				matr[i][j] = rand() % 5 - 2;
+	}
+*/
+	Matrix() {
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+			{
+				cout << "[" << i << "][" << j << "]:";
+				cin >> matr[i][j];
+			}
+	}
+
+};
+int main() {
+	
+	Matrix A, B, C(0), D(0), K(0);
+	int m;
+	cout << "m:";
+	cin >> m;
+	cout << "Matrix A:\n";
+	A.show();
+	cout << "Matrix B:\n";
+	B.show();
+	
+	cout << "Matrix C=A+B:\n";
+	C = A + B;
+	C.show();
+	
+	cout << "Matrix D=A*B:\n";
+	D = A*B;
+	D.show();
+
+	cout << "Matrix A*=m:\n";
+	K= A * m;
+	K.show();
+
+	
+	cout << "\nA norm=" << A.show_norm()<<"\n";
+
+	cout << "\nMatrix trace=" << A.trace() << "\n";
+	
+	system("pause");
+}
