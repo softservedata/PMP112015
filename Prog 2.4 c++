@@ -1,0 +1,212 @@
+#include<iostream>
+
+using namespace std;
+
+class Vector
+{
+private:
+	int *vector;
+	int vector_size;
+	int *multiplied, o = 0;
+public:
+	Vector() {}
+	Vector(int size)
+	{
+		this->vector_size = size;
+		//vector = (*new)calloc(vector_size);
+		multiplied = (int*)calloc(vector_size, sizeof(int));
+		vector = (int*)calloc(vector_size, sizeof(int));
+		for (int i = 0; i < vector_size; ++i)
+		{
+			cout << "Enter vector[" << i << "]: ";
+			cin >> vector[i];
+		}
+		cout << "Default constructor Vector(int size) done!\n";
+	}
+	Vector(const Vector& temp)
+	{
+		this->vector_size = temp.vector_size;
+		*this->vector = *temp.vector;
+		*this->multiplied = *temp.multiplied;
+		cout << "Copy constructor Vector(const Vector& temp) done!\n";
+	}
+	~Vector()
+	{
+		delete[] vector;
+		delete[] multiplied;
+		cout << "Destructor ~Vector() done!\n";
+	}
+
+	virtual int getVector_size()
+	{
+		return vector_size;
+	}
+	virtual int*getVector()
+	{
+		return vector;
+	}
+	virtual int*getMultiplied()
+	{
+		return multiplied;
+	}
+	virtual int getO()
+	{
+		return o;
+	}
+	int multiply()
+	{
+		cout << "Vect multiply done!\n";
+	}
+
+
+};
+
+class Matrix :private Vector
+{
+private:
+	int **matrix;
+	int matrix_size1, matrix_size2;
+	int vector_size, l, o, **vm, *vector, *multiplied;
+public:
+	
+	Matrix(int size1, int size2) :Vector()
+	{
+		this->matrix_size1 = size1;
+		this->matrix_size2 = size2;
+		matrix = (int**)calloc(matrix_size1, sizeof(int));
+		for (int i = 0; i < matrix_size2; ++i)
+		{
+			matrix[i] = (int*)calloc(matrix_size2, sizeof(int));
+			for (int j = 0; j < matrix_size2; ++j)
+			{
+				cout << "Enter element[" << i << "][" << j << "]: ";
+				cin >> matrix[i][j];
+			}
+		}
+		cout << "Default constructor Matrix(int size1, int size2) :Vector() done!\n";
+	}
+	Matrix(const Matrix& temp) :Vector()
+	{
+		this->matrix_size1 = temp.matrix_size1;
+		this->matrix_size2 = temp.matrix_size2;
+		**this->matrix = **temp.matrix;
+		cout << "Copy constructor Matrix(const Matrix& temp) :Vector() done!\n";
+
+	}
+	~Matrix()
+	{
+		for (int i = 0; i < matrix_size1; ++i)
+		{
+			delete[] matrix[i];
+		}
+		delete[] matrix;
+		delete[] multiplied;
+		delete[] vector;
+		cout << "Destructor ~Matrix() done!\n";
+	}
+
+	void operator=(Vector&x)
+	{
+		vector_size = x.getVector_size();
+		vector = x.getVector();
+		multiplied = x.getMultiplied();
+		o = x.getO();
+	}
+	void outVector()
+	{
+		cout << "Vector: \n";
+		for (int i = 0; i < vector_size; ++i)
+		{
+			cout << vector[i] << "\n";
+		}
+	}
+	void outMatrix()
+	{
+		cout << "Matrix: \n";
+		for (int i = 0; i < matrix_size2; ++i)
+		{
+			for (int j = 0; j < matrix_size2; ++j)
+			{
+				cout << matrix[i][j];
+				cout << " ";
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+	void multiply ()
+	{
+		for (int i = 0; i < matrix_size1; i++)
+		{
+			for (int j = 0; j < matrix_size2; j++)
+			{
+				multiplied[i] += matrix[i][j] * vector[j];
+			}
+			cout << endl;
+		}
+	}
+	//void multiply()
+	//{
+	//	//cout << "Result:" << endl;
+	//	vm = (int**)calloc(l, sizeof(int));
+	//	for (int i = 0; i < matrix_size1; i++)
+	//	{
+	//		vm[i] = (int*)calloc(l, sizeof(int));
+	//		for (int j = 0; j < matrix_size2; j++)
+	//		{
+	//			multiplied[i] += matrix[i][j] * vector[j];
+	//		}
+	//		vm[o][i] = multiplied[i];
+	//		//cout << multiplied[i] << endl;
+	//	}
+	//	for (int i = 0; i < matrix_size1; i++)
+	//	{
+	//		multiplied[i] = 0;
+	//	}
+	//	o++;
+	//}
+	void outMultiplied()
+	{
+		cout << "Multiplied: \n";
+		for (int i = 0; i < vector_size; ++i)
+		{
+			cout << multiplied[i] << "\n";
+			multiplied[i] = 0;
+		}
+	}
+	//void outMultiplied()
+	//{
+	//	cout << "Myltiplied: \n";
+	//	for (int i = 0; i < o; ++i)
+	//	{
+	//		for (int j = 0; j < vector_size; ++j){
+	//			cout << vm[i][j] << " ";
+	//		}
+	//		
+	//	}
+	//	cout << endl << endl;
+	//}
+};
+
+void main()
+{
+	Vector A(2);
+	Matrix B(2, 2), C(2,2);
+
+	B = A;
+	B.outMatrix();
+	B.outVector();
+	B.multiply();
+	B.outMultiplied();
+
+	cout << "==============================\n";
+
+	C = A;
+	C.outMatrix();
+	C.outVector();
+	C.multiply();
+	C.outMultiplied();
+
+
+	system("pause");
+}
