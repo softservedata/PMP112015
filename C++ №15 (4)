@@ -1,0 +1,158 @@
+App.cpp:
+
+
+#include<iostream>
+#include"Car.h"
+using namespace std;
+
+void main()
+{
+	Bus bus;
+	LightCar car;
+	Lorry lorry;
+	
+	cout << "Information about bus:" << endl;
+	bus.Setveight(2000);
+	bus.Setmax_speed(110);
+	bus.Setpassenger_capacity(34);
+	bus.Getweight();
+	bus.Getmax_speed();
+	bus.Getpassenger_capacity();
+	cout << endl;
+	cout << endl;
+	
+	cout << "Information about car:" << endl;
+	car.Setveight(1000);
+	car.Setmax_speed(180);
+	car.Setdoors(2);
+	car.Getweight();
+	car.Getmax_speed();
+	car.Getdoors();
+	cout << endl;
+	cout << endl;
+
+	cout << "Information about Lorry:" << endl;
+	lorry.Getweight();
+	lorry.Getmax_speed();
+	lorry.Getcarryweight();
+	cout << endl;
+	cout << endl;
+
+	system("pause");
+}
+
+
+Car.h:
+
+
+#include<iostream>
+using namespace std;
+
+class Car
+{
+protected:
+	double weight;
+	double max_speed;
+public:
+	Car(double veight=700.0,double max_speed= 100)
+	{
+		this->weight = veight;
+		this->max_speed = max_speed;
+	}
+	Car(const Car& ob)
+	{
+		this->weight = ob.weight;
+		this->max_speed = ob.max_speed;
+	}
+	virtual void Setveight(double weight)
+	{
+		this->weight = weight;
+	}
+	virtual void Getweight()
+	{
+		cout << "weight =  " << this->weight << endl;
+	}
+	virtual void Setmax_speed(double max_speed)
+	{
+		this->max_speed = max_speed;
+	}
+	virtual void Getmax_speed()
+	{
+		cout << "max speed =  " << this->max_speed <<" km/h"<< endl;
+	}
+};
+
+
+class LightCar:public Car
+{
+protected:
+	int doors;
+public:
+	LightCar(double weight=700, double max_speed=100, int doors=4) :Car(weight, max_speed)
+	{
+		this->doors = doors;
+	}
+	LightCar(const LightCar& ob):Car(ob)
+	{
+		this->doors = ob.doors;
+	}
+	void Setdoors(int doors)
+	{
+		this->doors = doors;
+	}
+	void Getdoors()
+	{
+		cout << "quantity of doors =  " << this->doors << endl;
+	}
+
+};
+
+
+class Lorry :public Car
+{
+protected:
+	double carryweight;
+public:
+	Lorry(double weight=4000, double max_speed=80, int carryweight = 1000) :Car(weight, max_speed)
+	{
+		this->carryweight = carryweight;
+	}
+	Lorry(const Lorry& ob) :Car(ob)
+	{
+		this->carryweight = ob.carryweight;
+	}
+	void Setcarryweight(double carryweight)
+	{
+		this->carryweight = carryweight;
+	}
+	void Getcarryweight()
+	{
+		cout<<"Carry weight =  "<< this->carryweight<<" kg"<<endl;
+	}
+
+};
+
+
+class Bus :public Car
+{
+protected:
+	double passenger_capacity;
+public:
+	Bus(double weight=3000, double max_speed=110, int passenger_capacity = 40) :Car(weight, max_speed)
+	{
+		this->passenger_capacity = passenger_capacity;
+	}
+	Bus(const Bus& ob) :Car(ob)
+	{
+		this->passenger_capacity = ob.passenger_capacity;
+	}
+	void Setpassenger_capacity(double carryweight)
+	{
+		this->passenger_capacity = carryweight;
+	}
+	void Getpassenger_capacity()
+	{
+		cout << "passenger capacity =  " << this->passenger_capacity << endl;
+	}
+
+};
