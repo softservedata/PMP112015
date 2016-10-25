@@ -1,0 +1,125 @@
+#include"iostream"
+using namespace std;
+
+class Set_G
+{
+	int* DataArray;
+	int size;
+public:
+	Set_G(int n)
+	{
+		size = n;
+		int* DataArray = new int[size];
+		int fin = 0;
+		for (int i = 0; i < size; i++)
+		{
+			DataArray[i] = fin;
+			fin++;
+			cout << DataArray[i] << " ";
+		}
+		cout << "\nConstructor with n done_" << endl;
+	}
+	int countvertex()
+	{
+		return size;
+	}
+	~Set_G()
+	{
+		delete  []DataArray;
+	}
+};
+
+void create_graph(Set_G&set,int**Matrix,int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			Matrix[i][j] = 0;
+			cout << Matrix[i][j] << " ";
+		}
+		cout << endl;
+	}
+	int f = 0;
+	char process;
+	for (int i = 1; i <= size; i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			cout << "do_you_want_add(" << f << "," << j << ")(y/n)? ";
+			cin >> process;
+			switch (process)
+			{
+				case 'y':
+					Matrix[f][j] = 1;
+					break;
+				case 'n':
+					//Matrix[f][j] = 0;
+					break;
+				default:
+					cout << "\nLOOK OUT!\n";
+					j--;
+					break;
+			}
+		}
+		f++;
+	}
+	cout << "Graph initialy: " << endl;
+	for (int i = 0; i <size; i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			cout << Matrix[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+
+void mirror_pokazz(Set_G&g,int** Matrix)
+{
+	int n = g.countvertex();
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			if (Matrix[i][j] == true)
+			{
+				if(i!=j)
+				{
+					Matrix[i][j] = false;
+				}
+			}
+			else
+				if (i != j)
+				{
+					Matrix[i][j] = true;
+				}
+		}
+	}
+	cout<<"\nGraph(mirror) initialy: " << endl;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			cout << Matrix[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+
+int main()
+{
+	int size;
+	cout << "Enter size: "; cin >> size;
+	Set_G sg(size);
+	int** mr = new int*[size];
+	for (int count = 0; count < size; count++)
+	{
+		mr[count] = new int[size];
+	}
+	create_graph(sg, mr, size);
+	mirror_pokazz(sg, mr);
+	cout << "The end" << endl;
+	system("pause");
+	return 0;
+}
