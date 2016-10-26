@@ -1,0 +1,151 @@
+#include <iostream>	
+#include <vector>
+
+using namespace std;
+
+// Class for an directed graph
+class Graph
+{
+private:
+	int n;
+	vector < vector<int> > g;
+	vector<char> cl;
+	vector<int> p;
+	int cycle_st, cycle_end;
+
+	bool dfs(int v) {
+		cl[v] = 1;
+		for (int i = 0; i < g[v].size(); ++i) {
+			int to = g[v][i];
+			if (cl[to] == 0) {
+				p[to] = v;
+				if (dfs(to))  return true;
+			}
+			else if (cl[to] == 1) {
+				cycle_end = v;
+				cycle_st = to;
+				return true;
+			}
+		}
+		cl[v] = 2;
+		return false;
+	}
+public:
+	Graph(int V)
+	{
+		n = V;
+		g = vector < vector<int> >(n);
+		cycle_st = 0;
+		cycle_end = 0;
+	}
+
+	void addEdge(int v, int w)
+	{
+		g[v].push_back(w);
+	}
+
+	bool isCyclic()
+	{
+		p.assign(n, -1);
+		cl.assign(n, 0);
+		cycle_st = -1;
+		for (int i = 0; i < n; ++i)
+		{
+			if (dfs(i))
+			{
+				break;
+			}
+		}
+
+		return cycle_st != -1;
+	}
+
+	bool isExistEdge(int a, int b)
+	{
+		for (int j = 0; j < g[a].size(); j++)
+		{
+			if (g[a][j] == b)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	void printGraph()
+	{
+		cout << "Graph edges:\n";
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < g[i].size(); j++)
+			{
+				cout << i << " -> " << g[i][j] << "    ";
+			}
+			if (g[i].size() > 0)
+			{
+				cout << "\n";
+			}
+		}
+	}
+
+	void readEdge()
+	{
+		int a, b;
+
+		cout << "Enter edge a -> b: ";
+		cin >> a >> b;
+
+		if (a >= n || b >= n)
+		{
+			cout << "You entered index out of range.\n";
+			return;
+		}
+
+		if (!isExistEdge(a, b))
+		{
+			addEdge(a, b);
+		}
+		else
+		{
+			cout << "This edge already exist.\n";
+		}
+	}
+
+	void read()
+	{
+		bool stop = false;
+		int input;
+
+		while (!stop)
+		{
+			cout << "Chose: 1 - Add edge; 2 - Exit: ";
+			cin >> input;
+
+			switch (input)
+			{
+			case 1:
+				readEdge();
+				break;
+			case 2:
+				stop = true;
+				printGraph();
+				break;
+			default: break;
+			}
+		}
+	}
+};
+
+int main() {
+	int m;
+	cout << "Enter size of graph: ";
+	cin >> m;
+
+	Graph G(m);
+
+	G.read();
+
+	cout << "Graph is " << (G.isCyclic() ? "Cyclic" : "Acyclic") << "\n";
+
+	system("pause");
+}
