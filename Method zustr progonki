@@ -1,0 +1,241 @@
+#include <iostream>
+using namespace std;
+
+//top func:
+
+double CalcTop_alpha(double B, double C)
+{
+	double alpha;
+	alpha = B / C;
+	return alpha;
+}
+double CalcTop_beta(double C, double F)
+{
+	double beta;
+	beta = F / C;
+	return beta;
+}
+double CalcTop_alpha_Iplus1(double A, double B, double C, double alpha)
+{
+	double alpha_Iplus1;
+	alpha_Iplus1 = B / (C - A * alpha);
+	return alpha_Iplus1;
+}
+double CalcTop_beta_Iplus1(double A, double C, double F, double alpha, double beta)
+{
+	double beta_Iplus1;
+	beta_Iplus1 = (F + A * beta) / (C - A * alpha);
+	return beta_Iplus1;
+}
+//bottom func:
+
+double CalcBottom_ksi(double A, double C)
+{
+	double bottom_ksi;
+	bottom_ksi = A / C;
+	return bottom_ksi;
+}
+double CalcBottom_eta(double C, double F)
+{
+	double bottom_eta;
+	bottom_eta = F / C;
+	return bottom_eta;
+}
+double CalcBottom_ksi_i(double A, double B, double C, double ksi_Iplus1)
+{
+	double bottom_ksi_i;
+	bottom_ksi_i = A / (C - B * ksi_Iplus1);
+	return bottom_ksi_i;
+}
+double CalcBottom_eta_i(double B, double C, double F, double ksi_Iplus1, double eta_Iplus1)
+{
+	double bottom_eta_i;
+	bottom_eta_i = (F + B * eta_Iplus1) / (C - B * ksi_Iplus1);
+	return bottom_eta_i;
+}
+//Calc Y
+
+double CalcY_m(double alpha, double beta, double ksi, double eta)
+{
+	double Y_m;
+	Y_m = (eta + ksi*alpha) / (1 - ksi*alpha);
+	return Y_m;
+}
+double CalcY_m_minus1(double alpha, double beta, double ksi, double eta)
+{
+	double Y_m_minus1;
+	Y_m_minus1 = (beta + alpha*eta) / (1 - ksi*alpha);
+	return Y_m_minus1;
+}
+double CalcY_i(double alpha, double Y, double beta)
+{
+	double Y_i;
+	Y_i = alpha * Y + beta;
+	return Y_i;
+}
+double CalcY_iPlus1(double eta, double Y, double ksi)
+{
+	double Y_iPlus1;
+	Y_iPlus1 = ksi * Y + eta;
+	return Y_iPlus1;
+}
+
+void main()
+{
+	int size;
+	int a = 0;
+	int b = 0;
+	int c = 0;
+	cout << "Enter size of matrix NxN: ";
+	cin >> size;
+
+	double **Matrix_A = (double**)calloc(size, sizeof(double));
+	for (int i = 0; i < size; ++i)
+	{
+		Matrix_A[i] = (double*)calloc(size, sizeof(double));
+	}
+	double *F = (double*)calloc(size, sizeof(double));
+	double *A = (double*)calloc(size - 1, sizeof(double));//have to be reversed
+	double *B = (double*)calloc(size - 1, sizeof(double));//have to be reversed
+	double *C = (double*)calloc(size, sizeof(double));
+	double *Y = (double*)calloc(size, sizeof(double));
+	double *Y_m = (double*)calloc(size, sizeof(double));
+	double *alpha = (double*)calloc(size, sizeof(double));
+	double *beta = (double*)calloc(size, sizeof(double));
+	double *ksi = (double*)calloc(size, sizeof(double));
+	double *eta = (double*)calloc(size, sizeof(double));
+
+	//for (int i = 0; i < size; ++i)
+	//{
+	//	for (int j = 0; j < size; ++j)
+	//	{
+	//		cout << "Enter A[" << i << "][" << j << "]: ";
+	//		cin >> Matrix_A[i][j];
+	//		if (i == j + 1){ A[a] = -Matrix_A[i][j]; ++a; }
+	//		if (i + 1 == j){ B[b] = -Matrix_A[i][j]; ++b; }
+	//		if (i == j){ C[c] = Matrix_A[i][j]; ++c; }// can be mistake!
+	//	}
+	//}
+	Matrix_A[0][0] = 1; Matrix_A[1][0] = 1; Matrix_A[2][0] = 0; Matrix_A[3][0] = 0; Matrix_A[4][0] = 0; Matrix_A[5][0] = 0;
+	Matrix_A[0][1] = 0; Matrix_A[1][1] = -2; Matrix_A[2][1] = 1; Matrix_A[3][1] = 0; Matrix_A[4][1] = 0; Matrix_A[5][1] = 0;
+	Matrix_A[0][2] = 0; Matrix_A[1][2] = 1; Matrix_A[2][2] = -2; Matrix_A[3][2] = 1; Matrix_A[4][2] = 0; Matrix_A[5][2] = 0;
+	Matrix_A[0][3] = 0; Matrix_A[1][3] = 0; Matrix_A[2][3] = 1; Matrix_A[3][3] = -2; Matrix_A[4][3] = 1; Matrix_A[5][3] = 0;
+	Matrix_A[0][4] = 0; Matrix_A[1][4] = 0; Matrix_A[2][4] = 0; Matrix_A[3][4] = 1; Matrix_A[4][4] = -2; Matrix_A[5][4] = 0;
+	Matrix_A[0][5] = 0; Matrix_A[1][5] = 0; Matrix_A[2][5] = 0; Matrix_A[3][5] = 0; Matrix_A[4][5] = 1; Matrix_A[5][5] = 1;
+
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < size; ++j)
+		{
+			if (i == j + 1){ A[a] = -Matrix_A[i][j]; ++a; }
+			if (i + 1 == j){ B[b] = -Matrix_A[i][j]; ++b; }
+			if (i == j){ C[c] = Matrix_A[i][j]; ++c; }// can be mistake!
+		}
+	}
+	B[0] = Matrix_A[0][1];
+	A[size - 2] = Matrix_A[size-1][size - 2];
+	cout << "Matrix A:" << endl;
+	for (int i = 0; i<size; ++i)
+	{
+		for (int j = 0; j < size; ++j)
+		{
+			cout << Matrix_A[i][j] << " ";
+		}
+		cout << endl;
+	}
+
+	/*for (int i = 0; i < size; ++i)
+	{
+	cout << "Enter F[" << i << "]:";
+	cin >> F[i];
+	}*/F[0] = 1; F[1] = F[2] = F[3] = F[4] = 0; F[5] = 2;
+	cout << "Vector F:" << endl;
+	for (int i = 0; i < size; i++)
+	{
+		cout << F[i] << endl;
+	}
+
+	int n = size - 1;
+
+	for (int i = 0; i < n; ++i)
+	{
+		cout << "A[" << i << "]: " << A[i] << endl;
+	}
+	for (int i = 0; i < n; ++i)
+	{
+		cout << "B[" << i << "]: " << B[i] << endl;
+	}
+	for (int i = 0; i < n + 1; ++i)
+	{
+		cout << "C[" << i << "]: " << C[i] << endl;
+	}
+
+	alpha[0] = CalcTop_alpha(B[0], C[0]);
+	beta[0] = CalcTop_beta(C[0], F[0]);
+	ksi[n-1] = CalcBottom_ksi(A[n-1], C[n-1]);
+	eta[n-1] = CalcBottom_eta(C[n-1], F[n-1]);
+
+	for (int i = 1; i < size; ++i)
+	{
+		alpha[i] = CalcTop_alpha_Iplus1(A[i-1], B[i-1], C[i-1], alpha[i-1]); // correct!
+		beta[i] = CalcTop_beta_Iplus1(A[i-1], C[i-1], F[i-1], alpha[i-1], beta[i-1]); // correct!
+	}
+	for (int i = n - 2; i >= 0; --i)
+	{
+		ksi[i] = CalcBottom_ksi_i(A[i], B[i], C[i], ksi[i + 1]); // correct!
+		/*cout << "A[" << i << "]:" << A[i] << endl;
+		cout << "B[" << i << "]:" << B[i] << endl;
+		cout << "C[" << i << "]:" << C[i] << endl;*/
+	}
+	for (int i = n - 2; i >= 0; --i)
+	{
+		eta[i] = CalcBottom_eta_i(B[i], C[i], F[i], ksi[i + 1], eta[i + 1]); // correct!
+	}
+	Y[size / 2] = CalcY_m(alpha[size / 2], beta[size / 2], ksi[size / 2], eta[size / 2]);
+	Y[(size / 2) - 1] = CalcY_m_minus1(alpha[size / 2], beta[size / 2], ksi[size / 2], eta[size / 2]);
+	cout << "Y[" << size / 2 << "]: " << Y[size / 2] << endl;
+	cout << "Y[" << (size / 2) - 1 << "]: " << Y[(size / 2) - 1] << endl;
+	for (int i = (size /2)-2 ; i >= 0; --i)
+	{
+		Y[i] = CalcY_i(alpha[i + 1], Y[i + 1], beta[i + 1]);//Y[i+1] = Y[m]  vid p do 1
+		/*cout << "Y[" << i << "]: " << Y[i]
+			<< " = alpha[" << i + 1 << "]: " << alpha[i + 1]
+			<< " * Y[" << i + 1 << "]: " << Y[i + 1]
+			<< " + beta[" << i + 1 << "]: "
+			<< beta[i + 1] << endl;*/
+	}
+	for (int i = (size / 2)+1; i < size; ++i)
+	{
+		Y[i+1] = CalcY_iPlus1(eta[i + 1], Y[i], ksi[i + 1]);//Y[i] = Y[m-1]  vid size do p
+		/*cout << "Y[" << i + 1 << "]: "<< Y[i + 1]
+			<< " = ksi[" << i + 1 << "]: "<< ksi[i + 1]
+			<< " * Y[" << i << "]: " << Y[i]
+			<< " + eta[" << i + 1 << "]: "
+			<< eta[i + 1] << endl;*/
+	}
+	for (int i = 0; i < size; ++i)
+	{
+		cout << "alpha[" << i << "]: " << alpha[i] << endl;
+	}
+	for (int i = 0; i < size; ++i)
+	{
+		cout << "beta[" << i << "]: " << beta[i] << endl;
+	}
+	for (int i = 0; i < n; ++i)
+	{
+		cout << "ksi[" << i << "]: " << ksi[i] << endl;
+	}
+	for (int i = 0; i < n; ++i)
+	{
+		cout << "eta[" << i << "]: " << eta[i] << endl;
+	}
+	for (int i = 0; i < n; ++i)
+	{
+		cout << "Y[" << i << "]: " << Y[i] << endl;
+	}
+	int number;
+	cout << "What number of Y do you want to find?\n" << "I want to find: ";
+	cin >> number;
+	cout << "Your Y[" << number - 1 << "] = " << CalcY_m(alpha[number], beta[number], ksi[number], eta[number]) << endl;
+	system("pause");
+}
