@@ -5,36 +5,36 @@ App.cpp:
 #include"Car.h"
 using namespace std;
 
+
 void main()
 {
-	Bus bus;
-	LightCar car;
-	Lorry lorry;
-	
 	cout << "Information about bus:" << endl;
-	bus.Setveight(2000);
-	bus.Setmax_speed(110);
-	bus.Setpassenger_capacity(34);
-	bus.Getweight();
-	bus.Getmax_speed();
-	bus.Getpassenger_capacity();
+	Bus* p = new Bus;
+	p->Setveight(2000);
+	p->Setmax_speed(110);
+	p->Setpassenger_capacity(40);
+	p->Getweight();
+	p->Getmax_speed();
+	p->Getpassenger_capacity();
 	cout << endl;
 	cout << endl;
-	
+
 	cout << "Information about car:" << endl;
-	car.Setveight(1000);
-	car.Setmax_speed(180);
-	car.Setdoors(2);
-	car.Getweight();
-	car.Getmax_speed();
-	car.Getdoors();
+	LightCar* t = new LightCar;
+	t->Setveight(1000);
+	t->Setmax_speed(180);
+	t->Setdoors(2);
+	t->Getweight();
+	t->Getmax_speed();
+	t->Getdoors();
 	cout << endl;
 	cout << endl;
 
 	cout << "Information about Lorry:" << endl;
-	lorry.Getweight();
-	lorry.Getmax_speed();
-	lorry.Getcarryweight();
+	Lorry* s = new Lorry;
+	s->Getweight();
+	s->Getmax_speed();
+	s->Getcarryweight();
 	cout << endl;
 	cout << endl;
 
