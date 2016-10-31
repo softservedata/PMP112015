@@ -4,75 +4,57 @@ using namespace std;
 
 class Vector
 {
-//private:
-//	int *vector;
-//	int vector_size;
-//	int *multiplied, o = 0;
+	private:
+		int *vector;
+		int vector_size;
 public:
 	Vector() {}
 	Vector(int size)
 	{
-		//this->vector_size = size;
-		////vector = (*new)calloc(vector_size);
-		//multiplied = (int*)calloc(vector_size, sizeof(int));
-		//vector = (int*)calloc(vector_size, sizeof(int));
-		//for (int i = 0; i < vector_size; ++i)
-		//{
-		//	cout << "Enter vector[" << i << "]: ";
-		//	cin >> vector[i];
-		//}
+		this->vector_size = size;
+		vector = (int*)calloc(vector_size, sizeof(int));
+		for (int i = 0; i < vector_size; ++i)
+		{
+			cout << "Enter vector[" << i << "]: ";
+			cin >> vector[i];
+		}
 		cout << "Default constructor Vector(int size) done!\n";
 	}
 	Vector(const Vector& temp)
 	{
-		/*this->vector_size = temp.vector_size;
+		this->vector_size = temp.vector_size;
 		*this->vector = *temp.vector;
-		*this->multiplied = *temp.multiplied;*/
 		cout << "Copy constructor Vector(const Vector& temp) done!\n";
 	}
 	virtual ~Vector()
 	{
-		//delete[] vector;
-		//delete[] multiplied;
+		delete[] vector;
 		cout << "Destructor ~Vector() done!\n";
 	}
 
-	//virtual int getVector_size()
-	//{
-	//	return vector_size;
-	//}
-	//virtual int*getVector()
-	//{
-	//	return vector;
-	//}
-	//virtual int*getMultiplied()
-	//{
-	//	return multiplied;
-	//}
-	//virtual int getO()
-	//{
-	//	return o;
-	//}
-	/*int multiply()
+	virtual int*getVector()
 	{
-		cout << "Vect multiply done!\n";
-	}*/
-
+		return vector;
+	}
+	virtual int getVector_size()
+	{
+		return vector_size;
+	}
 	virtual void outVector()
 	{
-		
+
 	}
 	virtual void outMatrix()
 	{
-		
+
 	}
 	virtual void multiply()
 	{
-		
+
 	}
 	virtual void outMultiplied()
 	{
-		
+
 	}
 };
 
@@ -86,13 +68,13 @@ private:
 	int *multiplied;
 public:
 	Matrix(){}
-	Matrix(int size, int size1, int size2) :Vector()
+	Matrix(int size, int size1, int size2) :Vector(size)
 	{
+		this->vector = getVector();
+		this->vector_size = getVector_size();
 		this->matrix_size1 = size1;
 		this->matrix_size2 = size2;
-		this->vector_size = size;
 		multiplied = (int*)calloc(vector_size, sizeof(int));
-		vector = (int*)calloc(vector_size, sizeof(int));
 		matrix = (int**)calloc(matrix_size1, sizeof(int));
 		for (int i = 0; i < matrix_size2; ++i)
 		{
@@ -103,21 +85,15 @@ public:
 				cin >> matrix[i][j];
 			}
 		}
-		for (int i = 0; i < vector_size; ++i)
-		{
-			cout << "Enter vector[" << i << "]: ";
-			cin >> vector[i];
-		}
-		cout << "Default constructor Matrix(int size1, int size2) :Vector() done!\n";
 	}
 	Matrix(const Matrix& temp) :Vector(temp)
 	{
-		this->vector_size = temp.vector_size;
-		*this->vector = *temp.vector;
-		*this->multiplied = *temp.multiplied;
+		**this->matrix = **temp.matrix;
 		this->matrix_size1 = temp.matrix_size1;
 		this->matrix_size2 = temp.matrix_size2;
-		**this->matrix = **temp.matrix;
+		*this->multiplied = *temp.multiplied;
+		*this->vector = *temp.vector;
+		this->vector_size = temp.vector_size;
 		cout << "Copy constructor Matrix(const Matrix& temp) :Vector() done!\n";
 	}
 	virtual ~Matrix()
@@ -131,14 +107,6 @@ public:
 		delete[] vector;
 		cout << "Destructor ~Matrix() done!\n";
 	}
-
-	//void operator=(Vector&x)
-	//{
-	//	vector_size = x.getVector_size();
-	//	vector = x.getVector();
-	//	multiplied = x.getMultiplied();
-	//	o = x.getO();
-	//}
 	virtual void outVector()
 	{
 		cout << "Vector: \n";
@@ -172,26 +140,6 @@ public:
 			cout << endl;
 		}
 	}
-	//void multiply()
-	//{
-	//	//cout << "Result:" << endl;
-	//	vm = (int**)calloc(l, sizeof(int));
-	//	for (int i = 0; i < matrix_size1; i++)
-	//	{
-	//		vm[i] = (int*)calloc(l, sizeof(int));
-	//		for (int j = 0; j < matrix_size2; j++)
-	//		{
-	//			multiplied[i] += matrix[i][j] * vector[j];
-	//		}
-	//		vm[o][i] = multiplied[i];
-	//		//cout << multiplied[i] << endl;
-	//	}
-	//	for (int i = 0; i < matrix_size1; i++)
-	//	{
-	//		multiplied[i] = 0;
-	//	}
-	//	o++;
-	//}
 	virtual void outMultiplied()
 	{
 		cout << "Multiplied: \n";
@@ -202,49 +150,29 @@ public:
 		}
 		cout << endl << "===============================" << endl << endl;
 	}
-	//void outMultiplied()
-	//{
-	//	cout << "Myltiplied: \n";
-	//	for (int i = 0; i < o; ++i)
-	//	{
-	//		for (int j = 0; j < vector_size; ++j){
-	//			cout << vm[i][j] << " ";
-	//		}
-	//		
-	//	}
-	//	cout << endl << endl;
-	//}
 };
 
 void main()
 {
+	//Matrix(Vect_size, matr size, matr size)
 	Vector *A = new Matrix(2, 2, 2);
-	Vector *B = new Matrix(3, 3, 3);
-	Vector *C = new Matrix(4, 4, 4);
-	//B = A;
+	/*Vector *B = new Matrix(3, 3, 3);
+	Vector *C = new Matrix(4, 4, 4);*/
 	A->outMatrix();
 	A->outVector();
 	A->multiply();
 	A->outMultiplied();
-	B->outMatrix();
+	/*B->outMatrix();
 	B->outVector();
 	B->multiply();
 	B->outMultiplied();
 	C->outMatrix();
 	C->outVector();
 	C->multiply();
-	C->outMultiplied();
-	/*B.outVector();
-	B.multiply();
-	B.outMultiplied();
+	C->outMultiplied();*/
+
 
 	cout << "==============================\n";
-
-	C = A;
-	C.outMatrix();
-	C.outVector();
-	C.multiply();
-	C.outMultiplied();*/
 
 
 	system("pause");
