@@ -5,39 +5,20 @@ App.cpp:
 #include"Car.h"
 using namespace std;
 
-
 void main()
 {
+	Car* h = new Bus;
 	cout << "Information about bus:" << endl;
-	Bus* p = new Bus;
-	p->Setveight(2000);
-	p->Setmax_speed(110);
-	p->Setpassenger_capacity(40);
-	p->Getweight();
-	p->Getmax_speed();
-	p->Getpassenger_capacity();
+	h->information();
 	cout << endl;
-	cout << endl;
-
+	h = new LightCar;
 	cout << "Information about car:" << endl;
-	LightCar* t = new LightCar;
-	t->Setveight(1000);
-	t->Setmax_speed(180);
-	t->Setdoors(2);
-	t->Getweight();
-	t->Getmax_speed();
-	t->Getdoors();
+	h->information();
 	cout << endl;
-	cout << endl;
-
+	h = new Lorry;
 	cout << "Information about Lorry:" << endl;
-	Lorry* s = new Lorry;
-	s->Getweight();
-	s->Getmax_speed();
-	s->Getcarryweight();
+	h->information();
 	cout << endl;
-	cout << endl;
-
 	system("pause");
 }
 
@@ -80,6 +61,11 @@ public:
 	{
 		cout << "max speed =  " << this->max_speed <<" km/h"<< endl;
 	}
+	virtual void information()
+	{
+		cout << "weight =  " << this->weight << endl;
+		cout << "max speed =  " << this->max_speed << " km/h" << endl;
+	}
 };
 
 
@@ -96,12 +82,17 @@ public:
 	{
 		this->doors = ob.doors;
 	}
-	void Setdoors(int doors)
+	virtual void Setdoors(int doors)
 	{
 		this->doors = doors;
 	}
-	void Getdoors()
+	virtual void Getdoors()
 	{
+		cout << "quantity of doors =  " << this->doors << endl;
+	}
+	void information()
+	{
+		Car::information();
 		cout << "quantity of doors =  " << this->doors << endl;
 	}
 
@@ -121,38 +112,17 @@ public:
 	{
 		this->carryweight = ob.carryweight;
 	}
-	void Setcarryweight(double carryweight)
+	virtual void Setcarryweight(double carryweight)
 	{
 		this->carryweight = carryweight;
 	}
-	void Getcarryweight()
+	virtual void Getcarryweight()
 	{
 		cout<<"Carry weight =  "<< this->carryweight<<" kg"<<endl;
 	}
-
-};
-
-
-class Bus :public Car
-{
-protected:
-	double passenger_capacity;
-public:
-	Bus(double weight=3000, double max_speed=110, int passenger_capacity = 40) :Car(weight, max_speed)
+	void information()
 	{
-		this->passenger_capacity = passenger_capacity;
+		Car::information();
+		cout << "Carry weight =  " << this->carryweight << " kg" << endl;
 	}
-	Bus(const Bus& ob) :Car(ob)
-	{
-		this->passenger_capacity = ob.passenger_capacity;
-	}
-	void Setpassenger_capacity(double carryweight)
-	{
-		this->passenger_capacity = carryweight;
-	}
-	void Getpassenger_capacity()
-	{
-		cout << "passenger capacity =  " << this->passenger_capacity << endl;
-	}
-
 };
