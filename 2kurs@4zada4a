@@ -3,19 +3,19 @@
 #include <string.h>
 using namespace std;
 
-class Person 
+class Person
 {
 public:
 	char* name;
 	char* speciality;
 	int age;
-	virtual void Info() 
+	virtual void Info()
 	{
 		cout << "Name= " << name;
 		cout << "Age= " << age;
 		cout << "Speciality= " << speciality;
 	};
-	Person() 
+	Person()
 	{
 		cout << "Person start" << endl;
 		name = new char[256];
@@ -28,19 +28,24 @@ public:
 		cin >> speciality;
 
 	}
-	Person(char*_name, int _age, char*_speciality) 
+	Person(char*_name, int _age, char*_speciality)
 	{
 		this->name = _name;
 		this->age = _age;
 		this->speciality = _speciality;
 	}
-	Person(Person* tmp) 
+	Person(Person* tmp)
 	{
 		this->age = tmp->age;
 		this->name = this->name;
 		this->speciality = this->speciality;
 	}
-	
+	~Person() 
+	{
+		cout<<"~Person Start"<<endl;
+		delete name;
+		delete speciality;
+	}
 };
 
 class Student :public Person
@@ -111,5 +116,5 @@ void main()
 	Person* oleg = new Professor;
 	cout << "----------------------------------------------------------------" << endl;
 	oleg->Info();
-
+	delete oleg;
 }
