@@ -1,0 +1,126 @@
+#include<iostream>
+using namespace std;
+
+class Weapon
+{
+protected:
+	char* name;
+public:
+	Weapon()
+	{}
+	char* getName()
+	{
+		return name;
+	}
+	void setName(char* name)
+	{
+		delete[] name;
+		this->name = new char[sizeof(name) / sizeof(char)];
+		this->name = name;
+	}
+	virtual ~Weapon()
+	{
+		delete[] name;
+	}
+};
+
+class Rifle :public Weapon
+{
+private:
+	double weight;
+public:
+	Rifle(char* name, double weight)
+	{
+		this->name = new char[sizeof(name) / sizeof(char)];
+		this->name = name;
+		this->weight = weight;
+	}
+	void setWeight(double weight)
+	{
+		this->weight = weight;
+	}
+	double getWeight()
+	{
+		return weight;
+	}
+	friend ostream& operator<<(ostream& s, Rifle& rifle)
+	{
+		s << "Rifle Name: " << rifle.name << " Weight: " << rifle.weight;
+		return s;
+	}
+	~Rifle()
+	{
+		delete[] name;
+	}
+};
+
+class MuchineGun :public Weapon
+{
+private:
+	int shotsPerMinute;
+public:
+	MuchineGun(char* name, int shotsPerMinute)
+	{
+		this->name = new char[sizeof(name) / sizeof(char)];
+		this->name = name;
+		this->shotsPerMinute = shotsPerMinute;
+	}
+	void setShotsPerMinute(int shotsPerMinute)
+	{
+		this->shotsPerMinute = shotsPerMinute;
+	}
+	double getShotsPerMinute()
+	{
+		return shotsPerMinute;
+	}
+	friend ostream& operator<<(ostream& s, MuchineGun& muchineGun)
+	{
+		s << "Muchine Gun Name: " << muchineGun.name << " Shots per minute: " << muchineGun.shotsPerMinute;
+		return s;
+	}
+	~MuchineGun()
+	{
+		delete[] name;
+	}
+};
+
+class Gun :public Weapon
+{
+private:
+	int magazine;
+public:
+	Gun(char* name, int magazine)
+	{
+		this->name = new char[sizeof(name) / sizeof(char)];
+		this->name = name;
+		this->magazine = magazine;
+	}
+	void setMagazine(int magazine)
+	{
+		this->magazine = magazine;
+	}
+	double getMagazine()
+	{
+		return magazine;
+	}
+	friend ostream& operator<<(ostream& s, Gun& gun)
+	{
+		s << "Gun Name: " << gun.name << " Magazin: " << gun.magazine;
+		return s;
+	}
+	~Gun()
+	{
+		delete[] name;
+	}
+};
+
+int main()
+{
+	Rifle* rifle = new Rifle("Remington Model 870", 3.2);
+	MuchineGun* muchineGun = new MuchineGun("M16A1", 700);
+	Gun* gun = new Gun("Beretta 92", 20);
+	cout << *(rifle) << endl;
+	cout << *(muchineGun) << endl;
+	cout << *(gun) << endl;
+	system("pause");
+}
