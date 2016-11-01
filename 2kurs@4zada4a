@@ -1,0 +1,115 @@
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+using namespace std;
+
+class Person 
+{
+public:
+	char* name;
+	char* speciality;
+	int age;
+	virtual void Info() 
+	{
+		cout << "Name= " << name;
+		cout << "Age= " << age;
+		cout << "Speciality= " << speciality;
+	};
+	Person() 
+	{
+		cout << "Person start" << endl;
+		name = new char[256];
+		speciality = new char[256];
+		cout << "Enter Name: ";
+		cin >> name;
+		cout << "Enter age: ";
+		cin >> age;
+		cout << "Enter Speciality: ";
+		cin >> speciality;
+
+	}
+	Person(char*_name, int _age, char*_speciality) 
+	{
+		this->name = _name;
+		this->age = _age;
+		this->speciality = _speciality;
+	}
+	Person(Person* tmp) 
+	{
+		this->age = tmp->age;
+		this->name = this->name;
+		this->speciality = this->speciality;
+	}
+	
+};
+
+class Student :public Person
+{
+
+public:
+	int scholarship;
+	Student() :Person()
+	{
+		cout << "Student start" << endl;
+		cout << "Enter scholarship: ";
+		cin >> scholarship;
+		
+	}
+	
+
+
+
+
+	virtual void Info()
+	{
+		cout << "Name= " << name;
+		cout << "Age= " << age;
+		cout << "Speciality= " << speciality;
+		cout << "scholarship= " << scholarship;
+	};
+};
+
+class Professor :public Student
+{
+public:
+	int salary;
+	int exam;
+	Professor():Student()
+	{
+
+		cout << "An exam to become a professor :2+2= ";
+		cin >> exam;
+		if (exam == 4) {
+			cout << "Gratz u become a proffesor your scholarship was: " << scholarship << "\nSo now your scholarship=0 ,Now enter salary: ";
+			this->age += 5;
+			cin >> salary;
+			scholarship = 0;
+		}
+		else 
+		{
+			cout << "U cant become a proffesor " << endl;
+			this->age += 5;
+		}
+	}
+	
+	virtual void Info()
+	{
+		cout << "Name= " << name<<endl;
+		cout << "Age= " << age << endl;
+		cout << "Speciality= " << speciality << endl;
+		cout << "scholarship= " << scholarship << endl;
+		cout << "salary= " << salary << endl;
+	};
+
+};
+
+
+
+void main()
+{
+	
+	Person* oleg = new Professor;
+	cout << "----------------------------------------------------------------" << endl;
+	oleg->Info();
+
+}
