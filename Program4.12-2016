@@ -1,0 +1,169 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+class Student;
+class Group;
+class Department;
+class Base
+{
+protected:
+	string name;
+public:
+	Base(string name= "unknown")
+	{
+		//cout << "constructor Base\n";
+		this->name=name;
+	}
+	Base(Base& base)
+	{
+		//cout << "constructor copy Base\n";
+		this->name=base.name;
+	}
+	string getname()
+	{
+		return name;
+	}
+	virtual void printData() = 0;
+	virtual void addData(Student& student)
+	{
+		cout << "error: Student can not be setted\n";
+	}
+	virtual void addData(Group& group)
+	{
+		cout << "error: Group can not be setted\n";
+	}
+	virtual ~Base()
+	{
+		//cout << "destructor Base\n";
+	}
+};
+
+class Student: public Base
+{
+private:
+	int age;
+public:
+	Student(int age=0,string name = "unknown"): Base(name)
+	{
+		//cout << "constructor Student\n";
+		this->age=age;
+	}
+	Student(Student& student): Base(student)
+	{
+		//cout << "constructor copy Student\n";
+		this->age = student.age;
+	}
+	void printData()
+	{
+		cout << "Student name= " << name << endl;
+		cout << "Student age= " << age << endl;
+	}
+	~Student()
+	{
+		//cout << "destructor Student\n";
+	}
+};
+
+class Group: public Base
+{
+private:
+	int number;
+	Student regist[100];
+public:
+	Group(int number = 0, string name = "unknown") : Base(name)
+	{
+		//cout << "constructor Group\n";
+		this->number = number;
+	}
+	Group(Group& group) : Base(group)
+	{
+		//cout << "constructor copy Group\n";
+		this->number = group.number;
+		for (int i = 0; i < number; i++)
+		{
+			this->regist[i] = group.regist[i];
+		}
+	}
+	void printData()
+	{
+		cout << "Group name= " << name << endl;
+		cout << "Group number= " << number << endl;
+		for (int i = 0; i < number; i++)
+		{
+			this->regist[i].printData();
+		}
+	}
+	void addData(Student& student)
+	{
+		regist[number] = student;
+		number++;
+	}
+	~Group()
+	{
+		//cout << "destructor Group\n";
+	}
+};
+
+class Department: public Base
+{
+private:
+	int count;
+	Group list[100];
+public:
+	Department(int count = 0, string name = "unknown") : Base(name)
+	{
+		//cout << "constructor Department\n";
+		this->count = count;
+	}
+	Department(Department& department) : Base(department)
+	{
+		//cout << "constructor copy Department\n";
+		this->count = department.count;
+		for (int i = 0; i < count; i++)
+		{
+			this->list[i] = department.list[i];
+		}
+	}
+	void printData()
+	{
+		cout << "Department name= " << name << endl;
+		cout << "Department count= " << count << endl;
+		for (int i = 0; i < count; i++)
+		{
+			this->list[i].printData();
+		}
+	}
+	void addData(Group& group)
+	{
+		list[count] = group;
+		count++;
+	}
+	~Department()
+	{
+		//cout << "destructor Department\n";
+	}
+};
+
+void main()
+{
+	Base* depart = new Department(0,"Appied maths");
+	Student s1(20, "John");
+	Student s2(19, "Mary");
+	Student s3(21, "Fibi");
+	Student s4(20, "David");
+	Student s5(22, "Ron");
+	Group g1(0,"Maths");
+	Group g2(0, "Informatics");
+	g1.addData(s1);
+	g1.addData(s3);
+	g1.addData(s4);
+	g2.addData(s2);
+	g2.addData(s5);
+	depart->addData(g1);
+	depart->addData(g2);
+	depart->printData();
+	delete depart;
+	system("pause");
+}
