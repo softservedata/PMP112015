@@ -1,0 +1,150 @@
+#ifndef HEADER_H
+#define HEADER_H
+#include<iostream>
+using namespace std;
+
+class Equation
+{
+private:
+	int n;
+	double* a;
+	double* b;
+	double* c;
+	double* f;
+	double* y;
+	double x1;
+	double x2;
+	double m1;
+	double m2;
+	double h;
+	double *alpha;
+	double *beta;
+	double *nu;
+	double *xi;
+public:
+	Equation(int n=10)
+	{
+		this->n = n;
+		a = new double[n-1];
+		b = new double[n-1];
+		c = new double[n-1];
+		y = new double[n];
+		f = new double[n];
+		h = 1. / n;
+		for (int i = 1; i < n; i++)
+		{
+			a[i] = (1. / (h*h)) + ((1. + h*i) / 2 * h);
+			b[i] = (1. / (h*h)) - ((1. + h*i) / 2 * h);
+			c[i] = 1 + (2. / (h*h));
+			f[i] = 2. / ((1. + i*h)*(1. + i*h)*(1. + i*h));
+		}
+		x1 = h * 1;
+		x2 = h * 2;
+		m1 = 1. / (x1 + 1);
+		m2 = 1. / (x2 + 1);
+	}
+	void Method()
+	{
+		int ave = n / 2;
+		alpha = new double[ave+2];
+		beta = new double[ave+2];
+		nu = new double[n];
+		xi = new double[n];
+		alpha[1] = x1;
+		beta[1] = m1;
+		nu[n - 1] = m2;
+		xi[n - 1] = x2;
+		for (int i = 1; i < ave + 1; i++)
+		{
+			alpha[i + 1] = b[i] / (c[i] - a[i] * alpha[i]);
+			beta[i + 1] = (a[i] * beta[i] + f[i]) / (c[i] - a[i] * alpha[i]);
+		}
+		for (int i = n-2; i > ave; i--)
+		{
+			xi[i] = a[i] / (c[i] - b[i] * xi[i + 1]);
+			nu[i] = (nu[i + 1] * b[i] + f[i]) / (c[i] - b[i] * xi[i + 1]);
+		}
+		y[ave] = (beta[ave + 1] + alpha[ave + 1] * nu[ave + 1]) / (1 - alpha[ave + 1] * xi[ave + 1]);
+		for (int i = ave - 1; i >= 0; i--)
+		{
+			y[i] = alpha[i + 1] * y[i + 1] + beta[i + 1];
+		}
+		for (int i = ave + 1; i < n; i++)
+		{
+			y[i] = xi[i] * y[i - 1] + nu[i];
+		}
+	}
+	void print()
+	{
+		int ave = n / 2;
+		cout << "y=\n";
+		for (int i = 0; i < n; i++)
+		{
+			cout << y[i] << " ";
+		}
+		cout << endl;
+		cout << "f=\n";
+		for (int i = 0; i < n; i++)
+		{
+			cout << f[i] << " ";
+		}
+		cout << endl;
+		cout << "a=\n";
+		for (int i = 0; i < n-1; i++)
+		{
+			cout << a[i] << " ";
+		}
+		cout << endl; 
+		cout << "b=\n";
+		for (int i = 0; i < n-1; i++)
+		{
+			cout << b[i] << " ";
+		}
+		cout << endl; 
+		cout << "c=\n";
+		for (int i = 0; i < n-1; i++)
+		{
+			cout << c[i] << " ";
+		}
+		cout << endl; 
+		cout << "alpha=\n";
+		for (int i = 1; i < ave+2; i++)
+		{
+			cout << alpha[i] << " ";
+		}
+		cout << endl;
+		cout << "beta=\n";
+		for (int i = 1; i < ave + 2; i++)
+		{
+			cout << beta[i] << " ";
+		}
+		cout << endl;
+		cout << "xi=\n";
+		for (int i = ave + 1; i < n; i++)
+		{
+			cout << xi[i] << " ";
+		}
+		cout << endl;
+		cout << "nu=\n";
+		for (int i = ave + 1; i < n; i++)
+		{
+			cout << nu[i] << " ";
+		}
+		cout << endl;
+	}
+	~Equation()
+	{
+		cout << "destructor" << endl;
+		delete[] a;
+		delete[] b;
+		delete[] c;
+		delete[] y;
+		delete[] f;
+		delete[] alpha;
+		delete[] beta;
+		delete[] xi;
+		delete[] nu;
+		cout << "destructor" << endl;
+		system("pause");
+	}
+};
