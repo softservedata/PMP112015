@@ -24,7 +24,7 @@ public:
 	{
 		cout << "\n Name: " << name<<" Age=" << age;
 	}
-
+	virtual void voice()=0;
 };
 
 class Crown :public Bird {
@@ -36,13 +36,17 @@ public:
 	{
 		this->weight = weight;
 	}
-	virtual	void show()
+	void show()
 	{
 		cout << endl;
 		Bird::show();
 		
-			cout << "\n Weirght=" << weight;
-	}	
+		cout << "\n Weirght=" << weight;
+	}
+	void voice()
+	{
+		cout << "\n Crya-crya!";
+	}
 };
 
 class Dove :public Bird 
@@ -55,19 +59,23 @@ public:
 	{
 		this->tame = tame;
 	}
-	virtual	void show()
+	void show()
 	{
 		cout << endl;
 		Bird::show();
 		if (tame)
 		{
-			cout <<"\n Tamed"<< endl;
+			cout <<"\n Tamed";
 		}
 		else
 		{
-			cout << "\n Wild" << endl;
+			cout << "\n Wild";
 		}
 		
+	}
+	void voice()
+	{
+		cout << "\n Gooo-gooo!";
 	}
 };
 
@@ -101,6 +109,10 @@ public:
 			cout << "\n Not flock" ;
 		}
 	}
+	void voice()
+	{
+		cout << "\n Cvirin cvirin!";
+	}
 };
 void main() 
 {
@@ -108,7 +120,11 @@ void main()
 	Sparrow* sparrow = new Sparrow("Gosha", 6, "Brown", false);
 	Dove* dove=new Dove("Zefir", 5, true);
 	crown->show();
+	crown->voice();
 	sparrow->show();
+	sparrow->voice();
 	dove->show();
+	dove->voice();
+	cout << endl;
 	system("pause");
 }
