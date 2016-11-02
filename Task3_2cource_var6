@@ -1,0 +1,127 @@
+#include<iostream>
+using namespace std;
+ 
+class Parent
+{
+private:
+//protected:
+//public:
+	int field;
+public: 
+	Parent(int field=0)
+	{
+		this->field=field;
+		cout << "\nParent: Parent(int field=0) field="<<field;
+	}
+	Parent(const Parent& parent)
+	{
+		this->field=parent.field;
+		cout << "\nParent(const Parent& parent) field="<<field;
+	}
+	virtual ~Parent()
+	{
+		cout << "\n~Parent() field="<<field<<endl;
+	}
+	int getField()
+	{
+		return this->field; 
+	}
+	void m1()
+	{
+		cout <<"\nParent: m1() field= " << this->field;
+	}
+	virtual void m2()
+	{
+		cout <<"\nParent: m2() field= " << this->field;
+	}
+	void m3()
+	{
+		cout <<"\nParent: m3() running m4()";
+		m4();
+		m5();
+	}
+	virtual void m4()
+	{
+		cout <<"\nParent: m4()";
+	}
+	virtual void m5()
+	{
+		cout <<"\nParent: m5()";
+	}
+};
+
+class Child: public Parent
+{
+private:
+//protected:
+//public:
+	double field;
+public:
+	Child(double field=0.):
+	  Parent((int)field)
+	{	
+		this->field=field;
+		cout<<"\nChild(double field) field="<<field<<endl;
+	}
+	Child(const Child& child):
+		Parent(child)
+	{
+		this->field=child.field;
+		cout << "\nChild(const Child& child) field="<<field<<endl;
+	}
+	~Child()
+	{
+		cout << "\n~Child() field="<<field<<endl;
+	}
+	double getFieldDouble()
+	{
+		return this->field; 
+	}
+	void m1()
+	{
+		cout <<"\nChild: m1() field= " << this->field;
+	}
+	void m2()
+	{
+		cout <<"\nChild: m2() field= " << this->field;
+		cout <<"\nRunning method from Parent class";
+		Parent::m2();
+	}
+	void m4()
+	{
+		cout <<"\nChild: m4()";
+	}
+protected: // ERROR, must be public
+	void m5()
+	{
+		cout <<"\nChild: m5()";
+	}
+
+};
+
+void main()
+{
+	/*Parent p(1);
+	p.m1();
+	p.m2();
+	p.m3();
+	p.m4();*/
+	//
+	/*Child c(2.1);
+	Child d(c);
+	cout<<"d.field= "<<d.getFieldDouble()<<"  d.intfield= "<<d.getField()<<endl;
+	d.m1();
+	d.m2();
+	d.m3();
+	d.m4();*/
+	//
+	Parent* f=new Child(3.1);
+	//Child* f=new Child(3.1);
+	f->m1();
+	f->m2();
+	f->m3();
+	f->m4();
+	//f->m5();
+	cout<<"\nEND\n";
+	delete f;
+}
