@@ -1,0 +1,69 @@
+#include <iostream>
+using namespace std;
+
+
+class LiteratureSource  
+{
+public:
+	char * name;
+	int pages;
+	LiteratureSource() 
+	{
+		name = new char[256];
+		cout << "Enter name your literature source : ";
+		cin>>name;
+		cout << "Enter count pages : ";
+		cin>>pages;
+	}
+	virtual void print()
+	{
+		cout << "Your literature source name : " << name << endl;
+		cout << "Pages count : " << pages << endl;
+		
+	}
+};
+class Book :public LiteratureSource
+{
+public:
+	char* autor;
+	Book() : LiteratureSource()
+	{
+		autor = new char[256];
+		cout << "Enter name autor: ";
+		cin >> autor;
+	}
+
+	virtual void print()
+	{
+		cout << "Your literature source name : " << name << endl;
+		cout << "Pages count : " << pages << endl;
+		cout << "Autor : " << autor << endl;
+	}
+};
+class Magazine : public LiteratureSource
+{
+public:
+	char* publication;
+	Magazine() : LiteratureSource()
+	{
+		publication=new char[256]; 
+		cout << "Enter publication: ";
+		cin >> publication;
+	}	
+	virtual void print()
+	{
+		cout << "Your literature source name : " << name << endl;
+		cout << "Pages count : " << pages << endl;
+		cout << "Your publication : " << publication << endl;
+	}
+
+};
+void main()
+{
+
+	LiteratureSource *obj = new Book;
+	obj->print();
+	LiteratureSource *obj2 = new Magazine;
+	obj2->print();
+	system("pause");
+}
