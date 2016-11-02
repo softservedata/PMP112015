@@ -1,0 +1,164 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Book
+{
+private:
+	int pages;
+	string called;
+	string author;
+public:
+	Book()
+	{
+		called = "";
+		author = "";
+		pages = 0;
+		cout<<"book() created"<<endl;
+	}
+
+	Book(string s, string l, int p)
+	{
+		called = s;
+		author = l;
+		pages = p;
+		cout<<"book(string s, string l, int p) created"<<endl;
+	}
+
+	Book(Book &b)
+	{
+		called = b.called;
+		author = b.author;
+		pages = b.pages;
+		cout<<"book(Book &b) created"<<endl;
+	}
+	Book(int x)
+	{
+		cout << "book name: " << ' ';
+		getline(cin, called);
+		cout << "author: " << ' ';
+		getline(cin, author);
+		cout << "number of pages: " << ' ';
+		cin >> pages;
+		cout<<"book(int x) created"<<endl;
+	}
+
+	void  showbook()
+	{
+		if (pages != 0) cout << " '' " << called << " '' " << " of " << author << "  , " << pages << " pages" << endl<<endl;
+		else cout << "The book doesnt exist" << endl<<endl;
+	}
+
+};
+
+class Card :public Book
+{
+private:
+	string name[10];
+	/*date *taken = new date[10];
+	date *returned = new date[10];*/
+	/*date taken[10];
+	date returned[10];*/
+	double taken[10];
+	double returned[10];
+	int num ;
+
+public:
+	Card() :Book()
+	{
+		cout << "Card() created" << endl;
+		num=0;
+	}
+
+	Card(Book a) :Book(a)
+	{
+		cout << "Card(Book a) created" << endl;
+		num=0;
+	}
+
+	Card(char*s, char*l, int p) :Book(s, l, p)
+	{
+		cout << "Card(char*s, char*l, int p) created" << endl;
+		num=0;
+	}
+
+	Card(int x) :Book(x)
+	{
+		cout << "Card (int x) created" << endl;
+		num=0;
+	}
+
+	void showcard()
+	{
+
+		cout << "Card:" << endl;
+		Book::showbook();
+		for (int i = 0; i < num; i++)
+		{
+			/*cout << name[i] << ": " << taken[i].day << '.' << taken[i].month << '.' << taken[i].year << " - ";
+			cout << returned[i].day << '.' << returned[i].month << '.' << returned[i].year << endl;*/
+			cout << name[i] << ": " << taken[i] << " - " <<returned[i] << endl;
+		}
+		cout << endl << endl;
+	}
+
+	string getname()
+	{
+		string l;
+		getline(cin, l);
+		return l;
+	}
+
+	void takebook(string n,/*date t,date r*/double t,double r)
+	{
+		cout << n << ' ';
+		/*getline(cin, name[num]);*/
+		name[num] = n;
+		cout << endl;
+		/*cout << "teken: " << t.day <<'.'<< t.month <<'.'<< t.year;
+		cout << "returned: " << r.day << '.' << r.month << '.' << r.year;*/
+		cout << "teken: " << t<<endl;
+		cout << "returned: " << r<<endl<<endl;
+		returned[num]=r;
+		taken[num]=t;
+		num++;
+
+	}
+};
+
+struct date
+{
+	int day;
+	int month;
+	int year;
+};
+
+int main()
+{
+	Book a;
+	a.showbook();
+	Book b("Raven", "Po", 5);
+	b.showbook();
+	Book c(b);
+	c.showbook();
+	/*date d, e, f, g, h, i;
+	d.day = 1; d.month = 1; d.year = 2010;
+	e.day = 10; e.month = 1; e.year = 2010;
+	f.day = 1; f.month = 3; f.year = 2012;
+	g.day = 1; g.month = 4; g.year = 2012;*/
+	
+	/*Book b(1);
+	b.showbook();*/
+	/*Card x(3);*/
+	cout<<"creating card"<<endl;
+	/*Card y(0);*/
+	Card x("The call of Cthulhu", "Lowecraft", 5);
+	x.showcard();
+	x.takebook("george",12.10,1.11);
+	/*x.showcard();*/
+	x.takebook("andew",3.11,4.12);
+	x.showcard();
+	/*x.takebook("sb",h,i);
+	x.showcard();*/
+	system("pause");
+}
