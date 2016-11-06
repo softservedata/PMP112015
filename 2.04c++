@@ -1,0 +1,118 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include<iostream>
+using namespace std;
+
+
+class Book
+{
+protected:
+	int pages;
+	char* name;
+public:
+	Book(char* name, int pages)
+	{
+		this->pages = pages;
+		int n = 0;
+		n = strlen(name);
+
+		this->name = new char[n + 1];
+		strcpy(this->name, name);
+		this->name[n] = '\0';
+	}
+	virtual	void show()
+	{
+		cout << "\n Name: " << name << " \n Pages=" << pages;
+	}
+};
+
+class Сhildren :public Book {
+private:
+	int year;
+public:
+	Сhildren(char* name, int pages, int year) :
+		Book(name, pages)
+	{
+		this->year = year;
+	}
+	void show()
+	{
+		cout << endl;
+		Book::show();
+
+		cout << "\n Year=" << year;
+	}
+};
+
+class Textbook :public Book
+{
+private:
+	int unit;
+public:
+	Textbook(char* name, int pages, int unit) :
+		Book(name, pages)
+	{
+		this->unit = unit;
+	}
+	void show()
+	{
+		cout << endl;
+		Book::show();
+
+		cout << "\n Amount of unites=" << unit;
+	}
+};
+
+class Science :public Book
+{
+private:
+	char* color;
+public:
+	Science(char* name, int pages, char* color) :
+		Book(name, pages)
+	{
+		int n = 0;
+		n = strlen(color);
+
+		this->color = new char[n + 1];
+		strcpy(this->color, color);
+		this->color[n] = '\0';
+	}
+	virtual	void show()
+	{
+		cout << endl;
+		Book::show();
+	}
+};
+class Fiction :public Book
+{
+private:
+	int edition;
+public:
+	Fiction(char* name, int pages, int edition) :
+		Book(name, pages)
+	{
+		this->edition = edition;
+	}
+	void show()
+	{
+		cout << endl;
+		Book::show();
+
+		cout << "\n Edition=" << edition;
+	}
+};
+void main()
+{
+	Book* children = new  Сhildren("Red Head", 48, 1967);
+	Science* science = new Science("Evolution", 745, "Brown");
+	Textbook* textbook = new Textbook("Mathematical analysis", 325, 29);
+	Fiction* fiction = new Fiction("the little prince", 325, 100000000);
+
+	children->show();
+	science->show();
+	textbook->show();
+	fiction->show();
+	cout << endl;
+	system("pause");
+}
