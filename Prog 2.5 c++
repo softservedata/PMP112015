@@ -1,0 +1,144 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+template<class T>
+class Parent
+{
+public:
+	Parent(){}
+	Parent(const Parent& temp){}
+	~Parent(){ }
+	virtual void push(T value) = 0;
+	virtual void pop() = 0;
+	virtual void printStack() = 0;
+	virtual void pushtoFile() = 0;
+	virtual void takeFromFile() = 0;
+	virtual void printTop() = 0;
+	virtual void minusTop() = 0;
+};
+
+template<typename T>
+class Stack
+{
+private:
+	T *stack;
+	int size;
+	int top;
+public:
+	Stack(int s = 1)
+	{
+		size = s;
+		stack = new T[size];
+		top = 0;
+		cout << "Constructor DEFAULT Stack(int s = 1)\n";
+	}
+	Stack(const Stack& temp)
+	{
+		stack = temp.stack;
+		size = temp.size;
+		top = temp.top;
+		for (int i = 0; i < size; ++i)
+		{
+			stack[i] = temp.stack[i];
+		}
+		cout << "Constructor COPY Stack(const Stack& temp)\n";
+	}
+	~Stack()
+	{
+		//delete[] stack;
+		cout << "Destructor DONE!\n";
+	}
+	void push(T value)
+	{
+		if (top < size)
+		{
+			stack[top] = value;
+			++top;
+		}
+	}
+	void pop()
+	{
+		stack[top--] = NULL;
+	}
+	void printStack()
+	{
+		for (int i = 0; i < top; ++i)
+		{
+			cout << "Stack[" << i << "]: " << stack[i] << "\n";
+		}
+		cout << "\n";
+	}
+	void pushtoFile()
+	{
+		ofstream file;// v file
+		file.open("D:/Files/file.txt", ios::out);
+		for (int i = 0; i < top; ++i)
+		{
+			file << stack[i] << " ";
+		}
+		file.close();
+	}
+	void takeFromFile()
+	{
+		ifstream file; // z file
+		file.open("D:/Files/file.txt", ios::in);
+		if (file)
+		{
+			for (int i = 0; i < size; ++i)
+			{
+				if (!file.eof())
+				{
+					file >> stack[i];
+					top++;
+				}
+			}
+		}
+		file.close();
+		top--;
+	}
+	void printTop()
+	{
+		cout << "Top of stack is " << top << "th element\n";
+	}
+	void minusTop()
+	{
+		top--;
+	}
+};
+
+void main()
+{
+	Stack<int>* I = new Stack<int>(4);
+	I->push(1);
+	I->push(4);
+	I->pushtoFile();
+	I->printTop();
+	I->printStack();
+	Stack<int> V = *I;
+	V.printStack();
+
+	Stack<char>* C = new Stack<char>(4);
+	C->push('A');
+	C->push('B');
+	C->pushtoFile();
+	C->printTop();
+	C->printStack();
+	/*S.push('A');
+	S.push('B');
+	S.push('C');
+	S.push('D');
+	S.pop();
+
+	S.printStack();
+	S.printTop();
+	S.pushtoFile();
+
+	Stack<char> V(15);
+	V.takeFromFile();
+	V.printStack();
+	V.printTop();*/
+
+
+	system("pause");
+}
