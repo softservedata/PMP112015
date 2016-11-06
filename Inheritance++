@@ -1,0 +1,188 @@
+#include"iostream"
+#include"string.h"
+using namespace std;
+class Warehouse
+{
+private:
+	double area;
+	unsigned int rent;
+	char* address;
+public:
+	Warehouse(void);
+	Warehouse(double a, unsigned int b, char* Address = "");
+	void setAddrass(char*);
+	void getAddress();
+	double getArea();
+	double prizefor_m2();
+	//double percent();
+	~Warehouse(void)
+	{
+	}
+};
+Warehouse::Warehouse(void)
+{
+	address = "";
+	rent = 0;
+	area = 0;
+}
+Warehouse::Warehouse(double a, unsigned int b, char * Address)
+{
+	area = a; 
+	rent = b; 
+	address = Address;
+	cout <<"Address of build:"<< address;
+}
+void Warehouse::setAddrass(char *Address)
+{
+	address = Address;
+}
+void Warehouse::getAddress()
+{
+	cout << "Yours address: " << address << endl;
+}
+double Warehouse::getArea()
+{
+	return area;
+}
+double Warehouse::prizefor_m2()
+{
+	return rent / area;
+}
+
+class Market : public Warehouse
+{
+private:
+	int person;
+	double solary;
+	long double capital;
+public:
+	Market():person(0),solary(0),capital(0), Warehouse() {};
+	Market(double a, unsigned int b, char * Address) :Warehouse(a, b, Address ), capital(0), solary(0), person(0) {};
+	void setDataMarket(long double c, int p)
+	{
+		capital = c; cout << "\nCapital: " << capital;
+		person = p; cout << "\nPerson: " << person;
+	}
+	void sizeAreaSalary()
+	{
+		int multicomfort; double m;
+		cout << "\nRate of luxury: "; cin >> multicomfort;
+		switch (multicomfort)
+		{
+		case 1:
+			m = 2.6;
+			break;
+		case 2:
+			m = 5.2;
+			break;
+		case 3:
+			m = 9.4;
+			break;
+		case 4:
+			m = 15.3;
+			break;
+		case 5:
+			m = 25.9;
+			break;
+		}
+		int size;
+		cout << "Size of area: "; cin >> size;
+		if (size < Warehouse::getArea())
+		{
+			capital = capital - size*(Warehouse::prizefor_m2()*m);
+			cout << "\ncapital at this moment: " << capital;
+			solary = (capital*0.25) / person;
+			cout << "\nSalary for each: " << solary;
+		}
+		else
+			cout << "\nChoise other warehouse!";
+	}
+	double getCapital()
+	{
+		return capital;
+	}
+};
+class Shop : public Warehouse
+{
+private :
+	double bTrip;
+	double benefit;
+	double capital;
+public:
+	Shop() : bTrip(0),benefit(0),capital(0),Warehouse(){};
+	Shop(double a, unsigned int b, char * Address) :Warehouse(a, b, Address = "19a"), bTrip(0),benefit(0),capital(0){};
+	void setcapital()
+	{
+		int c;
+		cout << "Statement: "; cin >> c;
+		capital=c;
+	}
+	double getcapitalS()
+	{
+		return capital;
+	}
+	void capitalAfterAllWarse()
+	{
+		double sumator;
+		cout << "What a warse "; cin >> bTrip;
+		int success;
+		cout << "Lucky success?"; cin >> success;
+		switch (success)
+		{
+		case 1:
+			benefit = 1.4*bTrip;
+			sumator = getcapitalS() + benefit;
+			cout << "\nCapital at this moment: " << sumator << endl;
+			break;
+		case 2:
+			benefit = 2.1*bTrip;
+			sumator = getcapitalS() + benefit;
+			cout << "\nCapital at this moment: " << sumator << endl;
+			break;
+		case 3:
+			benefit = 3.9*bTrip;
+			sumator = getcapitalS() + benefit;
+			cout << "\nCapital at this moment: " << sumator << endl;
+			break;
+		case 4:
+			benefit = 5.2*bTrip;
+			sumator = getcapitalS() + benefit;
+			cout << "\nCapital at this moment: " << sumator << endl;
+			break;
+		case 5:
+			benefit = 7.5*bTrip;
+			sumator = getcapitalS() + benefit;
+			cout << "\nCapital at this moment: " << sumator << endl;
+			break;
+		default:
+			break;
+		}
+	}
+};
+
+int main()
+{
+	setlocale(LC_ALL, "ukr");
+	char* Add="Ivan Franko 31\n";
+	double a; cout << "Set area: "; cin >> a;
+	unsigned int b; cout << "Main rent: "; cin >> b;
+	Warehouse wh(a, b, Add);
+	cout << "\n\n____________________________Market_________________________________\n";
+	Market market;
+	market.setAddrass("108b");
+	market.getAddress();
+	market.setDataMarket(50000, 40);
+	wh.prizefor_m2();
+	market.sizeAreaSalary();
+	//double c; cout << "\ncapital: "; cin >> c;
+	//unsigned int p; cout << "Person: "; cin >> p;
+	cout << "\n\n_________________________________Shop_________________________________\n";
+	Shop sh;
+	sh.setAddrass("19a");
+	sh.getAddress();
+	sh.setcapital();
+	sh.capitalAfterAllWarse();
+	cout << "\n_________________________________The end________________________________\n";
+	system("pause");
+	return 0;
+} 
