@@ -1,5 +1,6 @@
 #include<iostream>
 #include<fstream>
+#include<string>
 using namespace std;
 
 template<class T>
@@ -124,21 +125,13 @@ void main()
 	C->pushtoFile();
 	C->printTop();
 	C->printStack();
-	/*S.push('A');
-	S.push('B');
-	S.push('C');
-	S.push('D');
-	S.pop();
 
-	S.printStack();
-	S.printTop();
-	S.pushtoFile();
-
-	Stack<char> V(15);
-	V.takeFromFile();
-	V.printStack();
-	V.printTop();*/
-
+	Stack<string>* S = new Stack<string>(4);
+	S->push("onrt asd sadsad");
+	S->push("sdfsdf");
+	S->pushtoFile();
+	S->printTop();
+	S->printStack();
 
 	system("pause");
 }
