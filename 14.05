@@ -1,0 +1,154 @@
+#include<iostream>
+using namespace std;
+
+template <class T>
+class Array
+{
+private:
+	int	size;
+	T* str;
+public:
+	Array(const T* str=NULL)
+	{
+		size = tempSizeFunk(str);
+		this->str = new T[size];
+		for (int i = 0; i < size; i++)
+		{
+			this->str[i] = str[i];
+ 		}
+		cout << "\nArray(T* str = NULL)" << endl;
+	}
+	Array(const Array* temp)
+	{
+		size = temp->size;
+		this->str = new T[size];
+		for (int i = 0; i < size; i++)
+		{
+			this->str[i] = temp->str[i];
+		}
+		cout << "\nArray(Array* temp)" << endl;
+	}
+	int tempSizeFunk(const T* temp)
+	{
+		int i = 0;
+		while (temp[i] != '\0')
+		{
+			i++;
+		}
+		return i;
+	}
+	int getSize()
+	{
+		return this->size;
+	}
+	void get()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			wcout << str[i];
+		}
+		cout << endl;
+	}
+	Array& operator=(const T* right)
+	{
+		Array temp(right);
+		return (*this = temp);
+	}
+	Array& operator=(const Array* right)
+	{
+		size = right.size;
+		for (int i = 0; i < right.size; i++)
+		{
+			str[i] = right.str[i];
+		}
+		return *this;
+	}
+	friend Array operator+(Array& left, Array& right)
+	{
+		Array temp(left);
+		int k = 0;
+		for (int i = left.getSize(); i < left.getSize()+temp.getSize(); i++)
+		{
+			temp.str[i] = right.str[k++];
+		}
+		temp.size = left.getSize() + temp.getSize();
+		return temp;
+	}
+	friend Array operator+(Array& left, T* right)
+	{
+		Array temp(right);
+		return (left + temp);
+	}
+	int find(T* temp)
+	{
+		int tempSize = tempSizeFunk(temp);
+		int result=-1;
+		for (int i = 0; i < size; i++)
+		{
+			if (str[i] == temp[0])
+			{
+				bool q = true;
+				int ind = 0;
+				for (int j = i; j < tempSize; j++)
+				{
+					if (str[j] != temp[ind])
+					{
+						q = false;
+						break;
+					}
+					ind++;
+				}
+				if (q == true)
+				{
+					result = i;
+					break;
+				}
+			}
+		}
+		return result;
+	}
+	Array* mydelete(T* temp)
+	{
+		int tempSize = tempSizeFunk(temp);
+		while (this->find(temp) != -1)
+		{
+			int ind = this->find(temp);
+			for (int i = 0; i < size; i++)
+			{
+				str[ind + i] = str[ind + tempSize + i];
+			}
+			size -= tempSize;
+		}
+		return this;
+	}
+	~Array()
+	{
+		cout << "~Array()" << endl;
+	}
+};
+
+int main()
+{
+	Array<char> temp("mama\0");
+	Array<char> arr("tato\0");
+	cout << "str== "; arr.get();
+	cout<<"find(t): "<<arr.find("t\0")<<endl;
+	arr.mydelete("t\0");
+	cout << "delete(t): "; arr.get();
+	arr = "123";
+	cout << "prusv: "; arr.get();
+	arr=arr + temp;
+	cout << "+: ";arr.get();
+	cout << endl << "----------------------" << endl;
+	Array<wchar_t> widechar(L"mama\0");
+	Array<wchar_t> widechar1(L"tato\0");
+	cout << "widechar== "; widechar.get();
+	cout << "find(a): " << widechar.find(L"a\0") << endl;
+	widechar.mydelete(L"t\0");
+	cout << "delete(t): "; widechar.get();
+	widechar = L"123";
+	cout << "prusv: "; widechar.get();
+	widechar = widechar + widechar1;
+	cout << "+: "; widechar.get();
+	system("pause");
+}
