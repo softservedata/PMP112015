@@ -1,0 +1,97 @@
+#include<iostream>
+using namespace std;
+
+template <typename T>
+class Tree
+{
+private:
+	T element;
+	Tree* l;
+	Tree* r;
+public:
+	Tree()
+	{
+		r = NULL;
+		l = NULL;
+	}
+	Tree(T elem)
+	{
+		element = elem;
+		r = new Tree<T>();
+		l = new Tree<T>();
+	}
+	Tree(Tree& tree)
+	{
+		this->element = tree.element;
+		this->l = tree.l;
+		this->r = tree.r;
+	}
+	void addElem(T elem)
+	{
+		if (r == NULL&&l == NULL)
+		{
+			//cout << elem << endl;
+			element = elem;
+			r = new Tree<T>();
+			l = new Tree<T>();
+		}
+		else
+		{
+			if (elem > element)
+			{
+				r->addElem(elem);
+			}
+			else if (elem < element)
+			{
+				l->addElem(elem);
+			}
+			else
+			{
+				//cout << "\nalready here\n";
+			}
+		}
+	}
+	void print()
+	{
+		if (r == NULL&&l == NULL)
+		{
+			//cout <<"\nTree is empty\n";
+			return;
+		}
+		else
+		{
+			l->print();
+			cout << this->element << " ";
+			r->print();
+		}
+	}
+	~Tree()
+	{
+		if (r != NULL&&l != NULL)
+		{
+			delete r;
+			delete l;
+		}
+	}
+};
+
+void main()
+{
+	cout << "\nexample of int:\n";
+	Tree<int> numbers;
+	int list[10] = { 6,3,8,10,4,2,3,-9,0,14 };
+	for (int i = 0; i < 10; i++)
+	{
+		numbers.addElem(list[i]);
+	}
+	numbers.print();
+	cout << "\nexample of char:\n";
+	Tree<char> letters;
+	char* word = "applied mathematics";
+	for (int i = 0; i < strlen(word); i++)
+	{
+		letters.addElem(word[i]);
+	}
+	letters.print();
+	system("pause");
+}
