@@ -1,0 +1,100 @@
+//#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+#include <iomanip>
+
+template <typename T>
+class Stack
+{
+private:
+	T *stackPtr; // вказівник на стек
+	int size; // розмір стека
+	T top; // вершина стека
+public:
+	Stack(int = 10);// по замовчуванню розмір стека 10 
+	~Stack(); // деструктор
+	bool push(const T); // додати елемент
+	bool pop(); // видалити елемент
+	void printStack();
+};
+
+int main()
+{
+	Stack <int> myStack(5);
+
+	// заповнення стеку
+	cout << "Заповнюємо стек: ";
+	int ct = 0;
+	while (ct++ != 5)
+	{
+		int temp;
+		cin >> temp;
+		myStack.push(temp);
+	}
+
+	myStack.printStack(); // вивід стеку на екран
+
+	cout << "\nУВидаляємо 2 елемента зі стеку:\n";
+
+	myStack.pop(); // видаляємо елемент зі стеку
+	myStack.pop(); // видаляємо елемент зі стеку
+	myStack.printStack(); // вивід стеку на екран
+
+	return 0;
+}
+
+// конструктор
+template <typename T>
+Stack<T>::Stack(int s)
+{
+	size = s > 0 ? s : 10;   // ініціалізація розміру стеку
+	stackPtr = new T[size]; // виділення пам'яті під стек
+	top = -1; // значення -1 означає, що стек пустий
+}
+
+// деструктор
+template <typename T>
+Stack<T>::~Stack()
+{
+	delete[] stackPtr; // видаляємо стек
+}
+
+// 
+// - true, операція успішно завершена
+//                                    false, елемент в стек не доданий
+template <typename T>
+bool Stack<T>::push(const T value)
+{
+	if (top == size - 1)
+		return false; // стек повний
+
+	top++;
+	stackPtr[top] = value; // додаємо элемент в стек
+
+	return true; // успішно виконані операції
+}
+
+// 
+// - true, операція успішно завершена
+//                                    false, елемент в стек не доданийtemplate <typename T>
+template <typename T>
+bool Stack<T>::pop()
+{
+	if (top == -1)
+		return false; // стек пустий
+
+	stackPtr[top] = 0; // видаляємо елемент зі стеку
+	top--;
+
+	return true; // успішнее виконання операції
+}
+
+// вивід стеку на екран
+template <typename T>
+void Stack<T>::printStack()
+{
+	for (int ix = size - 1; ix >= 0; ix--)
+		cout << "|" << setw(4) << stackPtr[ix] << endl;
+}
