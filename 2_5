@@ -1,0 +1,141 @@
+#ifndef QUEUE_H
+#define QUEUE_H
+ 
+#include <cassert>
+ 
+template<typename T>
+class Queue
+{
+private:
+    T *queuePtr;     
+    const int size;  
+    int begin,       
+        end;         
+    int elemCT;     
+public:
+    Queue(int =10);          
+    Queue(const Queue<T> &); 
+    ~Queue();                
+ 
+    void enqueue(const T &); 
+    T dequeue(); 
+    void printQueue();
+};
+ 
+
+ 
+
+template<typename T>
+Queue<T>::Queue(int sizeQueue) :
+    size(sizeQueue), 
+    begin(0), end(0), elemCT(0)
+{
+    
+    queuePtr = new T[size + 1];
+}
+ 
+
+template<typename T>
+Queue<T>::Queue(const Queue &otherQueue) :
+    size(otherQueue.size) , begin(otherQueue.begin),
+    end(otherQueue.end), elemCT(otherQueue.elemCT),
+    queuePtr(new T[size + 1])
+{
+    for (int ix = 0; ix < size; ix++)
+        queuePtr[ix] = otherQueue.queuePtr[ix]; 
+}
+ 
+
+template<typename T>
+Queue<T>::~Queue()
+{
+    delete [] queuePtr;
+}
+ 
+
+template<typename T>
+void Queue<T>::enqueue(const T &newElem)
+{
+    
+    assert( elemCT < size );
+ 
+    
+    queuePtr[end++] = newElem;
+ 
+    elemCT++;
+ 
+    
+    if (end > size)
+        end -= size + 1; 
+}
+ 
+
+template<typename T>
+T Queue<T>::dequeue()
+{
+  
+    assert( elemCT > 0 );
+ 
+    T returnValue = queuePtr[begin++];
+    elemCT--;
+ 
+    
+    if (begin > size)
+        begin -= size + 1; 
+ 
+    return returnValue;
+}
+ 
+template<typename T>
+void Queue<T>::printQueue()
+{
+    cout << "Очередь: ";
+ 
+    if (end == 0 && begin == 0)
+        cout << " пустая\n";
+    else
+    {
+        for (int ix = end; ix >= begin; ix--)
+            cout << queuePtr[ix] << " ";
+        cout << endl;
+    }
+}
+ 
+#endif // QUEUE_H
+#include <iostream>
+ 
+using namespace std;
+ 
+#include "queue.h"
+ 
+int main ()
+{
+    Queue<char> myQueue(14); 
+ 
+    myQueue.printQueue(); 
+    int ct = 1;
+    char ch;
+ 
+    
+    while (ct++ < 14)
+    {
+        cin >> ch;
+        myQueue.enqueue(ch);
+    }
+ 
+    myQueue.printQueue(); 
+ 
+    
+    myQueue.dequeue();
+    myQueue.dequeue();
+    myQueue.dequeue();
+ 
+    myQueue.printQueue(); 
+ 
+    cout << "\n\nСработал конструктор копирования:\n";
+    Queue<char> newQueue(myQueue);
+ 
+    newQueue.printQueue(); 
+ 
+  return 0;
+}
