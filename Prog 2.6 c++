@@ -1,0 +1,92 @@
+header
+---------------------------
+#ifndef MYVECTOR_H
+#define MYVECTOR_H
+#include<iostream>
+#include"vector"
+using namespace std;
+
+template<class T>
+class MyVector
+{
+private:
+	vector<T> vect;
+public:
+	MyVector()
+	{
+	}
+	void push(T temp)
+	{
+		this->vect.push_back(temp);
+	}
+	T pop()
+	{
+		T temp = vect.back();
+		this->vect.pop_back();
+		return temp;
+	}
+	bool isEmpty()
+	{
+		return vect.empty();
+	}
+	~MyVector()
+	{}
+};
+
+#endif
+
+
+
+
+main
+------------------------
+
+#include<iostream>
+#include"MyVector.h"
+
+using namespace std;
+
+int main()
+{
+	MyVector<int> vector1;
+	MyVector<int> vector2;
+	MyVector<int> vector3;
+	int *array = new int[9];
+	for(int i = 0; i < 9; i++)
+	{
+		cout << "Enter number: ";
+		cin >> array[i];
+	}
+	for(int i = 0; i < 9; i++)
+	{
+		if(array[i]%3 == 0)
+		{
+			vector3.push(array[i]);
+		}
+		else
+		{
+			if(array[i]%2 == 0)
+			{
+				vector2.push(array[i]);
+			}
+			else
+				vector1.push(array[i]);
+		}
+	}
+	
+	while(!vector3.isEmpty())
+	{
+		cout << vector3.pop() << endl;
+	}
+	while(!vector2.isEmpty())
+	{
+		cout << vector2.pop() << endl;
+	}	
+	while(!vector1.isEmpty())
+	{
+		cout << vector1.pop() << endl;
+	}	
+	
+	delete[] array;
+	system("pause");
+}
