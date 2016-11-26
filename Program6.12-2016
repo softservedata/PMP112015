@@ -1,0 +1,91 @@
+#include<iostream> 
+#include"string" 
+using namespace std;
+
+class MyStack
+{
+private:
+	string stack;
+	const char BRACKETS[3][2] = { { '(',')' } ,{ '[',']' } ,{ '{','}' } };
+public:
+	MyStack()
+	{
+		this->stack = string();
+	}
+	MyStack(MyStack& myStack)
+	{
+		this->stack = string(myStack.stack);
+	}
+	void push(char elem)
+	{
+		stack.push_back(elem);
+		cout<<"push\n";
+	}
+	void pop()
+	{
+		stack.erase(stack.end() - 1);
+		cout << "pop\n";
+	}
+	bool isEmpty()
+	{
+		return stack.empty();
+	}
+	string get()
+	{
+		return stack;
+	}
+	void method(string str)
+	{
+		for (int i = 0; i < str.size(); i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				if (str[i] == BRACKETS[j][0])
+				{
+					this->push(str[i]);
+					break;
+				}
+				else if (str[i] == BRACKETS[j][1])
+				{
+					if (stack[stack.size() - 1] == BRACKETS[j][0])
+					{
+						this->pop();
+						break;
+					}
+					else
+					{
+						cout << "String is incorrect" << endl;
+						return;
+					}
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+		if (this->isEmpty())
+		{
+			cout << "String is correct\n";
+			return;
+		}
+		else
+		{
+			cout << "String is incorrect" << endl;
+			return;
+		}
+
+	}
+	~MyStack()
+	{
+		cout << "destructor done" << endl;
+	}
+};
+
+void main()
+{
+	MyStack A;
+	A.method("(shbfn{jdnc}jdn[jd]k)");
+	cout << "end\n";
+	system("pause");
+}
