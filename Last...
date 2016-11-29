@@ -1,0 +1,86 @@
+List.h :
+
+#include<iostream>
+#include"list"
+#include"string"
+using namespace std;
+
+class NewStack
+{
+private:
+	list<string> str;
+public:
+	NewStack()
+	{
+	}
+	void push(string temp)
+	{
+		this->str.push_back(temp);
+	}
+	void pop()
+	{
+		this->str.pop_back();
+	}
+	bool isEmpty()
+	{
+		return str.empty();
+	}
+	~NewStack()
+	{}
+};
+
+
+Source:
+
+#include<iostream>
+#include<fstream>
+#include"string"
+#include"List.h"
+
+using namespace std;
+
+int main()
+{
+	NewStack stack;
+	ifstream read("read.txt",'r');
+	string str;
+	string text;
+	bool result = true;
+	if (read.is_open())
+	{
+		//cout << "file was opened" << endl;
+		while (!read.eof())
+		{
+			read >> str;
+			if (str == "(")
+			{
+				cout << " str == ( " << endl;
+				stack.push(str);
+			}
+			if (str == ")")
+			{
+				cout << "str == ) " << endl;
+				if (stack.isEmpty() == true)
+				{
+					result = false;
+					break;
+				}
+				else
+				{
+					stack.pop();
+				}
+			}
+			//cout << "reading..."<<endl;
+		}
+		if (result == false || stack.isEmpty() == false)
+		{
+			cout << "code is wrong"<<endl;
+		}
+		else
+		{
+			cout << "Everything is Ok" << endl;
+		}
+		read.close();
+	}
+	system("pause");
+}
