@@ -1,0 +1,159 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+class Equation
+{
+private:
+	char file[100];
+	double w;
+	int n;
+	int c;
+	double** A;
+	double* b;
+	double** x;
+public:
+	Equation()
+	{
+		cout << "constructor 0" << endl;
+		n = 1;
+		A = new double*[n];
+		A[0] = new double[n];
+		b = new double[n];
+		x = new double*[n];
+		x[0] = new double[n];
+		A[0][0] = 0;
+		b[0] = 0;
+		x[0][0] = 0;
+	}
+	Equation(char* file)
+	{
+		strcpy_s(this->file, file);
+		cout << "constructor 1" << endl;
+		ifstream  data(file);
+		data >> w;
+		data >> n;
+		A = new double*[n];
+		b = new double[n];
+		x = new double*[n];
+		for (int i = 0; i < n; i++)
+		{
+			A[i] = new double[n];
+			x[i] = new double[n];
+			for (int j = 0; j < n; j++)
+			{
+				data >> A[i][j];
+				x[i][j] = 0;
+			}
+		}
+		for (int i = 0; i < n; i++)
+		{
+			data >> b[i];
+		}
+		data.close();
+	}
+	double Sum1(int i, int k)
+	{
+		double s=0;
+		for (int j = 0; j < i - 1; j++)
+		{
+			s = s+A[i][j]*x[i][k];
+		}
+		return s;
+	}
+	double Sum2(int i, int k)
+	{
+		double s=0;
+		for (int j = i+1; j < n; j++)
+		{
+			s = s + A[i][j] * x[i][k-1];
+		}
+		return s;
+	}
+	void method()
+	{
+		for(int k=1; k<c; k++)
+		{
+			cout << "k=" << k;
+			for (int i = 1; i < n; i++)
+			{
+				double s1, s2;
+				s1 = Sum1(i, k);
+				cout << "s1 = " << s1;
+				s2 = Sum2(i, k);
+				cout << "s2 = " << s2;
+				x[i][k] = x[i][k - 1] * (1 - w) + w / A[i][i] * (b[i] - s1 - s2);
+			}
+		}
+	}
+	void print()
+	{
+		cout << "\nA=\n";
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				cout << A[i][j] << " ";
+			}
+			cout << endl;
+		}
+		cout << endl;
+		cout << "\nb=\n";
+		for (int i = 0; i < n; i++)
+		{
+			cout << b[i] << " ";
+		}
+		cout << "\nx=\n";
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				cout << x[i][j] << " ";
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+	void write()
+	{
+		ofstream data;
+		data.open(file, std::fstream::app);
+		data << "\nanswer is: \n";
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				data << x[i][j] << " ";
+			}
+			data << endl;
+		}
+		data << endl;
+		data.close();
+		cout << "writing in file is done\n";
+	}
+	~Equation()
+	{
+		cout << "destructor" << endl;
+		for (int i = 0; i < n; i++)
+		{
+			delete[] A[i];
+		}
+		for (int i = 0; i < n; i++)
+		{
+			delete[] x[i];
+		}
+		delete[] A;
+		delete[] b;
+		delete[] x;
+	}
+};
+int main()
+{
+	Equation first("matrix1.txt");
+	//first.print();
+	first.method();
+	//first.print();
+	first.write();
+	system("pause");
+	return 0;
+}
