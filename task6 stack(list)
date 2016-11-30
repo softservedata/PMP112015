@@ -1,0 +1,70 @@
+#include<iostream>
+#include<list>
+#include<iterator>
+using namespace std;
+class MyStack
+{
+private:
+list<int> stack;
+list<int>::iterator i;
+
+public:
+MyStack()
+{
+}
+void push(int a)
+{
+stack.push_back(a);
+//cout << "push\n";
+}
+int pop()
+{
+        int v=stack.back();
+        stack.pop_back();
+        return v;
+
+}
+bool isEmpty()
+{
+return stack.empty();
+}
+
+};
+bool isp(int a)
+{
+if (a % 2 == 0)
+{
+        return true;
+}
+return false;
+}
+void main()
+{
+MyStack m,n;
+int k;
+int a;
+cout << "enter amount of numbers\n";
+cin>> k;
+cout << "enter numbers\n";
+for (int j = 0; j < k;j++)
+{
+cin >> a;
+if(!isp(a)){
+        m.push(a);
+}
+else
+{
+        n.push(a);
+}
+}
+while(!m.isEmpty())
+{
+        cout<<m.pop()<<" ";
+}
+cout<<endl;
+while(!n.isEmpty())
+{
+        cout<<n.pop()<<" ";
+}
+system("pause");
+}
