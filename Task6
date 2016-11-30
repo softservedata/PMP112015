@@ -1,0 +1,103 @@
+#include<iostream>
+#include<string>
+#include<vector>
+
+
+using namespace std;
+
+template <typename T>
+class Myclass 
+{
+public:
+	vector<T> letter;
+	vector<T> anything;
+	vector<T> number;
+	vector<T> vector;
+	int n;
+	Myclass(int _n=0) 
+	{
+		T * strarr = new T[_n];
+		for (int i = 0; i < _n; ++i)
+		{
+			cin >> strarr[i];
+			vector.push_back(strarr[i]);
+		}
+		this->n = _n;
+	}
+
+	void sort() 
+	{
+		for (int i = 0; i < this->n; ++i) 
+		{
+			
+			int numberC = 0;
+			int letterC = 0;
+			for (int j = 0; j<vector[i].size(); ++j) 
+			{
+				
+				if (int(vector[i][j])>=48 && int(vector[i][j]) <= 57) 
+				{
+					++numberC;
+				}
+				else if (int(vector[i][j]) >= 65 && int(vector[i][j]) <= 122)
+				{
+					++letterC;
+				}
+
+			}
+			if (numberC == vector[i].size()) 
+			{
+				number.push_back(vector[i]);
+				numberC = 0;
+			}
+			else if (letterC == vector[i].size())
+			{
+				letter.push_back(vector[i]);
+				letterC = 0;
+			}
+			else 
+			{
+				anything.push_back(vector[i]);
+			}
+		}
+
+		for (int i = 0; i <number.size(); i++)
+		{
+		
+			cout << number[i]<< endl;
+		}
+
+		for (int i = 0; i < letter.size(); ++i)
+		{
+			cout << letter[i] << endl;
+		}
+
+		for (int i = 0; i < anything.size(); ++i)
+		{
+			cout << anything[i] << endl;
+		}
+	}
+
+
+	void push(T temp) 
+	{
+		vector.push_back(temp);
+	}
+
+	void pop() 
+	{
+		vector.pop_back();
+	}
+
+	
+};
+
+
+void main()
+{
+	int n;
+	cout << "enter n:";
+	cin >> n;
+	Myclass<string> S(n);
+	S.sort();
+}
