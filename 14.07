@@ -1,0 +1,65 @@
+#include<iostream>
+#include<map>
+#include<string>
+using namespace std;
+
+void main()
+{
+	map<string, int> box1;
+	map<string, int> box2;
+/*	for (int i = 1; i <= 5; i++)
+	{
+		box1["Box1Key" + i] = 123 + (10 * i + i);
+	}	
+	for (int i = 3; i <= 9; i++)
+	{
+		box2["box2Key" + i] = 123 + (10 * i + i);
+	}*/
+	box1["Box1Key1"] = 1;
+	box1["Box1Key2"] = 2;
+	box1["Box1Key3"] = 3;
+	box1["Box1Key4"] = 4;
+	box1["Box1Key5"] = 5;
+	box2["Box2Key1"] = 4;
+	box2["Box2Key2"] = 5;
+	box2["Box2Key3"] = 6;
+	box2["Box2Key4"] = 7;
+	box2["Box2Key5"] = 8;
+	cout << "box1\n";
+	for (auto& x: box1)
+	{
+		cout << x.first << "|" << x.second<<endl;
+	}
+	cout << "box2\n";
+	for (auto& x : box2)
+	{
+		cout << x.first << "|" << x.second << endl;
+	}
+	map<string, int>::iterator it;
+	for (it = box1.begin();it!=box1.end();it++)
+	{
+		bool ifIs = false;
+		for (auto y : box2)
+		{
+			if (it->second == y.second)
+			{
+				ifIs = true;
+				break;
+			}
+		}
+		if (ifIs == true)
+		{
+			map<string, int>::iterator temp;
+			temp = it;
+			it++;
+			box1.erase(temp);
+			it--;
+		}
+	}
+	cout << "box1\n";
+	for (auto& x : box1)
+	{
+		cout << x.first << "|" << x.second << endl;
+	}
+	system("pause");
+}
