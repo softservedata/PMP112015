@@ -1,0 +1,47 @@
+#include<iostream>
+#include<map>
+#include<string>
+using namespace std;
+
+map<string,int> Combined(map<string, int> a, map<string, int> b)
+{
+	int temp = 0;
+	pair<string, int> tempdic;
+	for (map<string, int>::iterator it = a.begin(); it != a.end(); ++it)
+	{
+		tempdic.first = it->first;
+		tempdic.second = it->second;
+		for (map<string, int>::iterator it2 = b.begin(); it2 != b.end(); ++it2)
+		{
+			if ((it->first == it2->first) && (it->second == it2->second))
+			{
+				temp = 1;
+			}
+		}
+		if (temp == 0)
+		{
+			b.insert(pair<string, int>(tempdic.first, tempdic.second));
+		}
+		temp = 0;
+	}
+	return b;
+}
+
+void main()
+{
+	map<string, int> a;
+	map<string, int> b;
+	map<string, int> res;
+	a.insert(pair<string, int>("Andriy", 62165));
+	a.insert(pair<string, int>("George", 35675));
+	a.insert(pair<string, int>("George2", 67865));
+	b.insert(pair<string, int>("Andriy", 62165));
+	b.insert(pair<string, int>("Julian", 69865));
+	b.insert(pair<string, int>("Vova", 63265));
+	res = Combined(a, b);
+	for (map<string,int>::iterator it = res.begin(); it != res.end(); ++it)
+	{
+		cout << it->first << "::" << it->second << endl;
+	}
+	system("pause");
+}
