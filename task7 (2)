@@ -1,0 +1,60 @@
+#include<iostream>
+#include<string>
+#include<map>
+#include <vector>
+using namespace std;
+
+class Phonebook
+{
+private:
+	map<int, string> record;
+public:
+	Phonebook()
+	{
+		record.insert(pair< int, string>(0, ""));
+	}
+	Phonebook(int tel, string name)
+	{
+		record.insert(pair< int, string>(tel, name));
+	}
+	friend ostream& operator<<(ostream& s,  Phonebook & temp)
+	{
+		cout << temp.record.begin()->first << '-' << temp.record.begin()->second << endl;
+		return s;
+	}
+};
+
+void main()
+{
+	
+	int n,number;
+	string name;
+	/*map<int, string> book;
+	book.insert(pair< int,string>(123, "me"));
+	cout << book.begin()->first << '-' << book.begin()->second << endl;*/
+
+	Phonebook b(123, "me");
+	
+	cout << "list size : ";
+	cin >> n;
+	vector<Phonebook> list(n);
+	/*list[0] = b;
+	list[1] = b;
+	list[2] = b;*/
+	for (int i = 0; i < n; i++)
+	{
+		cout << "number : ";
+		cin >> number ;
+		cout << "name : ";
+		cin >> name;
+		Phonebook a(number, name);
+		list[i] = a;
+	}
+	cout << "list:" << endl;
+	for (int i = 0; i < n; i++)
+	{
+		cout << list[i];
+	}
+	
+	system("pause");
+}
