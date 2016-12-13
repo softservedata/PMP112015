@@ -38,7 +38,7 @@ bool method(Book& temp)
 
 void main()
 {
-	ifstream file("D:/Games/example.txt");
+	ifstream file("D:/Games/book.txt");
 	int size = 5;
 	//file >> n;
 	//cout << n;
@@ -67,3 +67,17 @@ void main()
 	}
 	system("pause");
 }
+------------------------------------
+book.txt
+
+------------------------------------
+Chad
+0506877415
+Ollie
+0606877415	
+Ollie2
+0706877415	
+Ollie3
+0806877415	
+Ollie4
+0906877415
