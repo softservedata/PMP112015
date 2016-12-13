@@ -1,0 +1,43 @@
+#include <iostream>
+#include <map>
+using namespace std;
+
+int main()
+{
+	map<string,int>M1;
+	map<int,string>M2;
+
+	M1.insert(pair<string, int>("Slyusarenko", 938383));
+	M1.insert(pair<string, int>("Davydenko", 932242));
+	M1.insert(pair<string, int>("Gavryshko", 987287));
+	M1.insert(pair<string, int>("Komarnytsky", 675995));
+	M2.insert(pair<int, string>(936504, "Ben'"));
+	M2.insert(pair<int, string>(932242,"Davydenko"));
+	M2.insert(pair<int, string>(671119, "Mother'"));
+	M2.insert(pair<int, string>(986263, "Slyusar"));
+	string help;
+	int check = 0;
+	auto itM1 = M1.begin();
+	auto itM2 = M2.begin();
+	for (itM1 = M1.begin(); itM1 != M1.end(); itM1++)
+	{
+		help = itM1->first;
+		for (itM2 = M2.begin(); itM2 != M2.end(); itM2++)
+		{
+			if (help == itM2->second)
+			{
+				cout << "Mobile number of joint abonement: " << itM2->first;
+				//check++;
+				//break;
+			}
+		}
+		//if (check != 0)
+		//{
+			//cout << "who named "<< itM1->first << endl;
+			//check = 0;
+		//}
+	}
+	cout << "\nThe end\n";
+	system("pause");
+	return 0;
+}
