@@ -1,0 +1,67 @@
+#include <iostream>
+#include <map>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+class Abonent {
+public:
+	string telephone;
+	string name;
+	Abonent()
+	{
+		cout << "enter name : ";
+		cin >> name;
+		cout << "enter telephone : ";
+		cin >> telephone;
+	}
+};
+
+class Book {
+public:
+
+	vector<Abonent> myVector;
+	map<string, string>  telephoneBook;
+	map<string, string>::iterator it;
+	Book(Abonent temp)
+	{
+		myVector.push_back(temp);
+		telephoneBook["telephone"] = myVector.back().telephone;
+		telephoneBook["name"] = myVector.back().name;
+		
+	}
+	void push(Abonent a)
+	{
+		myVector.push_back(a);
+	}
+
+	Abonent pop()
+	{
+		Abonent a = myVector.back();
+		myVector.pop_back();
+		return a;
+		
+	}
+
+	void print() 
+	{
+		for (it = telephoneBook.begin(); it != telephoneBook.end(); it++)
+		{
+			cout << it->first << ":" << it->second << endl;
+		}
+	}
+
+};
+
+
+
+
+int main()
+{
+	Abonent artem;
+	Book MytelephoneBook(artem);
+	MytelephoneBook.print();
+
+
+}
