@@ -1,0 +1,135 @@
+#include<iostream> 
+#include<vector> 
+#include<string>
+using namespace std;
+
+#define MAX_MAP 50
+
+template<class K, class T>
+class Map
+{
+private:
+	template<class K, class T>
+	class Node
+	{
+	public:
+		K key;
+		T value;
+		Node(K key, T value)
+		{
+			this->key = key;
+			this->value = value;
+		}
+	};
+	Node<K, T>** book;
+	int size;
+public:
+	Map()
+	{
+		this->size = 0;
+		this->book = new Node<K, T>*[MAX_MAP];
+		cout << "\nMap() DONE\n";
+	}
+	~Map()
+	{
+		delete[] book;
+		cout << "\n~Map() DONE\n";
+	}
+	void add(K key, T value)
+	{
+		book[size] = new Node<K, T>(key, value);
+		size++;
+	}
+	int getSize()
+	{
+		return size;
+	}
+	T get(K key)
+	{
+		T result;
+		for (int i = 0; i < size; i++)
+		{
+			if (book[i]->key == key)
+			{
+				result = book[i]->value;
+				break;
+			}
+		}
+		return result;
+	}
+
+	void check()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			if (book[i]->key[0] == '+')
+			{
+				for (int j = i; j < size-1; j++)
+				{
+					book[j]->key = book[j + 1]->key;
+					book[j]->value = book[j + 1]->value;
+					book[j + 1]->key = '\0';
+					book[j + 1]->value = '\0';
+				}
+				//cout << "\nQweert+!\n";
+			}
+			cout << "\ncheck() DONE!\n";
+		}
+	}
+	
+	T getKey(int n)
+	{
+		T temp;
+		cout << book[n]->key;
+		return temp;
+	}
+	T getValue(int n)
+	{
+		T temp;
+		cout << book[n]->value;
+		return temp;
+	}
+	void getKeyValue(int n)
+	{
+		cout << "Key[" << n << "]: " << book[n]->key << "\nValue[" << n << "]: " << book[n]->value;
+	}
+};
+
+
+void main()
+{
+	Map<string, string> m;
+	m.add("+380634588745", "Chad1");
+	m.add("0634588745", "Chad2");
+	m.add("+380967765456", "Chad3");
+	
+	cout << "Key = " << (15) << "value = " << m.get("0634588745") << endl;
+	cout << "Size = " << m.getSize() << endl;
+	cout << "\n";
+	cout << "\n";
+	m.getKeyValue(0);
+	cout << "\n";
+	cout << "\n";
+	m.getKeyValue(1);
+	cout << "\n";
+	cout << "\n";
+	m.getKeyValue(2);
+	cout << "\n";
+	cout << "\n";
+	m.check();
+	cout << "\n";
+	cout << "\n";
+	m.getKeyValue(0);
+	cout << "\n";
+	cout << "\n";
+	m.getKeyValue(1);
+	cout << "\n";
+	cout << "\n";
+	m.getKeyValue(2);
+	cout << "\n";
+	cout << "\n";
+	
+
+	cout << "\nThe END\n";
+	system("pause");
+}
