@@ -1,0 +1,70 @@
+#include <iostream>    
+#include <algorithm>    
+#include <vector>  
+#include <string>  
+
+using namespace std;
+int iTer = 0;
+class Abonent
+{
+public:
+	string name;
+	string number;
+	Abonent() 
+	{
+		cout <<"enter name: " ;
+		cin >> name;
+		cout << "enter number: ";
+		cin >> number;
+	}
+};
+
+class Book
+{
+public:
+	
+	vector<Abonent> book;
+	Book(Abonent temp)
+	{
+		book.push_back(temp);
+	}
+	void push(Abonent temp) 
+	{
+		book.push_back(temp);
+	}
+
+
+};
+
+bool method(Abonent& person)
+{
+	if (person.number[0] == '0'&&person.number[1] == '6'&&person.number[2] == '3')
+	{
+		return 0;
+		++iTer;
+	}
+	else
+	{
+		return 1;
+
+	}
+}
+
+
+
+
+int main() 
+{
+
+	Abonent igor;
+	Abonent oleg;
+	Book TelephoneBook(igor);
+	TelephoneBook.push(oleg);
+	for (int i = 0; i <TelephoneBook.book.size()-1; ++i)
+	{
+		
+		vector<Abonent>::iterator it = find_if(TelephoneBook.book.begin()+i, TelephoneBook.book.end(), method);
+		cout << it->name <<"  "<< it->number<<endl;
+	}
+	
+}
