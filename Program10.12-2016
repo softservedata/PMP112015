@@ -1,0 +1,88 @@
+#include<iostream>
+#include<fstream>
+#include<map>
+#include<string>
+using namespace std;
+
+typedef map<string, string> contacts;
+typedef pair<string, string> par;
+
+void printmap(contacts& mymap)
+{
+	contacts::iterator it;
+	for (it = mymap.begin(); it != mymap.end(); ++it)
+	{
+		cout << it->first << "---" << it->second << endl;
+	}
+	cout << endl;
+}
+
+void main()
+{
+	ifstream list1("list1.txt");
+	ifstream list2("list2.txt");
+
+	contacts book1;
+	contacts book2;
+	contacts result;
+
+	string name;
+	string number;
+
+	while (!list1.eof())
+	{
+		list1 >> name;
+		list1 >> number;
+		book1[name] = number;
+	}
+
+	while (!list2.eof())
+	{
+		list2 >> name;
+		list2 >> number;
+		book2[name] = number;
+	}
+
+	printmap(book1);
+	printmap(book2);
+
+	result = book1;
+
+	contacts::iterator it,iter;
+	for (it = book2.begin(); it != book2.end();++it)
+	{
+		if (result.count(it->first) > 0)
+		{
+			//result.erase(it->first);
+			continue;
+		}
+		else
+		{
+			result.insert(par(it->first, it->second));
+		}
+	}
+
+	printmap(result);
+
+	list1.close();
+	list2.close();
+	system("pause");
+}
+
+
+
+
+
+
+
+
+Sally 0673759932
+Tom 0506732930
+Chris 0984314431
+Mary 0503429293
+Gummy 0676754009
+
+Mary 0503429293
+Dara 0673701163
+Gummy 0676754009
+Harry 0984536099
