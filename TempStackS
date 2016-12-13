@@ -1,0 +1,113 @@
+#include"iostream"
+#include"string.h"
+using namespace std;
+//const int SIZE = 6;
+template <class T>
+class SteckS
+{
+private:
+	T* stack;
+	int size;
+	T top;
+public:
+	SteckS()
+	{
+		cout << "sizeOfstack: "; cin >> size;
+		stack = new T[size]; 
+		top = 0;
+	}
+	void push(T s)
+	{
+		if (top == size - 1)
+		{
+			cout << "\nLook at, last ability to type!!!\n";
+		}
+		if (top != size)
+		{
+			stack[top] = s;
+			top++;
+		}
+		else
+			cout << "\nStack overload , don't push!";
+		
+	}
+	T pop()
+	{
+		if (!stackIsEmpty())
+	 	{
+			stack[--top];
+			return stack[++top];
+		}
+	}
+	bool stackIsFull()
+	{
+		if (top == size)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	bool stackIsEmpty()
+	{
+		if (top == -1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	int getSize()
+	{
+		return size;
+	}
+	void showStack()
+	{
+		cout << "\nOut stack at this moment: ";
+		for (int i = top - 1; i >= 0; i--)
+		{
+			cout << stack[i] << " ";
+		}
+		cout << endl;
+	}
+	~SteckS()
+	{ 
+		delete []stack;
+	}
+};
+
+int main()
+{
+	SteckS<char>S;
+	char x,Dec,dec;
+	int i = 0;
+	cout << endl;
+	do 
+	{
+		cout << "el[" << i + 1 << "]: ";
+		cin >> x;
+		S.push(x);
+		i++;
+		cout << "\nMaybe you want to pop?(e/o)";
+		cin >> dec;
+		if (dec == 'e')
+		{
+			S.pop();
+		}
+		cout << "\nTo be continue?(y/n):";
+		cin >> Dec;
+	} while (Dec!='n');
+	cout << "\n____________________________\n";
+	S.showStack();
+	while (!S.stackIsEmpty())
+	{
+		S.pop();
+	}
+	cout << "\nThe end\n";
+	system("pause");
+	return 0;
+}
