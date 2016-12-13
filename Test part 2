@@ -1,0 +1,69 @@
+#include<iostream> 
+#include<fstream> 
+#include<algorithm> 
+#include"vector" 
+#include"string" 
+using namespace std;
+
+//struct Person
+//{
+//	string name;
+//	string number;
+//};
+class Book
+{
+public:
+	string name;
+	string number;
+	//int size;
+	Book(string name, string number){
+		this->name = name;
+		this->number = number;
+		//this->size = size;
+	}
+	~Book(){}
+};
+
+bool method(Book& temp)
+{
+	if (temp.number[0] == '0'&&temp.number[1] == '5'&&temp.number[2] == '0')
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void main()
+{
+	ifstream file("D:/Games/example.txt");
+	int size = 5;
+	//file >> n;
+	//cout << n;
+	vector<Book> myvec;
+	vector<Book>::iterator it;
+	myvec.reserve(size);
+
+	Book Zero("Vubyv", "0000000000");
+	for (int i = 0; i < size; i++)
+	{
+		myvec.push_back(Zero);
+	}
+	for (it = myvec.begin(); it < myvec.end(); it++)
+	{
+		file >> it->name;
+		file >> it->number;
+	}
+
+	replace_if(myvec.begin(), myvec.end(), method, Zero);
+
+
+	for (it = myvec.begin(); it < myvec.end(); it++)
+	{
+		cout << it->name << endl;
+		cout << it->number << endl;
+	}
+	system("pause");
+}
