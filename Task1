@@ -1,0 +1,55 @@
+#include<iostream> 
+#include<list> 
+#include<string> 
+
+using namespace std; 
+
+template<class T> 
+class Stack 
+{ 
+public: 
+	list<T> field; 
+	Stack() 
+	{ 
+	} 
+	void push(T temp) 
+	{ 
+		field.push_back(temp); 
+	} 
+	T pop() 
+	{ 
+		T temp = field.back(); 
+		field.pop_back(); 
+		return temp; 
+	} 
+	bool isEmpty() 
+	{ 
+		return field.empty(); 
+	} 
+	~Stack(){} 
+}; 
+
+int main() 
+{ 
+	int number; 
+	string text; 
+	
+	Stack<string> myStack; 
+	
+	cout << "Enter some number : "; 
+	cin >> number; 
+	
+	cout << "Enter your text :" << endl; 
+	
+	for (int i = 0; i < number; i++) 
+	{ 
+		cin >> text; 
+		myStack.push(text);
+	} 
+	
+	while (!myStack.isEmpty()) 
+	{ 
+		cout << myStack.pop() << endl; 
+	} 
+	system("pause"); 
+}
