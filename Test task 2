@@ -1,0 +1,58 @@
+#include<iostream> 
+#include<fstream> 
+#include<algorithm> 
+#include"vector" 
+#include"string" 
+using namespace std;
+
+class Person
+{
+public:
+	string name;
+	string number;
+	Person(string name, string number)
+	{
+		this->name = name;
+		this->number = number;
+	}
+	~Person() {}
+};
+
+bool method(Person& person)
+{
+	return (person.number[0] == '0'&&person.number[1] == '6'&&person.number[2] == '3');
+}
+
+void main()
+{
+	ifstream myfile("book.txt");
+	int n = 5;
+	vector<Person> myvec;
+	vector<Person>::iterator it;
+	myvec.reserve(n);
+
+	Person None("left", "0000000000");
+	for (int i = 0; i < n; i++)
+	{
+		myvec.push_back(None);
+	}
+	for (it = myvec.begin(); it < myvec.end(); it++)
+	{
+		myfile >> it->name;
+		myfile >> it->number;
+	}
+
+	it = find_if(myvec.begin(), myvec.end(), method);
+	while (it != myvec.end())
+	{
+		myvec.erase(it, it + 1);
+		it = find_if(myvec.begin(), myvec.end(), method);
+	}
+
+	for (it = myvec.begin(); it < myvec.end(); it++)
+	{
+		cout << it->name << endl;
+		cout << it->number << endl;
+	}
+	system("pause");
+}
