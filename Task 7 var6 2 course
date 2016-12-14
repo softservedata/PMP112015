@@ -1,0 +1,231 @@
+# include <map>
+# include <algorithm>
+# include <vector>
+# include <iostream>
+# include <string>
+
+using namespace std;
+
+//  два відображення
+
+typedef map<string, long, less<string> > friendMap;
+
+typedef map<long, string, less<long> > sortedMap;
+
+// Створення імен для типів, збережених в відображеннях даних
+
+typedef friendMap::value_type entry_type;
+
+typedef sortedMap::value_type sorted_entry_type;
+
+//-----------------------------------------------------------------
+// функції виведення
+
+void printEntry(const entry_type & entry)
+
+{
+	cout << entry.first << ":" << entry.second << endl;
+}
+
+void printSortedEntry(const sorted_entry_type & entry)
+
+{
+	cout << entry.first << ":" << entry.second << endl;
+}
+
+// Взяти перші цифри телефона
+
+int prefix(const entry_type& entry)
+
+{
+	return entry.second / 10000;
+}
+
+// Порівняння перших цифр двох телефонів
+
+bool prefixCompare(const entry_type & a, const entry_type & b)
+
+{
+	return prefix(a) < prefix(b);
+}
+//-----------------------------------------------------------------
+//Функ. об'єкт, порівнюючий перші цифри телефонів
+
+class checkPrefix {
+
+public:
+
+	checkPrefix(int p) : testPrefix(p) { }
+
+	int testPrefix;
+
+	bool operator () (const entry_type& entry)
+
+	{
+		return prefix(entry) == testPrefix;
+	}
+
+};
+
+//--------------------------------------------------------------------------
+// Телефонний довідник
+
+class telephoneDirectory {
+
+public:
+
+	// Добавити
+
+	void addEntry(string name, long number)
+
+	{
+		database[name] = number;
+	}
+
+	// Видалити
+
+	void remove(string name)
+
+	{
+		database.erase(name);
+	}
+
+	// Обновити
+
+	void update(string name, long number)
+
+	{
+		remove(name); addEntry(name, number);
+	}
+
+	// Показати всі записи
+
+	void displayDatabase()
+
+		// for_each перебирає всі записи по черзі і викликає
+
+		// метод printEntry, який показує наступний запис
+
+	{
+		for_each(database.begin(), database.end(), printEntry);
+	}
+
+
+
+	void displayPrefix(int);
+
+
+
+	void displayByPrefix();
+
+
+
+private:
+
+	//зберігання даних в вигляді контейнера set
+
+	friendMap database;
+
+};
+
+// Вивести всі записи для заданих перших цифр телефона
+
+
+void telephoneDirectory::displayPrefix(int prefix)
+
+{
+	cout << "-----------------------" << endl;
+	cout << "Listing for prefix " << prefix << endl;
+
+	// Створюємо ітератор, який посилається на
+
+	// контейнер з записами
+
+	map<string, long, less<string> >::iterator where;
+
+	// Шукати з початку до конця всі входження для заданих
+
+	// перших цифр телефона
+
+	where = find_if(database.begin(), database.end(), checkPrefix(prefix));
+
+	while (where != database.end()) {
+
+		printEntry(*where);
+
+		where = find_if(++where, database.end(), checkPrefix(prefix));
+
+	}
+
+	cout << "end of prefix listing" << endl;
+
+}
+
+// Друкувати в порядку телефонних номерів
+
+void telephoneDirectory::displayByPrefix()
+
+{
+	cout << "-----------------------" << endl;
+	cout << "Display by prefix" << endl;
+
+	// ще один контейнер set для зберігання
+
+	// відсортованих записів
+
+	sortedMap sortedData;
+
+	// Заповнити контейнер сортуючи дані
+
+	for (friendMap::iterator i = database.begin(); i != database.end(); i++)
+
+		sortedData.insert(sortedMap::value_type((*i).second, (*i).first));
+
+	// По черзі вивести всі записи
+
+	for_each(sortedData.begin(), sortedData.end(), printSortedEntry);
+
+	cout << "end display by prefix" << endl;
+	cout << "-----------------------" << endl;
+
+}
+
+// Main-------------------------------------------
+
+int main() {
+
+	cout << "Telephone Directory sample program" << endl;
+
+	telephoneDirectory friends;
+
+	// Добавлення записів в словник
+
+	friends.addEntry("Samantha", 6342343);
+
+	friends.addEntry("Brenda", 7436546);
+
+	friends.addEntry("Fred", 7435423);
+
+	friends.addEntry("Allen", 6342343);
+
+	// Вивести дані по порядку
+
+	friends.displayDatabase();
+
+	// Вивести телефони, які поинаються
+
+	// з цифри 743
+
+	friends.displayPrefix(743);
+
+	// Вивести дані, відсортувавши їх по номерах
+
+	friends.displayByPrefix();
+
+	cout << "End of telephone directory sample program" << endl;
+
+	system("pause");
+	return 0;
+
+
+}
