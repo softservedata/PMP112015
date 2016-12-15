@@ -1,0 +1,286 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+
+using namespace std;
+typedef double** matr;
+
+void ReadFromFile(matr &m, int &n)
+{
+	//ifstream a("Text.txt");
+	ifstream a("Text1.txt");
+	//ifstream a("Text2.txt");
+	//ifstream a("Text3.txt");
+	a >> n; //зчитування розмірності масиву
+	m = new double*[n];//створення масиву потрібної розмірності
+	for (int i = 0; i < n; i++)
+	{
+		m[i] = new double[n];
+	}
+	while (a)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				a >> m[i][j]; //зчитування масиву
+			}
+		}
+	}
+	a.close();
+}
+void output(const matr m, const int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			cout <<setw(7) << m[i][j] << " \t";
+		}
+		cout << '\n';
+	}
+}
+matr Prusvoinna(matr matr1, int n)
+{
+	matr matr2 = new double*[n];
+	for (int i = 0; i < n; i++)
+	{
+		matr2[i] = new double[n];
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			matr2[i][j] = matr1[i][j];
+		}
+	}
+	return matr2;
+
+}
+matr Mul_matr(matr matr1, matr matr2, int n)
+{
+	//створення масиву потрібної розмірності
+	matr matr3 = new double*[n];
+	for (int i = 0; i < n; i++)
+	{
+		matr3[i] = new double[n];
+	}
+	for (int l = 0; l < n; l++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			matr3[l][j] = 1;
+		}
+	}
+	double sum = 0;
+	for (int l = 0; l < n; l++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			sum = 0;
+			for (int k = 0; k < n; k++)
+			{
+				sum += matr1[l][k] * matr2[k][j];
+			}
+			matr3[l][j] = sum;
+		}
+	}
+	return matr3;
+}
+
+void Jacobi(matr A, const int n)
+{
+	//створення матриці плоских поворотів
+	matr T0 = new double*[n];
+	for (int i = 0; i < n; i++)
+	{
+		T0[i] = new double[n];
+	}
+	matr T1 = new double*[n];
+	for (int i = 0; i < n; i++)
+	{
+		T1[i] = new double[n];
+	}
+	//створення масиву потрібної розмірності
+	matr B = new double*[n];
+	for (int i = 0; i < n; i++)
+	{
+		B[i] = new double[n];
+	}
+	// оскільки не всі значення змінюютья то я змінюю копію початкової матриці
+	B = Prusvoinna(A, n);//копіюємо початкову матрицю 
+	
+	int i_, j_;
+	double sum = 0;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			if (i < j)
+				sum += A[i][j];
+		}
+	}
+	int i = 0;
+	int count = 1;
+	//for (int i = 0; i < n - 1; i++)
+	for (int l = 0; l < n; l++)
+	{
+		for (int k = 0; k < n; k++)
+		{
+			if (l == k)
+				T0[l][k] = 1;
+
+			else
+				T0[l][k] = 0;
+		}
+	}
+	double eps;
+	cout << "eps: ";
+	cin >> eps;
+	while (sum > eps )
+	{
+		// ініціалізуємо матрицю Т
+		for (int l = 0; l < n; l++)
+		{
+			for (int k = 0; k < n; k++)
+			{
+				if (l == k)
+					T1[l][k] = 1;
+					
+				else
+					T1[l][k] = 0;
+			}
+		}
+		// Знаходимо ключовий елемент
+		double max = abs(A[i + 1][i]);
+		for (int k = 0; k < n; k++)
+		{	for (int j = 0; j < n; j++)
+			{
+				if (k < j)
+				{
+					if (abs(A[k][j]) >= max)
+					{
+						max = abs(A[k][j]);
+						i_ = j;
+						j_ = k;
+					}
+				}
+			}
+		}
+		//cout << "max " << max << " i: " << i_ << " j: " << j_ <<   endl;
+		double p = 2 * A[i_][j_];
+		//cout <<"p "<< p << endl;
+		double q = A[i_][i_] - A[j_][j_];
+		//cout << "q" << q << endl;
+		double r;
+		double c, s;
+		if (q != 0)
+		{
+			double d = powl(p*p + q*q, 0.5);
+			r = abs(q) / (2 * d);
+			c = powl(0.5 + r, 0.5);
+			
+			//sign(pq)
+			//s = sqrt(0.5  -r)* 
+			if (p*q < 0)
+				s = -powl(0.5 - r, 0.5);
+			else if (p *q > 0)
+				s = powl(0.5 - r, 0.5);
+			else
+				s = 0;
+		}
+		else
+		{
+			//c = s = sqrt(2)/2
+			c = powl(2.0, 0.5) / 2.0;
+			s = powl(2.0, 0.5) / 2.0;
+		}
+		//cout << "s " << s << endl;
+		//cout << "c " << c << endl;
+		// заповнюю матрицю плоских поворотів
+		T1[i_][i_] = c;
+		T1[i_][j_] = -s;
+		T1[j_][i_] = s;
+		T1[j_][j_] = c;
+		
+		/*cout << endl << "__________T_________ " << endl;
+		output(T[i], n);*/
+		
+		B[i_][i_] = c*c*A[i_][i_] + s*s*A[j_][j_] + 2 * c * s * A[i_][j_]; //B[i][i] = c^2A[i][i] + s^2A[j][j] + 2csA[i][j];
+
+		B[j_][j_] = powl(s,2)*A[i_][i_] + powl(c,2)*A[j_][j_] - 2 * c * s * A[i_][j_]; //B[j][j] = s^2A[i][i] + c^2A[j][j] - 2csA[i][j];
+
+		//b[i][j] = b[j][i] = 0
+		B[i_][j_] = B[j_][i_] = 0; 
+		
+		//для контролю обчислень 
+		//B[i_][j_] = B[j_][i_] = (c*c - s*s)* A[i_][j_] + c*s*(A[i_][i_] - A[j_][j_]); 
+		for (int l = 0; l < n; l++)
+		{
+			if ((l != i_) && (l != j_))
+			{
+				B[l][i_] = B[i_][l] = c*A[l][i_] + s*A[l][j_];
+				B[l][j_] = B[j_][l] = -s*A[l][i_] + c*A[l][j_];
+			}
+		}
+		for (int k = 0; k < n; k++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				if (abs(B[k][j]) < 0.0001)
+					B[k][j] = 0.;
+			}
+		}
+		
+		// вивід матриці B
+		cout << endl <<  "________________________B" << count <<"______________________________" << endl;
+		output(B, n);
+		cout << endl;
+		A = Prusvoinna(B, n);
+		sum = 0;
+		for (int k = 0; k < n; k++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				if (k < j)
+					sum += B[k][j] * B[k][j];
+			}
+		}
+		if (i == (n - 1))
+			i = 0;
+		
+		count++;
+		T0 = Mul_matr(T0, T1, n);
+	}
+	//виводить власні значення
+	double u = A[0][0];
+	//cout << count << endl;
+	for (int i = 0; i < n; i++)
+	{
+		cout <<"Result: "<< u << endl;
+		cout << "Vector: ";
+		for (int j = 0; j < n; j++)
+		{
+			cout << T0[j][i] << " ";
+			if ((i == j) && (i<n-1)&& (j <n-1))
+				u = A[i+1][j+1] ;			
+		}
+		cout << endl << endl;
+
+	}
+}
+
+void main()
+{
+	int n = 0;
+	matr m;
+	ReadFromFile(m, n);
+	cout << "Matrix A:\n";
+	output(m, n);
+	cout << endl;
+	Jacobi(m, n);
+
+
+	system("pause");
+	return;
+}
