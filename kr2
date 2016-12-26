@@ -1,0 +1,115 @@
+#include<iostream>
+#include<string>
+#include <vector>
+using namespace std;
+
+class Newbook
+{
+private:
+	vector<string> tel;
+	vector<string> name;
+	int l=0;
+public:
+	Newbook(int s)
+	{
+		tel.reserve(s);
+		name.reserve(s);
+	}
+	void push(string t, string n)
+	{
+		/*tel[l] = t;
+		name[l] = n;*/
+		tel.insert(tel.end(), t);
+		name.insert(name.end(), n);
+		l++;
+	}
+	void show()
+	{
+		cout << "phonebook:" << endl;
+		for (int i = 0; i < l; i++)
+		{
+			cout << name[i] << '-' << tel[i] << endl;
+		}
+	}
+	void find_if(string x)
+	{
+		vector<string> tel1;
+		tel1.reserve(5);
+		vector<string> name1;
+		name1.reserve(5);
+		int s1 = 0;
+		for (int i = 0; i < l; i++)
+		{
+			if ((tel[i][0] == x[0]) && (tel[i][1] == x[1]) && (tel[i][2] == x[2]))tel[i] = "666";
+			else
+			{
+				tel1.insert(tel1.end(), tel[i]);
+				name1.insert(name1.end(), name[i]);
+				s1++;
+			}
+		}
+		l = s1;
+		tel = tel1;
+		name = name1;
+
+	}
+
+	int len(int x)
+	{
+		int l = 0;
+		while (x > 0)
+		{
+			x = x / 10;
+			l++;
+		}
+		return l;
+	}
+};
+
+void main()
+{
+
+	/*int n, number;
+	string name;*/
+	/*map<int, string> book;
+	book.insert(pair< int,string>(123, "me"));
+	cout << book.begin()->first << '-' << book.begin()->second << endl;*/
+
+	int n;
+	cout << "length: ";
+	cin >> n;
+
+	Newbook a(5);
+	a.push("06345", "asf");
+	a.push("123", "asfd");
+	a.push("063", "as");
+	a.show();
+	a.find_if("063");
+	a.show();
+
+
+
+	/*string s;
+	int a;
+	vector<int> tel;
+	vector<string> name;
+	tel.reserve(5);
+	name.reserve(5);
+	for (int i = 0; i < 5; i++)
+	{
+		cout << "number : ";
+		cin >> a;
+		cout << "name : ";
+		cin >> s;
+		tel[i] = a;
+		name[i] = s;
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		cout << name[i] << '-' << tel[i] << endl;
+	}*/
+
+
+
+	system("pause");
+}
