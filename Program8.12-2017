@@ -1,0 +1,32 @@
+using System;
+
+namespace ConsoleApplication3
+{
+    class Program
+    {
+        static double myFunc(double x)
+        {
+            return Math.Pow((Math.E), -x) + Math.Pow(x, 2) - 2;
+        }
+        static void Main()
+        {
+            double a, d, c;
+            a = -1;
+            d = 0;
+            c=(a + d)/2;
+            while(Math.Abs(myFunc(c))>0.1)
+            {
+                if(myFunc(c)<0)
+                {
+                    d = c;
+                }
+                if (myFunc(c) > 0)
+                {
+                    a = c;
+                }
+                c = (a + d) / 2;
+            }
+            Console.Write("x= {0}",c);
+        }
+    }
+}
