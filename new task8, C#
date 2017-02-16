@@ -1,0 +1,23 @@
+using System;
+
+
+namespace task8
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            int n, s;
+            Console.Write("Enter n, n>2 ");
+            n = Convert.ToInt32(Console.ReadLine());
+            for (s=2; s<=n; s++)
+            {
+                while ((n % s) == 0)
+                {
+                    Console.Write("{0} ", s);
+                    n = n / s;
+                }
+            }
+        }
+    }
+}
