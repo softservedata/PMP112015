@@ -1,0 +1,47 @@
+using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+
+namespace ConsoleApplication1Sharp
+{
+    public class Program
+    {
+        public int fact(int n)
+        {
+            int sum = 1;
+            for(int i = n; i >= 1; i--)
+            {
+	            sum*=i;	
+	        }
+	        return sum;
+        }
+        public int foo(int m, int n)
+        {
+            int binome = 0;
+            binome = (fact(m) / (fact(n) * fact(m - n)));
+            return binome;
+        }
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Start!");
+            int n = 0;
+            int m = 0;
+            Console.WriteLine("Enter n>5: ");
+            n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter m>" + n + ": ");
+            m = int.Parse(Console.ReadLine());
+            if(m > n && n > 5)
+            {
+                Program p = new Program();
+                Console.WriteLine(p.foo(m, n));
+            }
+            else
+            {
+                Console.WriteLine("Good luck!");
+            }
+            Console.WriteLine("End!");
+        }
+    }
+}
