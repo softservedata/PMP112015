@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Graf_18_02
+{
+    class Graf
+    {
+        string[] a = new string[] { "v1", "v2", "v3" };
+        string[] b = new string[] { "v1", "v3", "v5","v7" };
+            
+        public void graf()
+        {
+            var c = a.Except(b);
+            var d = b.Except(a);
+            foreach (var item in c)
+            {
+                Console.WriteLine(item);
+            }
+            foreach (var item in d)
+            {
+                Console.WriteLine(item);
+            }
+        }
+    
+    }
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("If graf a - b = ");
+            Graf gr = new Graf();
+            gr.graf();
+           
+        }
+    }
+}
