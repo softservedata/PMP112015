@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication5
+{
+class Program
+{
+static void Main(string[] args)
+{
+int z = 1;
+while (z > 0) {
+for (int q = 1; q < 40; q++)
+{
+Console.WriteLine();
+for (int i = q; i < 40; i++)
+Console.Write(i);
+}
+z--;
+}
+Console.ReadLine();
+} 
+}
+}
