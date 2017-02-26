@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("input n: ");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("n= {0}", n);
+            double Form=0.0;
+            double count = 1.0;
+            while (n!=0)
+            {
+                Form += count;
+                Form = Math.Sqrt(Form);
+                count++;
+                n--;
+            }
+            Console.WriteLine("Result= {0}",Form);
+        }
+    }
+}
