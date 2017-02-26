@@ -1,0 +1,30 @@
+using System;
+
+class Program
+{
+    public static void Main(string[] args)
+    {
+        int n;
+        Console.WriteLine("Input bound:");
+        n = int.Parse(Console.ReadLine());
+
+        double x;
+        Console.WriteLine("x(0)=");
+        x = double.Parse(Console.ReadLine());
+
+        double s = 0;
+        int i = 0;
+
+        while (i<=n)
+        {
+            if (i > 0)
+                s += i*( Math.Pow(x, i));
+            else
+                s = 1;
+            i++;
+        }
+
+        Console.WriteLine("Result: {0}", s);
+        Console.ReadLine();
+    }
+}
