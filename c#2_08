@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = 0;
+            do
+            {
+                Console.Write("n=");
+                n = int.Parse(Console.ReadLine());
+
+            } while (n < 5);
+            for (int i = 1; i <= n; i++)
+            {
+                for(int j = i; j <= n; j++)
+                {
+                    Console.Write(j + " ");
+                    if (j == n)
+                    {
+                        for (int k=1; k< i; k++)
+                        {
+                            Console.Write(k + " ");
+                        }
+                    }
+                }
+                Console.WriteLine(" ");
+            }
+            Console.ReadLine();
+
+        }
+    }
+}
