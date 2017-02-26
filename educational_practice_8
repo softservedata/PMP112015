@@ -1,0 +1,34 @@
+using System;
+
+namespace educational_practice_8
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter n");
+            int n;
+            n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter x0");
+            int x0;
+            x0 = int.Parse(Console.ReadLine());
+            int a, aOld=9999,temp;
+            string res="Resault = ";
+            for (int i = n; i >= 0; i--)
+            {
+                Console.WriteLine("Enter a[{0}]",i);                
+                a = int.Parse(Console.ReadLine());
+                if (i==n)
+                {
+                    res += a+" ";
+                    aOld = a;
+                    continue;
+                }
+                temp = x0 * aOld + a;
+                aOld= temp;
+                res += temp + " ";
+            }
+            Console.WriteLine(res);
+        }
+    }
+}
