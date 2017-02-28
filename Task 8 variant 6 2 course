@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static double NSD(double a, double b)
+        {
+            if (b < 0)
+                b = -b;
+            if (a < 0)
+                a = -a;
+            while (b > 0)
+            {
+                double temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+
+        static double LCM(double a, double b)
+        {
+            return Math.Abs(a * b) / NSD(a, b);
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("***Введiть 3 числа через пробiл***");
+            string s = Console.ReadLine();
+            string[] x = s.Split(' ');
+            double a = Double.Parse(x[0]);
+            double b = Double.Parse(x[1]);
+            double c = Double.Parse(x[2]);
+            Console.WriteLine("НCК={0}", LCM(a, LCM(b, LCM(c, 1))));
+        }
+    }
+}
