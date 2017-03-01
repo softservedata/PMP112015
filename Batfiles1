@@ -1,0 +1,5 @@
+@Echo Off 
+echo Running . . . 
+set /P crfl="Enter where you want creat folder:" 
+set /P namefl="Enter folder name:" 
+MD %namefl%crfl%
