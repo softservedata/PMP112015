@@ -1,0 +1,12 @@
+@Echo Off
+echo Running . . .
+set /P text="Enter your text:"
+set /P pass="Enter pass:"
+echo %text% >> "%pass%"
+echo Creating file in pass "%pass%" with text "%text%" is done!
+IF EXIST %pass% (
+  ECHO File successfully created
+) ELSE (
+  ECHO You didnt create the file
+)
+PAUSE
