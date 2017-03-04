@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplicationMatrix
+{
+    class SquareMatrix
+    {
+        public int Size { get; set; }
+        public int[][] matrix;
+        public int[][] Matrix
+        {
+            get { return matrix; }
+            set { matrix = value; }
+        }
+
+        public SquareMatrix(int n = 0)
+        {
+            Size = n;
+            Matrix = new int[Size][];
+            for (int i = 0; i < Size; i++)
+            {
+                Matrix[i] = new int[Size];
+            }
+        }
+        public SquareMatrix(SquareMatrix temp)
+        {
+            Size = temp.Size;
+            Matrix = new int[Size][];
+            for (int i = 0; i < Size; i++)
+            {
+                Matrix[i] = new int[Size];
+                for (int j = 0; j < Size; j++)
+                {
+                   Matrix[i][j] = temp.matrix[i][j];
+                }
+                
+            }
+       }
+        public void WriteInMatrix()
+        {
+            Console.WriteLine("Enter matrix");
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    Console.WriteLine("Enter number");
+                    Matrix[i][j] = int.Parse(Console.ReadLine());
+                }
+            }
+        }
+        public void PrintMatrix()
+        {
+            Console.WriteLine("Your matrix");
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    Console.Write(matrix[i][j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+        public void TransposeMatrix()
+        {
+            int temp;
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = i + 1; j < Size; j++)
+                {
+                    temp = Matrix[i][j];
+                    Matrix[i][j] = Matrix[j][i];
+                    Matrix[j][i] = temp;
+                }
+            }
+        }
+
+    }
+    class Program
+    {
+        static SquareMatrix MultipleMatrix(SquareMatrix a, SquareMatrix b)
+        {
+            SquareMatrix result = new SquareMatrix(a.Size);
+            int sum=0;
+            for (int i = 0; i < result.Size; i++)
+            {
+                for (int j = 0; j < result.Size; j++)
+                {
+                    sum = 0;
+                    for (int k = 0; k < result.Size; k++)
+                    {
+                        sum += (a.matrix[i][k] * b.matrix[k][j]);
+                    }
+                    result.matrix[i][j]=sum;
+                }
+            }
+            return result;
+        }
+        static void Main(string[] args)
+        {
+            SquareMatrix A = new SquareMatrix(3);
+            A.WriteInMatrix();
+            SquareMatrix AT = new SquareMatrix(A);
+            A.PrintMatrix();
+            AT.TransposeMatrix();
+            AT.PrintMatrix();
+            A.PrintMatrix();
+            (MultipleMatrix(AT, A)).PrintMatrix();
+        }
+    }
+}
