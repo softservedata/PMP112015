@@ -1,0 +1,99 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Task_2_var_6_4_semester
+{
+    class Program
+    {
+        public static void Main()
+        {
+            Console.OutputEncoding = Encoding.GetEncoding(1251);
+            int n, m;
+            Console.WriteLine("Введіть кількість стрічок в матриці ");
+            n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Введіть кількість стовпців в матриці");
+            m = int.Parse(Console.ReadLine());
+            int[,] matrix2 = new int[n, m];
+            Console.WriteLine("Введіть матрицю\n");
+            // введення матриці
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    Console.WriteLine("matrix[{0}][{1}]:\n",i+1,j+1);
+                    matrix2[i, j] = int.Parse(Console.ReadLine());
+                }
+            }
+            Console.WriteLine();
+            //виведення матриці
+            Console.WriteLine("Matrix:\n");
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    Console.Write(matrix2[i, j]);
+                    Console.Write(" ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+
+          
+            //4 сідлові точки
+            int[,] matrix = {
+                                {2, 3, 5, 2},
+                                {2, 4, 6, 2},
+                                {-2,7, 2, 0}
+                            };
+
+            for (int i = 0; i < matrix2.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix2.GetLength(1); j++)
+                {
+                    if (IsMinInRow(matrix2, i, matrix2[i, j]) && IsMaxInColumn(matrix2, j, matrix2[i, j]))
+                        Console.WriteLine("Сiдлова точка_Варіант(1): a[{0}, {1}] = {2}", i, j, matrix2[i, j]);
+                    //-------------------------------------------------------------------------------------
+                    else if (IsMinInColumn(matrix2, j, matrix2[i, j]) && IsMaxInRow(matrix2, i, matrix2[i, j]))
+                        Console.WriteLine("Сiдлова точка_Варіант(2): a[{0}, {1}] = {2}", i, j, matrix2[i, j]);
+                }
+            }
+            Console.ReadLine();
+        }
+
+        static bool IsMinInRow(int[,] matrix, int i, int value)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+                if (matrix[i, j] < value)
+                    return false;
+            return true;
+        }
+
+        static bool IsMinInColumn(int[,] matrix, int j, int value)
+        {
+            for (int i = 0; i < matrix.GetLength(1); i++)
+                if (matrix[i, j] < value)
+                    return false;
+            return true;
+        }
+
+        static bool IsMaxInColumn(int[,] matrix, int j, int value)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+                if (matrix[i, j] > value)
+                    return false;
+            return true;
+        }
+
+
+        static bool IsMaxInRow(int[,] matrix, int i, int value)
+        {
+            for (int j = 0; j < matrix.GetLength(0); j++)
+                if (matrix[i, j] > value)
+                    return false;
+            return true;
+        }
+    }
+}
