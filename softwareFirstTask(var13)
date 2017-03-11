@@ -1,0 +1,166 @@
+using System;
+
+namespace ConsoleApplication1
+{
+
+
+
+    class MyVector{
+        int[] vector;
+        int n ;
+
+        public MyVector(int n)
+        {
+            this.n = n;
+            vector = new int[n];
+        }
+
+        public MyVector(MyVector temp)
+        {
+            this.n = temp.getN();
+            vector = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                vector[i] = temp.getElem(i);
+            }
+        }
+
+        public int getN()
+        {
+            return n;
+        }
+
+        public int getElem(int m)
+        {
+            return vector[m];
+        }
+
+        public int setOneElem(int elem,int m)
+        {
+            return vector[m]=elem;
+        }
+
+        public void setVector()
+        {
+            Console.WriteLine("Set vector");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write("Enter element {0} ",i);
+                vector[i]=int.Parse(Console.ReadLine());
+            }
+        }
+
+        public void printVector()
+        {
+            Console.WriteLine("\nVector:");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(vector[i]);
+            }
+        }
+
+        public double norma()
+        {
+            double res=0;
+            for (int i = 0; i < n; i++)
+            {
+                res += System.Math.Pow(vector[i],2);
+            }
+            return System.Math.Pow(res, 0.5);
+        }
+
+        public static MyVector operator +(MyVector left,MyVector right)
+        {
+            int n = left.getN() > right.getN() ? (right.getN()) : (left.getN());
+            MyVector res=new MyVector(n);
+            for (int i = 0; i < n; i++)
+            {
+                res.setOneElem(i, left.getElem(i) + right.getElem(i));
+            }
+            return res;
+        }
+
+        public static MyVector operator +(MyVector left, int right)
+        {
+            MyVector res = new MyVector(left.getN());
+            for (int i = 0; i < left.getN(); i++)
+            {
+                res.setOneElem(left.getElem(i) + right,i);
+            }
+            return res;
+        }
+
+        public static MyVector operator +(int left, MyVector right)
+        {
+            return right+left;
+        }
+
+        public static MyVector operator -(MyVector left, MyVector right)
+        {
+            int n = left.getN() > right.getN() ? (right.getN()) : (left.getN());
+            MyVector res = new MyVector(n);
+            for (int i = 0; i < n; i++)
+            {
+                res.setOneElem(left.getElem(i) - right.getElem(i),i );
+            }
+            return res;
+        }
+
+        public static MyVector operator -(MyVector left, int right)
+        {
+            MyVector res = new MyVector(left.getN());
+            for (int i = 0; i < left.getN(); i++)
+            {
+                res.setOneElem(i, left.getElem(i) - right);
+            }
+            return res;
+        }
+
+        public static MyVector operator -(int left, MyVector right)
+        {
+            return right - left;
+        }
+
+        public static MyVector operator *(MyVector left, int right)
+        {
+            MyVector res = new MyVector(left.getN());
+            for (int i = 0; i < left.getN(); i++)
+            {
+                res.setOneElem(left.getElem(i) * right,i );
+            }
+            return res;
+        }
+
+        public static MyVector operator *(int left, MyVector right)
+        {
+            return right * left;
+        }
+
+        public static int dob(MyVector left, MyVector right)
+        {
+            int res = 0;
+            for (int i = 0; i < left.getN(); i++)
+            {
+                res += left.getElem(i) * right.getElem(i);
+            }
+            return res;
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MyVector vector1 = new MyVector(3);
+            vector1.setVector();
+            MyVector vector2 = new MyVector(vector1);
+            vector2 = vector1 + 3;
+            vector1.printVector();
+            vector2.printVector();
+            vector1 = vector1 * 2;
+            vector1.printVector();
+            Console.WriteLine("Norma ={0}",vector1.norma());
+            Console.WriteLine("Dob ={0}", MyVector.dob(vector1,vector2));
+        }
+    }
+}
