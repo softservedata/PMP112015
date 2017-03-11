@@ -8,8 +8,8 @@ namespace ConsoleApplicationMatrix
 {
     class SquareMatrix
     {
-        public int Size { get; set; }
-        public int[][] matrix;
+        private int Size { get; set; }
+        private int[][] matrix;
         public int[][] Matrix
         {
             get { return matrix; }
@@ -76,14 +76,10 @@ namespace ConsoleApplicationMatrix
                 }
             }
         }
-
-    }
-    class Program
-    {
-        static SquareMatrix MultipleMatrix(SquareMatrix a, SquareMatrix b)
+        public static SquareMatrix operator*(SquareMatrix a, SquareMatrix b)
         {
             SquareMatrix result = new SquareMatrix(a.Size);
-            int sum=0;
+            int sum = 0;
             for (int i = 0; i < result.Size; i++)
             {
                 for (int j = 0; j < result.Size; j++)
@@ -93,21 +89,22 @@ namespace ConsoleApplicationMatrix
                     {
                         sum += (a.matrix[i][k] * b.matrix[k][j]);
                     }
-                    result.matrix[i][j]=sum;
+                    result.matrix[i][j] = sum;
                 }
             }
             return result;
         }
+
+    }
+    class Program
+    {
         static void Main(string[] args)
         {
             SquareMatrix A = new SquareMatrix(3);
             A.WriteInMatrix();
             SquareMatrix AT = new SquareMatrix(A);
-            A.PrintMatrix();
             AT.TransposeMatrix();
-            AT.PrintMatrix();
-            A.PrintMatrix();
-            (MultipleMatrix(AT, A)).PrintMatrix();
+            (AT*A).PrintMatrix();
         }
     }
 }
