@@ -1,0 +1,190 @@
+using System;
+
+namespace ConsoleApplication1
+{
+
+
+
+    class MyMatrix {
+        int[,] matrix;
+        int n ;
+
+        public int getN()
+        {
+            return n;
+        }
+
+        public MyMatrix(int n)
+        {
+            this.n = n;
+            matrix = new int[n, n];
+        }
+
+        public MyMatrix(MyMatrix temp)
+        {
+            this.n = temp.getN();
+            matrix = new int[n, n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0;j<n; j++)
+                {
+                    matrix[i, j] = temp.getOneElem(i, j);
+                }
+            }
+        }
+
+        static int dob(int[] left, int[] right)
+        {
+            int res = 0;
+            for (int i = 0; i < left.GetLength(0); i++)
+            {
+                res += left[i] * right[i];
+            }
+            return res;
+        }
+        private static void copyR(ref int[] array, MyMatrix temp, int n)
+        {
+            for (int i = 0; i < temp.getN(); i++)
+            {
+                array[i] = temp.getOneElem(n, i);
+            }
+        }
+
+        private static void copyL(ref int[] array, MyMatrix temp, int n)
+        {
+            for (int i = 0; i < temp.getN(); i++)
+            {
+                array[i] = temp.getOneElem(i, n);
+            }
+        }
+
+        public void setElem()
+        {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Console.WriteLine("Enter element[{0}][{1}]", i, j);
+                    matrix[i,j] = int.Parse(Console.ReadLine());
+                }
+            }
+        }
+
+        public void setAllElem(int elem)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    matrix[i, j] = elem;
+                }
+            }
+        }
+
+        public void setOneElem(int elem,int x,int y) {
+            matrix[x, y] = elem;
+        }
+
+        public int getOneElem(int x, int y)
+        {
+            return matrix[x, y];
+        }
+
+        public static MyMatrix operator +(MyMatrix left, MyMatrix right)
+        {
+            MyMatrix res = new MyMatrix(left.getN());
+            for (int i = 0; i < left.getN(); i++)
+            {
+                for (int j = 0; j < left.getN(); j++)
+                {
+                    res.setOneElem(left.getOneElem(i, j) + right.getOneElem(i,j),
+                        i, j);
+                }
+            }
+            return res;
+        }
+
+        public static MyMatrix operator +(MyMatrix left, int right)
+        {
+            MyMatrix res = new MyMatrix(left.getN());
+            for (int i = 0; i < left.getN(); i++)
+            {
+                for (int j = 0; j < left.getN(); j++)
+                {
+                    res.setOneElem(left.getOneElem(i, j) + right,
+                        i, j);
+                }
+            }
+            return res;
+        }
+
+        public static MyMatrix operator +(int left, MyMatrix right) {
+            return right+left;
+        }
+        public static MyMatrix operator *(MyMatrix left, MyMatrix right)
+        {
+            MyMatrix res = new MyMatrix(left.getN());
+            int[] array1=new int[res.getN()];
+            int[] array2= new int[res.getN()];
+            for (int i = 0; i < res.getN(); i++)
+            {
+                for (int j = 0; j < res.getN(); j++)
+                {
+                    copyL(ref array1,left,i);
+                    copyR(ref array2, right , j);
+                    res.setOneElem(dob(array1,array2),i,j);
+                }
+            }
+            return res;
+        }
+
+        public void printMatrix()
+        {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Console.Write(matrix[i,j]+" ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public static void pow(ref MyMatrix temp, int n)
+        {
+            MyMatrix temp1 = new MyMatrix(temp);
+            for (int i = 0; i < n-1; i++)
+            {
+                temp = temp * temp1;
+            }
+            if (n == 0)
+            {
+                temp.setAllElem(1);
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            int k;
+            Console.Write("Enter n ");
+            n=int.Parse(Console.ReadLine());
+            Console.Write("Enter k ");
+            k = int.Parse(Console.ReadLine());
+            MyMatrix matrix = new MyMatrix(n);
+            MyMatrix res=new MyMatrix(n);
+            res.setAllElem(0);
+            matrix.setAllElem(2);
+            for(int i=0;i<k+1;i++)
+            {
+                MyMatrix temp = new MyMatrix(matrix);
+                MyMatrix.pow(ref temp, i);
+                res = res + temp;
+            }
+            res.printMatrix();
+        }
+    }
+}
