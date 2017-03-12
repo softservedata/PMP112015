@@ -1,0 +1,54 @@
+using System;
+
+namespace Task_2
+{
+	class MainClass
+	{
+		public static void Main (string[] args)
+		{
+			Console.WriteLine ("Pleas, input n: ");
+			int n = int.Parse (Console.ReadLine());
+			if (n >= 3) {
+				double [,] matrix = new double[n, n];
+				for (int i = 0; i < n; i++) {
+					for (int j = 0; j < n; j++) {
+						Console.WriteLine ("Input: {" + (i + 1) + "} {" + (j + 1) + "}");
+						matrix [i, j] = double.Parse (Console.ReadLine());
+					}
+				}
+				for (int i = 0; i < n; i++) {
+					for (int j = 0; j < n; j++) {
+						Console.Write(matrix [i, j]);
+						Console.Write (" ");
+					}
+					Console.WriteLine ();
+				}
+				int z = n;
+				double b = 0;
+				double r = 0;
+				for (int i = 0; i < n; i++) {
+					for (int y = 1; y < z; y++) {
+						double a = 0;
+						double k = 0;
+					for (int j = 0; j < n; j++) {
+							k += matrix [i, j] * matrix[i, j];
+							a += matrix [i, j] * matrix [i + y, j];
+							b += a;
+							r = k;
+						}
+					}
+					z--;
+				}
+				if (b == 0 && r == 1.0){
+					Console.WriteLine("Matrix is orthonormal");
+				}
+				else {
+					Console.Write ("Matrix isn`t orthonormal");
+				}
+			} 
+				else {
+				Console.WriteLine ("Sorry, you input n <= 3");
+			}
+		}
+	}
+}
