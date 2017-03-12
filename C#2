@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Praktika2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Column: ");
+            int x = int.Parse(Console.ReadLine());
+            Console.Write("Lines: ");
+            int y = int.Parse(Console.ReadLine());
+            int[,] mas = new int[x, y];
+            Console.WriteLine();
+           
+
+            Console.WriteLine("Fill the matrix");
+ 
+            for (int i = 0; i < x; i++)
+            {
+                if (x<3)
+                {
+                    Console.WriteLine("Enter other x!!!");
+                    break;
+                }
+                for (int j = 0; j < y; j++)
+                {
+                    if (y < 3)
+                    {
+                        break;
+                    }
+                    
+                    Console.Write("mas["+i+","+j+"]: ");
+                    mas[i, j] = int.Parse(Console.ReadLine());
+                }       
+            }
+            Console.WriteLine();
+
+            //---------------------------------------------------------------------
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    Console.Write(" mas[" + i + "," + j + "]: " + mas[i,j]+"\t");
+                }
+                Console.WriteLine();
+            }
+
+            //---------------------------------------------------------------------
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (i!=0 && i!=(x-1) )
+                    {
+                        if (Math.Abs(mas[i-1,j])<Math.Abs(mas[i,j]) && Math.Abs(mas[i,j])<Math.Abs(mas[i+1,j]))
+                        {
+                            Console.WriteLine("mas["+i + "," + j +"]" + mas[i,j]+"\t");
+                        }
+                    }  
+                }
+                Console.WriteLine();
+            }
+ 
+            Console.ReadLine();
+        }
+
+        
+    }
+}
