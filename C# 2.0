@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Matrix_norm
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[,] mas; 
+            Console.Write("Size: ");
+            int Norm = 0;
+            int LocRes = 0;
+            int n = int.Parse(Console.ReadLine());
+            mas = new int[n, n];
+            Random rnd = new Random();
+            for (int i = 0; i < mas.GetLength(0); i++)
+            {
+                for (int j = 0; j < mas.GetLength(1); j++)
+                    mas[i, j] = rnd.Next(10); 
+            }
+            for (int i = 0; i < mas.GetLength(0); i++)
+            {
+                for (int j = 0; j < mas.GetLength(1); j++)
+                {
+                    Console.Write("{0}  ", mas[i, j]);
+                }
+                Console.WriteLine();
+            }
+            for (int i = 0; i < mas.GetLength(0); i++)
+            {
+                for (int j = 0; j < mas.GetLength(1); j++)
+                {
+                    LocRes += Math.Abs(mas[i, j]);
+                }
+                if (Norm < LocRes)
+                {
+                    Norm = LocRes;
+                }
+                LocRes = 0;
+            }
+            Console.Write("Norm= {0}", Norm);
+            Console.ReadLine();
+        }
+    }
+}
