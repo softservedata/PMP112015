@@ -6,7 +6,7 @@ namespace Task_2
 	{
 		public static void Main (string[] args)
 		{
-			Console.WriteLine ("Pleas, input n: ");
+			Console.WriteLine ("Please, input n: ");
 			int n = int.Parse (Console.ReadLine());
 			if (n >= 3) {
 				double [,] matrix = new double[n, n];
