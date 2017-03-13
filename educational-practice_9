@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace educational_practice_9
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter n");
+            int n = int.Parse(Console.ReadLine());
+            int[,] mas = new int[n,n];
+            Random rnd = new Random();
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    mas[i,j] = rnd.Next(0, 100);
+                    Console.Write(mas[i,j] + "\t");
+                }
+                Console.WriteLine();
+            }
+
+            int max=0,s=0;
+
+            max = mas[0,0];
+            for (int k = 0; k < n; k++)
+            {                
+                for (int i = 0; i < k+1; i++)
+                {
+                    for (int j = 0; j < k+1; j++)
+                    {
+                        //Console.WriteLine("curen =" +i+" "+j);
+                        if (mas[i, j] > max) { max = mas[i, j]; }
+                    }
+                }
+                Console.WriteLine("max=" + max);
+                s =s+ max;
+            }
+
+            Console.WriteLine("Sum="+s);
+        }
+    }
+}
