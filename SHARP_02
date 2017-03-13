@@ -1,0 +1,118 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sharp2
+{
+    class Matrix
+    {
+        double[,] arr;
+        int size;
+        public Matrix(int size, double[,] array)
+        {
+            this.size = size;
+            arr = new double[size, size];
+            //
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    arr[i, j] = array[i, j];
+                }
+            }
+            //
+        }
+        public Matrix(Matrix temp)
+        {
+            this.size = temp.size;
+            arr = new double[size, size];
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    arr[i, j] = temp.arr[i,j];
+                }
+            }
+        }
+
+        ~Matrix()
+        {
+        }
+
+        public void getMatrix()
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    System.Console.Write(arr[i, j] + " ");
+                }
+                System.Console.WriteLine();
+            }
+        }
+        public String diagonalPreferCheching(double[,] arr)
+        {
+            double temp = 0;
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (arr[i, i] > arr[i, j] && i != j)
+                    {
+                        temp += 1;
+                    }
+                }
+            }
+            if (temp == size*size - size)
+            {
+                System.Console.WriteLine("Checking successed! Matrix has diagonal prefer!");
+                System.Console.WriteLine(temp);
+                
+            }
+            else
+            {
+                System.Console.WriteLine("Checking failed! Matrix has not diagonal prefer!");
+                System.Console.WriteLine(temp);
+            }
+            return "0";
+        }
+
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size;
+            double[,] arr;
+
+            size = int.Parse(Console.ReadLine());
+            arr = new double[size, size];
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    arr[i, j] = double.Parse(Console.ReadLine());
+                }
+            }
+
+
+            if (size >= 3)
+            {
+                Matrix M = new Matrix(size, arr);
+                M.getMatrix();
+                M.diagonalPreferCheching(arr);
+            }
+            else
+            {
+                System.Console.WriteLine("You entered size<3!");
+            }
+            
+
+        }
+        
+     }
+ }
+
