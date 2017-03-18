@@ -1,0 +1,161 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplicationSett
+{
+    class MySet
+    {
+        public int[] Mas { set; get; }
+        public int Num{ get; set; }
+        public const int Max=100;
+        public MySet(int num=0)
+        {
+            Num = num;
+            Mas = new int[Max];
+            for (int i = 0; i < Num; i++)
+            {
+                Mas[i] = i + 1;
+            }
+        }
+        public MySet(int[] Mass)
+        {
+            Num = Mass.Length;
+            Mas = new int[Max];
+            Mass.CopyTo(Mas,0);
+        }
+        public MySet(MySet a)
+        {
+            Num = a.Num;
+            Mas = new int[Max];
+            a.Mas.CopyTo(Mas, 0);
+        }
+        public void AddElem(int Element)
+        {
+            for(int i=0;i<Num; i++)
+            {
+                if(Mas[i]==Element)
+                {
+                    return;
+                }
+            }
+            Num++;
+            Mas[Num-1] = Element;
+        }
+        public void DelElem(int Element)
+        {
+            for (int i = 0; i < Num; i++)
+            {
+                if (Mas[i] == Element)
+                {
+                    for (int k = i; k < Num; k++)
+                    {
+                        Mas[k] = Mas[k + 1];
+                    }
+                    Num--;
+                    return;
+                }
+            }
+        }
+        public bool IsElem(int elem)
+        {
+            bool Ask = false;
+            for (int i = 0; i < Num; i++)
+            {
+                if(Mas[i]==elem)
+                {
+                    Ask = true;
+                }
+            }
+            return Ask;
+        }
+        public bool IsEmpty()
+        {
+            if (Num == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        override public string ToString()
+        {
+            string arr="";
+            for (int i = 0; i < Num; i++)
+            {
+                arr += (Mas[i] + " ");
+            }
+            return ("Set= "+arr+"Num= "+Num);
+        }
+        public static MySet operator+(MySet a,MySet b)
+        {
+            MySet result = new MySet(a);
+            for (int i = 0; i < b.Num; i++)
+            {
+                result.AddElem(b.Mas[i]);
+            }
+            return result;
+        }
+        public static MySet operator -(MySet a, MySet b)
+        {
+            MySet result = new MySet(a);
+            for (int i = 0; i < b.Num; i++)
+            {
+                result.DelElem(b.Mas[i]);
+            }
+            return result;
+        }
+        public static MySet operator *(MySet a, MySet b)
+        {
+            MySet result = new MySet();
+            for (int i = 0; i < a.Num; i++)
+            {
+                if (b.IsElem(a.Mas[i]))
+                {
+                    result.AddElem(a.Mas[i]);
+                }
+            }
+            return result;
+        }
+    };
+
+    class Program
+    {
+        static bool CheckGraf()
+        {
+            int n;
+            string temp;
+            Console.WriteLine("How many points?");
+            n = int.Parse(Console.ReadLine());
+            MySet Exist = new MySet(1);
+            MySet ToDo = new MySet(1);
+            while(!ToDo.IsEmpty())
+            {
+                Console.WriteLine(ToDo.Mas[0]+" point is connected with:");
+                while(true)
+                {
+                    temp = Console.ReadLine();
+                    if (temp == "")
+                    {
+                        break;
+                    }
+                    ToDo.AddElem(int.Parse(temp));
+                }
+                Exist.AddElem(ToDo.Mas[0]);
+                ToDo = ToDo - Exist;
+            }
+            if (((new MySet(n))- Exist).IsEmpty())
+            {
+                Console.WriteLine("yes");
+                return true;
+            }
+            Console.WriteLine("no");
+            return false;
+        }
+        static void Main(string[] args)
+        {
+            CheckGraf();
+        }
+    }
+}
