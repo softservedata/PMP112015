@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CS_program1
+{
+    class Fraction
+    {
+        public int Denominator  { get; set; }
+        public int Numerator  { get; set; }
+        public static Fraction operator+(Fraction fraction1, Fraction fraction2) 
+        {
+            int resultDenominator = fraction1.Denominator * fraction2.Denominator;
+            int resultNumerator = fraction1.Numerator * fraction2.Denominator + fraction2.Numerator * fraction1.Denominator;
+            return Reduce(new Fraction { Denominator=resultDenominator, Numerator=resultNumerator });
+        }
+        public static Fraction operator-(Fraction fraction1, Fraction fraction2)
+        {
+            int resultDenominator = fraction1.Denominator * fraction2.Denominator;
+            int resultNumerator = fraction1.Numerator * fraction2.Denominator - fraction2.Numerator * fraction1.Denominator;
+            return Reduce(new Fraction { Denominator = resultDenominator, Numerator = resultNumerator });
+        }
+        public static Fraction operator*(Fraction fraction1, Fraction fraction2)
+        {
+            int resultDenominator = fraction1.Denominator * fraction2.Denominator;
+            int resultNumerator = fraction1.Numerator * fraction2.Numerator;
+            return Reduce(new Fraction { Denominator = resultDenominator, Numerator = resultNumerator });
+        }
+        public static Fraction operator /(Fraction fraction1, Fraction fraction2)
+        {
+            int resultDenominator = fraction1.Denominator * fraction2.Numerator;
+            int resultNumerator = fraction1.Numerator * fraction2.Denominator;
+            return Reduce(new Fraction { Denominator = resultDenominator, Numerator = resultNumerator }); 
+        }
+        private static Fraction Reduce(Fraction fraction)
+        {
+            int min = (fraction.Numerator < fraction.Denominator) ? fraction.Numerator : fraction.Denominator;
+            bool isDivisible = false;
+            while (!isDivisible)
+            {
+                if (fraction.Numerator%min==0 && fraction.Denominator%min==0)
+                {
+                    fraction.Numerator /= min;
+                    fraction.Denominator /= min;
+                    isDivisible = true;
+                }
+                min--;
+            }
+            return new Fraction { Denominator = fraction.Denominator, Numerator = fraction.Numerator };
+            
+        }
+        public override string ToString()
+        {
+            return string.Format("{0}/{1}",this.Numerator,this.Denominator);
+        } 
+
+
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Fraction f1 = new Fraction { Denominator=4 , Numerator=3 };
+            Fraction f2 = new Fraction { Denominator = 2, Numerator = 1 };
+            Fraction f3 = f1 + f2;
+            Console.WriteLine("sign + "+f3.ToString());
+            Fraction f4 = f1 - f2;
+            Console.WriteLine("sign - "+f4.ToString());
+            Fraction f5 = f1 * f2;
+            Console.WriteLine("sign * "+f5.ToString());
+            Fraction f6 = f1 / f2;
+            Console.WriteLine("sign / "+f6.ToString());
+            Console.ReadKey();
+        }
+    }
+}
