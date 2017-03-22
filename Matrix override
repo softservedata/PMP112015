@@ -1,0 +1,177 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Matrix_Operations
+{
+    public class Matrix
+    {
+        public double[,] matrix = null;
+        public int size
+        { get; private set; }
+
+        public Matrix(int tsize = 1)
+        {
+            matrix = new double[tsize, tsize];
+            size = tsize;
+        }
+
+        public Matrix Input(int tsize)
+        {     
+            Matrix matrix = new Matrix(tsize);
+            size = tsize;
+            for (int i = 0; i < matrix.size; i++)
+            {
+                for (int j = 0; j < matrix.size; j++)
+                {
+                    Console.WriteLine("Input [{0},{1}] :",i, j);
+                    matrix[i, j] = double.Parse(Console.ReadLine());
+                }
+            }
+            return matrix;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder ret = new StringBuilder();
+            if (matrix == null) return ret.ToString();
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int t = 0; t < matrix.GetLength(1); t++)
+                {
+                    ret.Append(matrix[i, t]);
+                    ret.Append("\t");
+                }
+                ret.Append("\n");
+            }
+            return ret.ToString();
+        }
+
+        public double Norm()
+        {
+            double LocRes = 0;
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    LocRes += matrix[i, j] * matrix[i, j];
+                }
+            }
+            return Math.Sqrt(LocRes);
+        }
+
+        public double this[int x, int y]
+        {
+            get { return matrix[x, y]; }
+            set { matrix[x, y] = value; }
+        }
+
+        public static Matrix operator *(Matrix x1, Matrix x2)
+        {
+            if (x1.size != x2.size) throw new ArgumentException("Sizes are not equal...");
+            Matrix ret = new Matrix(x1.size);
+
+            for (int i = 0; i < x1.size; i++)
+            {
+                for (int j = 0; j < x2.size; j++)
+                {
+                    for (int k = 0; k < x2.size; k++)
+                    {
+                        ret[i, j] += x1[i, k] * x2[k, j];
+                    }
+                }
+            }
+            return ret;
+        }
+
+        public static Matrix operator +(Matrix x1, Matrix x2)
+        {
+            if (x1.size != x2.size) throw new ArgumentException("Sizes are not equal...");
+            Matrix ret = new Matrix(x1.size);
+
+            for (int i = 0; i < x1.size; i++)
+            {
+                for (int j = 0; j < x2.size; j++)
+                {
+                    ret[i, j] = x1[i, j] + x2[i, j];
+                }
+            }
+            return ret;
+        }
+
+        public static Matrix operator -(Matrix x1, Matrix x2)
+        {
+            if (x1.size != x2.size) throw new ArgumentException("Sizes are not equal...");
+            Matrix ret = new Matrix(x1.size);
+
+            for (int i = 0; i < x1.size; i++)
+            {
+                for (int j = 0; j < x2.size; j++)
+                {
+                    ret[i, j] = x1[i, j] - x2[i, j];
+                }
+            }
+            return ret;
+        }
+
+        public static Matrix operator *(Matrix x1, double scal)
+        {
+            Matrix ret = new Matrix(x1.size);
+            for (int i = 0; i < x1.size; i++)
+            {
+                for (int j = 0; j < x1.size; j++)
+                {
+                    x1[i, j] = x1[i,j]*scal;
+                }
+            }
+
+            return ret;
+        }
+
+        public Matrix(Matrix a)
+        {
+            size = a.size;
+            for (int i = 0; i < a.size; i++)
+            {
+                for (int j = 0; j < a.size; j++)
+                {
+                    this[i, j] = a[i, j];
+                }
+            }
+        }
+    };
+
+    class Program
+    {
+        
+
+        static void Main(string[] args)
+        {
+            Matrix a = new Matrix(2);
+            Matrix b = new Matrix(2);
+            a=a.Input(2);
+            b=b.Input(2);
+            Matrix c = a + b;
+            Matrix d = a - b;
+            Matrix f = a * b;
+            double n = a.Norm();
+            Console.WriteLine("Matrix a:");
+            Console.WriteLine(a);
+            Console.WriteLine("Matrix b:");
+            Console.WriteLine(b);
+            Console.WriteLine("Matrix a + Matrix b:");
+            Console.WriteLine(c);
+            Console.WriteLine("Matrix a - Matrix b:");
+            Console.WriteLine(d);
+            Console.WriteLine("Matrix a * Matrix b:");
+            Console.WriteLine(f);
+            Console.WriteLine();
+            Console.WriteLine("Norm of matrix a= {0}",n);
+            Console.WriteLine();
+            Console.ReadLine();
+        }
+    }
+}
