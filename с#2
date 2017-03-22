@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Task_2
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("n>3: ");
+            int n = int.Parse(Console.ReadLine());
+            if (n >= 3)
+            {
+                double[,] arr = new double[n, n];
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        arr[i, j] = double.Parse(Console.ReadLine());
+                    }
+                }
+            
+                int z = n;
+                double skalrStr = 0;
+                double skalarRad = 0;
+                for (int i = 0; i < n; i++)
+                {
+                    for (int y = 1; y < z; y++)
+                    {
+                        double a = 0;
+                        double k = 0;
+                        for (int j = 0; j < n; j++)
+                        {
+                            k += arr[i, j] * arr[i, j];
+                            a += arr[i, j] * arr[i + y, j];
+                            skalrStr += a;
+                            skalarRad = k;
+                        }
+                    }
+                    z--;
+                }
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        Console.Write(arr[i, j]);
+                        Console.Write(" ");
+                    }
+                    Console.WriteLine();
+                }
+
+                if (skalrStr == 0 && skalarRad == 1.0)
+                {
+                    Console.WriteLine("Ortogonalna");
+                }
+                else {
+                    Console.Write("Ne Orthonalna\n");
+                }
+            }
+           
+        }
+    }
+}
