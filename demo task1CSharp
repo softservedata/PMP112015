@@ -1,0 +1,97 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace task1CSharp
+{
+    class MyTime
+    {
+        public int[] time { set; get; }
+        public string Stime { set; get; }
+
+        public MyTime()
+        {
+            Console.Write("Enter your hour  ");
+            time[1] = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter your minute  ");
+            time[2] = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter your second  ");
+            time[3] = Convert.ToInt32(Console.ReadLine());
+        }
+        
+        public MyTime(MyTime a)
+        {
+            time = new int[3];
+            a.time.CopyTo(time, 0);
+        }
+
+        override public string ToString()
+        {
+            Stime = "";
+            for (int i = 0; i < 3; i++)
+            {
+                Stime += (time[i] + ":");
+            }
+            return ("time= " + Stime);
+        }
+
+        public static MyTime operator + (MyTime a, MyTime b)
+        {
+            MyTime result = new MyTime(a);
+            int c=0;
+            for (int i = 2; i >=  1 ; i--)
+            {
+                result.time[i]= a.time[i] + b.time[i] + c;
+                c = 0;
+                while ( result.time[i]>60 )
+                {
+                    result.time[i] = result.time[i] - 60;
+                    c++;
+                }
+            }
+            result.time[0] = a.time[0] + b.time[0] + c;
+            while (result.time[0] > 60)
+            {
+                result.time[0] = result.time[0] - 24;
+            }
+            return result;
+        }
+
+        public static MyTime operator - (MyTime a, MyTime b)
+        {
+            MyTime result = new MyTime(a);
+            int c = 0;
+            for (int i = 2; i >= 1; i--)
+            {
+                result.time[i] = a.time[i] - b.time[i] - c;
+                c = 0;
+                if (result.time[i] < 0)
+                {
+                    result.time[i] = result.time[i] + 60;
+                    c++;
+                }
+            }
+            result.time[0] = a.time[0] + b.time[0] + c;
+            while (result.time[0] > 60)
+            {
+                result.time[0] = result.time[0] + 24;
+            }
+            return result;
+        }
+    };
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MyTime time1 = new MyTime();
+            MyTime time2 = new MyTime();
+            MyTime time3 = new MyTime();
+            time3 = time1 + time2;
+            time3.ToString();
+            Console.WriteLine(time3.Stime);
+        }
+    }
+}
