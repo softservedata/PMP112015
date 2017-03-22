@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    public class Numbers
+    {
+        public double doubl;//
+        public double integer;//
+        double ostacha;
+
+        public Numbers(double doubl = 0, int integer = 0)
+        {
+            this.doubl = doubl;
+            this.integer = integer;
+        
+        }
+
+        public Numbers(Numbers temp)
+        {
+            this.doubl = temp.doubl;
+            this.integer = temp.integer;
+        }
+
+        ~Numbers(){ }
+
+        public double getOstachaDouble(int dilnuk)
+        {
+            ostacha = this.doubl % dilnuk;
+            return ostacha;
+        }
+
+        public double getOstachaInteger(int dilnuk)
+        {
+            ostacha = this.integer % dilnuk;
+            return ostacha;
+        }
+
+        public double getSum()
+        {
+            Numbers n = new Numbers();
+            return n.doubl;
+        }
+
+        public double getDouble()
+        {
+            return this.doubl;
+        }
+
+        public double getInteger()
+        {
+            return this.integer;
+        }
+
+        public static Numbers operator +(Numbers a, Numbers b)
+        {
+            Numbers numbers = new Numbers();
+            numbers.integer = (a.integer + b.integer);
+            numbers.doubl = (a.doubl + b.doubl);
+            return numbers;
+        }
+       
+        public static Numbers operator -(Numbers a, Numbers b)
+        {
+            Numbers numbers = new Numbers();
+            numbers.integer = (a.integer - b.integer);
+            numbers.doubl = (a.doubl - b.doubl);
+            return numbers;
+        }
+
+        public static Numbers operator *(Numbers a, Numbers b)
+        {
+            Numbers numbers = new Numbers();
+            numbers.integer = (a.integer * b.integer);
+            numbers.doubl = (a.doubl * b.doubl);
+            return numbers;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double doubl = 5.3;
+            int integer = 3;
+            int dilnuk = 3;
+
+            System.Console.WriteLine("Our integer: "+ integer);
+            System.Console.WriteLine("Our double: " + doubl);
+            System.Console.WriteLine("Our dilnuk: " + dilnuk);
+
+            Numbers number = new Numbers(doubl, integer);
+
+            System.Console.WriteLine("number.getOstachaInteger(dilnuk): " + number.getOstachaInteger(dilnuk));
+            System.Console.WriteLine("number.getOstachaDouble(dilnuk): " + number.getOstachaDouble(dilnuk));
+
+
+            Numbers second = new Numbers(doubl, integer);
+
+            Numbers sum = number + second;
+            Numbers substract = number - second;
+            Numbers multiply = number * second;
+
+            System.Console.WriteLine("Operator +: double {0} integer {1}", sum.getDouble(), sum.getInteger());
+
+            System.Console.WriteLine("Operator -: double {0} integer {1}", substract.getDouble(), substract.getInteger());
+
+            System.Console.WriteLine("Operator *: double {0} integer {1}", multiply.getDouble(), multiply.getInteger());
+        }
+    }
+}
