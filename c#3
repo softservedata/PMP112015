@@ -1,0 +1,91 @@
+using System;
+
+namespace ConsoleApplication1
+{
+
+
+
+    class MyVector
+    {
+        int[,] vector;
+        int n;
+
+        public MyVector(int _n)
+        {
+            this.n = _n;
+            vector = new int[2, this.n];
+            for (int i = 0; i < n; i++)
+            {
+                vector[0, i] = i + 1;
+                Console.Write(i+1+"= ");
+                vector[1, i] = int.Parse(Console.ReadLine());
+            }
+        }
+
+        public static MyVector operator *(MyVector left, MyVector right)
+        {
+            MyVector res = new MyVector(left.n);
+
+            for (int i = 0; i < left.n; i++)
+            {
+                res.vector[1, i] = right.vector[1, (left.vector[1, i]-1)];
+            }
+
+            return res;
+        }
+
+        static void totoshna(MyVector res,MyVector left, int _n)
+        {
+            for (int i = 0; i < _n; i++)
+            {
+                res.vector[1, i] = left.vector[0, i];
+            }
+            
+        }
+        void druk()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write(this.vector[0, i]);
+            }
+            Console.Write("\n");
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write(this.vector[1, i]);
+            }
+
+        }
+
+        void druk(string obj)
+        {
+            Console.Write(obj+"\n");
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write(this.vector[0, i]);
+            }
+            Console.Write("\n");
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write(this.vector[1, i]);
+            }
+
+        }
+
+        class Program
+        {
+            static void Main(string[] args)
+            {
+                MyVector vector1 = new MyVector(3);
+                MyVector vector2 = new MyVector(3);
+                MyVector vector3 = vector1 * vector2;
+
+                vector3.druk();
+                Console.Write("\n");
+                totoshna(vector3, vector2, vector2.n);
+
+                vector3.druk("totoshna");
+                Console.Write("\n");
+            }
+        }
+    }
+}
