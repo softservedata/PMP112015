@@ -1,0 +1,112 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace task1CSharp
+{
+    class MyDate
+    {
+        public int[] date { set; get; }
+        public string Sdate { set; get; }
+
+        public MyDate(int a = 0, int b = 0, int c = 0)
+        {
+            date = new int[3];
+            //Console.Write("Enter your hour "); 
+            date[0] = a;
+            //Console.Write("Enter your minute "); 
+            date[1] = b;
+            //Console.Write("Enter your second "); 
+            date[2] = c;
+        }
+
+
+
+        public MyDate(MyDate a)
+        {
+            date = new int[3];
+            a.date.CopyTo(date, 0);
+        }
+
+        override public string ToString()
+        {
+            Sdate = "";
+            for (int i = 0; i < 3; i++)
+            {
+                Sdate += (date[i] + "/");
+            }
+            Sdate = Sdate.Substring(0, Sdate.Length - 1);
+            return Sdate;
+        }
+
+        public static MyDate operator +(MyDate a, MyDate b)
+        {
+            MyDate result = new MyDate(a);
+            int c = 0;
+            for (int i = 2; i >= 1; i--)
+            {
+                result.date[i] = a.date[i] + b.date[i] + c;
+                c = 0;
+                while (result.date[i] > 60)
+                {
+                    result.date[i] = result.date[i] - 60;
+                    c++;
+                }
+            }
+            result.date[0] = a.date[0] + b.date[0] + c;
+            while (result.date[0] > 60)
+            {
+                result.date[0] = result.date[0] - 24;
+            }
+            return result;
+        }
+
+        public static MyDate operator -(MyDate a, MyDate b)
+        {
+            MyDate result = new MyDate(a);
+            int c = 0;
+            for (int i = 2; i >= 1; i--)
+            {
+                result.date[i] = a.date[i] - b.date[i] - c;
+                c = 0;
+                if (result.date[i] < 0)
+                {
+                    result.date[i] = result.date[i] + 60;
+                    c++;
+                }
+            }
+            result.date[0] = a.date[0] - b.date[0] - c;
+            while (result.date[0] < 0)
+            {
+                result.date[0] = result.date[0] + 24;
+            }
+            return result;
+        }
+    };
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MyDate date1 = new MyDate(11, 48, 30);
+            MyDate date2 = new MyDate(8, 59, 37);
+            MyDate date3 = new MyDate();
+            date3 = date1 + date2;
+            date1.ToString();
+            date2.ToString();
+            date3.ToString();
+            Console.WriteLine(date1.Sdate + " + " + date2.Sdate + " = " + date3.Sdate);
+            MyDate date4 = new MyDate(12, 8, 7);
+            MyDate date5 = new MyDate(20, 35, 6);
+            MyDate date6 = new MyDate();
+            date6 = date4 - date5;
+            date4.ToString();
+            date5.ToString();
+            date6.ToString();
+            Console.WriteLine(date4.Sdate + " - " + date5.Sdate + " = " + date6.Sdate);
+            Console.ReadLine();
+        }
+    }
+}
