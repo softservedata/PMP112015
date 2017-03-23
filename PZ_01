@@ -1,0 +1,135 @@
+using System;
+
+namespace C_01
+{
+	class MainClass
+	{
+		public static void Main (string[] args)
+		{
+			Work.Out ();
+	}
+	
+	class Work{
+			public static void Out(){
+			double first = Inputfirst ();
+			double second = Inputsecond ();
+			double q = Absolute(first);
+			double w = Vid (q, first);
+			double e = Turn (first);
+
+			double q1 = Absolute (second);
+			double w1 = Vid (q1, second);
+			double e1 = Turn (second);
+			Console.WriteLine ("What you need ?" +
+				"\n 1 - Plus" +
+				"\n 2 - Minus" +
+				"\n 3 - Muliply" +
+				"\n 4 - Division");
+			int counter = int.Parse (Console.ReadLine ());
+			double sum;
+
+			double abs;
+			double vid;
+			double tur;
+			if (counter == 1) {
+				sum = Plus (first, second);
+				abs = q + q1;
+				vid = w + w1;
+				tur = e + e1;
+				Output (sum, abs, vid, tur);
+			}
+			if (counter == 2) {
+				sum = Minus (first, second);
+				abs = q - q1;
+				vid = w - w1;
+				tur = e - e1;
+				Output (sum, abs, vid, tur);
+			}
+			if (counter == 3) {
+				sum = Multiply (first, second);
+				abs = q * q1;
+				vid = w * w1;
+				tur = e * e1;
+				Output (sum, abs, vid, tur);
+			}
+			if (counter == 4) {
+				sum = Division (first, second);
+				abs = q / q1;
+				vid = w / w1;
+				tur = e / e1;
+				Output (sum, abs, vid, tur);
+			}
+		}
+
+		}
+		private static double Inputfirst(){
+			Console.Write("Input firs number number: ");
+			double inputfirst = double.Parse(Console.ReadLine());
+			return inputfirst;
+		}
+
+		private static double Inputsecond(){
+			Console.Write ("Input second number number: ");
+			double inputsecond = double.Parse(Console.ReadLine());
+			return inputsecond;
+		}
+
+
+		private static void Output(double a, double b, double c, double d){
+
+			Console.WriteLine ("Sum: " + a);
+			Console.WriteLine ("Absolute: " + b);
+			Console.WriteLine ("Reletive: " + c);
+			Console.WriteLine ("Turn: " + d);
+
+		}
+
+		private static double Plus(double a, double b){
+			return a+b;
+		}
+
+		private static double Minus(double a, double b){
+			return a-b;
+		}
+
+		private static double Multiply(double a, double b){
+			return a*b;
+		}
+
+		private static double Division(double a, double b){
+			return a/b;
+		}
+
+		private static double Absolute(double output){
+
+			double delta = 0;
+			if (output % 10 >= 5) {
+				double z = output % 10;
+				double q = output + (10 - z);
+				delta = (q / output) - 1;
+			} else {
+				double z = output % 10;
+				double q = output - z;
+				delta = q / output;
+			}
+			return delta;
+		}
+
+		private static double Vid(double delta, double output){
+			double vid = delta / output;
+			return vid;
+		}
+
+		private static double Turn(double output){
+			double delta = 0;
+			if (output % 10 >= 5) {
+				double z = output % 10;
+				delta = (10 - z);
+			} else {
+				double z = output % 10;
+				delta = ((-1) * z);
+			}
+			return delta;
+		}
+		}
+}
