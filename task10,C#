@@ -1,0 +1,84 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _10
+{
+    class Program
+    {
+        static public void ReadMatrix(int[,] matrix, int n, int m)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine("Enter new group ");
+                for (int j = 0; j < m; j++)
+                {
+                    matrix[i, j] = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+        }
+
+        static public void WriteMatrix(int[,] matrix, int n, int m)
+        {
+            for (int i = 0; i < m; i++)
+            {
+                Console.Write("{0} ", matrix[n, i]);
+            }
+        }
+
+        static public int Sort(int[,] matrix, int n, int m)
+        {
+            int c1, c2, cmax, max;
+            cmax = 0;
+            max = 1;
+            for (int i = 0; i < n; i++)
+            {
+                c1 = 0;
+                c2 = 0;
+                for (int j = 1; j < m; j++)
+                {
+                    if(matrix[i,j-1]>matrix[i,j])
+                    {
+                        c1++;
+                    }
+                    if (matrix[i, j - 1] < matrix[i, j])
+                    {
+                        c2++;
+                    }
+                }
+                if(c1 >= c2)
+                {
+                    if (c1 > cmax)
+                    {
+                        cmax = c1;
+                        max = i;
+                    }
+                }
+                else
+                {
+                    if (c2 > cmax)
+                    {
+                        cmax = c2;
+                        max = i;
+                    }
+                }
+            }
+            return max;
+        }
+
+        static void Main(string[] args)
+        {
+            int n, m, max;
+            Console.Write("Enter n, 2 =< n =< 10 ");
+            n = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter m, 4 =< m =< 50 ");
+            m = Convert.ToInt32(Console.ReadLine());
+            int[,] matrix = new int[n, m];
+            ReadMatrix(matrix, n, m);
+            max=Sort(matrix, n, m);
+            WriteMatrix(matrix, max, m);
+        }
+    }
+}
