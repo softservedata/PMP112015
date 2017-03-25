@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace task_10__2_
+{
+    class Program
+    {
+        public static int sign(double x)
+        {
+            if (x >= 0) return 1;
+            else return -1;
+        }
+
+        public static double[,] get(int m,int n)
+        {
+            double[,] a = new double[m, n];
+            for (int i = 0; i < m; i++)
+            {
+                Console.WriteLine("set " + i+1);
+                for (int j = 0; j < n; j++) a[i, j] = Convert.ToInt32(Console.ReadLine());
+            }
+            return a;
+        }
+
+        public static double[,] sort( int m, int n,double[,] a)
+        {
+            for (int i = 0; i < m; i++)
+            {
+                //int x = sign(a[m, 0]);
+                bool k = true;
+                for (int j = 0; j < n; j++)
+                {
+                    if (sign(a[i, j]) != sign(a[i, 0])) k = false;
+                }
+
+                if (k) /*a[i] = sort(n, a[i]);*/
+                {
+                    for (int l = 0; l < n - 1; l++)
+                    {
+                        for (int j = 0; j < n - 1; j++)
+                        {
+                            if (a[i, j] > a[i, j + 1])
+                            {
+                                double x = a[i, j];
+                                a[i, j] = a[i, j + 1];
+                                a[i, j + 1] = x;
+                            }
+                        }
+                    }
+                }
+            }
+                return a;
+        }
+
+        public static void show(int m, int n, double[,] a)
+        {
+            for (int i = 0; i < m; i++)
+            { 
+                for (int j = 0; j < n; j++) Console.Write(a[i,j]+" ");
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+
+        static void Main(string[] args)
+        {
+            
+            Console.Write("m = ");
+            int m = Convert.ToInt32(Console.ReadLine());
+            Console.Write("n = ");
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            double[,] a = get(m,n);
+
+            show(m, n, a);
+
+            a = sort(m, n, a);
+
+            show(m, n, a);
+
+            Console.ReadLine();
+
+        }
+
+     }
+}
+
