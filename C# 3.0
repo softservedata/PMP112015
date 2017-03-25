@@ -1,0 +1,134 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Groups_of_symbols
+{
+    class Program
+    {
+        public static void Input(int groups, char[][] mass)
+        {
+            int numb;
+            for (int i = 0; i < groups; i++)
+            {
+                Console.WriteLine("input number of symbols in group {0} ", i + 1);
+                numb = Convert.ToInt32(Console.ReadLine());
+                mass[i] = new char[numb];
+                for (int j = 0; j < numb; j++)
+                {
+                    Console.WriteLine("input symbol {0} ", j + 1);
+                    mass[i][j] = Convert.ToChar(Console.ReadLine());
+                }
+            }
+        }
+
+        public static void Check(int a, int b, char[][] mass)
+        {
+            bool f;
+            int less;
+            int more;
+            if(mass[a].GetLength(0)< mass[b].GetLength(0))
+            {
+                less = a;
+                more = b;
+            }
+            else
+            {
+                less = b;
+                more = a;
+            }
+            char[] newmas = new char[mass[less].GetLength(0)];
+            for (int i=0,k=0;i< mass[less].GetLength(0); i++)
+            {
+                for(int j=0;j< mass[more].GetLength(0);j++ )
+                {
+                    if (mass[less][i]==mass[more][j])
+                    {
+                        f = true;
+                        for (int l=0;l< k;l++)
+                        {
+                            if (newmas[l]== mass[less][i])
+                            {
+                                f = false;
+                            }
+                        }
+                        if (f)
+                        {
+                            newmas[k++] = mass[less][i];
+                        }
+                    }
+                }
+            }
+
+            foreach (char current in newmas)
+            {
+                Console.Write(current + "   ");
+            }
+        }
+
+        private static int Is(char a)
+        {
+            switch (a)
+            {
+                case ('1'):
+                    return 1;
+                case ('2'):
+                    return 2;
+                case ('3'):
+                    return 3;
+                case ('4'):
+                    return 4;
+                case ('5'):
+                    return 5;
+                case ('6'):
+                    return 6;
+                case ('7'):
+                    return 7;
+                case('8'):
+                    return 8;
+                case ('9'):
+                    return 9;
+                case ('0'):
+                    return 0;
+                default:
+                    return 0;                    
+            }
+        }
+
+        public static int Sum(int a,char[][] mass)
+        {
+            int Sum = 0;
+            foreach (char current in mass[a])
+            {
+                Sum += Is(current);
+            }
+            return Sum;
+        }
+
+        static void Main(string[] args)
+        {
+            int sum;
+            int numforsum;
+            int first;
+            int second;
+            int groups;
+            Console.WriteLine("input number of groups ");
+            groups = Convert.ToInt32(Console.ReadLine());
+            char[][] mass = new char[groups][];
+            Input(groups, mass);
+            Console.WriteLine("input first № of group to check ");
+            first = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("input second № of group to check ");
+            second = Convert.ToInt32(Console.ReadLine());
+            Check(first-1, second-1, mass);
+            Console.WriteLine();
+            Console.WriteLine("input № of group with numbers ");
+            numforsum = Convert.ToInt32(Console.ReadLine());
+            sum = Sum(numforsum-1,mass);
+            Console.WriteLine("Sum of numbers = {0} ",sum);
+            Console.ReadLine();
+        }
+    }
+}
