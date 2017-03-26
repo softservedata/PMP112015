@@ -1,0 +1,89 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplicationNumberE
+{
+    class Program
+    {
+        static void Split(string S, out string One, out string Two, char Letter)
+        {
+            char[] str = new char[100];
+            char[] str1 = new char[100];
+            int n = S.IndexOf(Letter);
+            S.CopyTo(0, str, 0, n);
+            string One1 = new string(str);
+            One = One1;
+            S.CopyTo(n+1, str1, 0, S.Length-n-1);
+            string Two1 = new string(str1);
+            Two = Two1;
+        } 
+        static int LenOf(int num)
+        {
+            int res=0;
+            while(num!=0)
+            {
+                res++;
+                num = num / 10;
+            }
+            return res;
+        }
+        static void Transfer(string inttstr, string manstr, string powstr)
+        {
+            int pow = int.Parse(powstr);
+            int intt = int.Parse(inttstr);
+            int man = int.Parse(manstr);
+            if (pow>0)
+            {
+                intt = intt * (int)Math.Pow(10, pow);
+                if (LenOf(man) >= pow)
+                {
+                    intt = intt + (int)(man / (int)Math.Pow(10, LenOf(man) - pow));
+                    man = (man % (int)Math.Pow(10, LenOf(man) - pow));
+                }
+                if (LenOf(man) < pow)
+                {
+                    intt = intt + man * ((int)Math.Pow(10, pow - LenOf(man)));
+                    man = 0;
+                }
+            }
+            if(pow<0)
+            {
+                pow = Math.Abs(pow);
+                if (LenOf(intt) >= pow)
+                {
+                    int partintt = intt % (int)Math.Pow(10, pow);
+                    man = man + (int)(partintt * (int)Math.Pow(10, LenOf(man)));
+                    intt = (intt / (int)Math.Pow(10, pow));
+                }
+                if (LenOf(man) < pow)
+                {
+                    man = man + intt * ((int)Math.Pow(10, LenOf(man)));
+                    string temp = "";
+                    for(int i=0;i<(pow-LenOf(intt));i++)
+                    {
+                        temp = temp + "0";
+                    }
+                    intt = 0;
+                    Console.WriteLine("Your number={0}.{2}{1}", intt, man, temp);
+                    return;
+                }
+            }
+            Console.WriteLine("Your number = {0}.{1}", intt, man);
+        }
+        static void Main(string[] args)
+        {
+            string str = "111.4444E-10";
+            string num;
+            string pow;
+            string intt;
+            string man;
+            Split(str, out num, out pow, 'E');
+            Split(num, out intt, out man, '.');
+            Console.WriteLine("You entered {0}", str);
+            Transfer(intt, man, pow);
+        }
+    }
+}
