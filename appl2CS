@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace practica2
+{
+    class ArrayTest
+    {
+        static void PrintRow(int[] arr) 
+        {
+            int sum = FindSum(arr);
+            Console.WriteLine("{0} : {1}",(sum>0)? "Positive":"Negative" , sum);
+        }
+        static int FindSum(int[] arr) 
+        {
+            int sumPlus = 0;
+            int sumMinus = 0;
+            int counterPlus = 0;
+            int counterMinus = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < 0)
+                {
+                    sumMinus += arr[i];
+                    counterMinus++;
+                }
+                else
+                {
+                    sumPlus += arr[i];
+                    counterPlus++;
+                }
+            }
+            return (counterPlus > counterMinus) ? sumPlus : sumMinus;
+        
+        }
+        static void Main()
+        {
+            Console.WriteLine("Enter number of group: ");
+            int m = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter number of element: ");
+            int n = int.Parse(Console.ReadLine());
+
+            int [][] arr = new int [m][];
+            for (int i = 0; i < m; i++)
+            {
+                arr[i] = new int[n];
+                for (int j = 0; j < n; j++)
+                {
+                    Console.WriteLine("Enter some number: ");
+                    arr[i][j] = int.Parse(Console.ReadLine());
+                }
+                PrintRow(arr[i]);
+            }
+            
+        }
+    }
+}
