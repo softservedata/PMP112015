@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Charp_02
+{
+    public class Program
+    {
+        int m, n;
+        public Program(int m, int n)
+        {
+            this.m = m;
+            this.n = n;
+            double[,] a = new double[m, n];
+            Random r = new Random();
+            for (int i = 0; i < m; i++)
+            {
+                //Console.WriteLine("set " + i + 1);
+                for (int j = 0; j < n; j++)
+                {    //a[i, j] = Convert.ToInt32(Console.ReadLine());
+                    a[i, j] = r.Next(0, 9);
+                    Console.Write(a[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+
+            double sum = 0;
+            double norma;
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    sum += a[i, j];
+                }
+            }
+            norma = Math.Sqrt(sum);
+            Console.WriteLine(norma);
+        }
+       
+        public static void Main(string[] args)
+        {
+            Program p = new Program(3,3);
+            Console.ReadLine();
+        }
+    }
+}
