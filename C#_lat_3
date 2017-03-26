@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace latTokyrOrConverse
+{
+    public class Luxof
+    {
+        char[] lat = { 'a', 'b', 'c', 'd','e','f', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o','p', 'q', 'r', 's', 't', 'v', 'x', 'y', 'z' };
+        char[] kyr = { 'е', 'б', 'ц', 'д', 'і', 'ф', 'г', 'х', 'a', 'к', 'л', 'м', 'н', 'о', 'п', '-', 'р', 'с', 'т', 'в', '-', '-', 'з' };
+
+        public Luxof()
+        {
+            Console.WriteLine(" ");
+        }
+
+        public void changed(string s)
+        {
+            int countK = 0;
+            var chars = s.ToCharArray();
+            int[] unicodE = new int[chars.Length];
+
+            for (int i =0;i<chars.Length;i++)
+            {
+                unicodE[i] = (int)chars[i];
+            }
+
+            for (int i=0;i<unicodE.Length;i++)
+            {
+                if(unicodE[i]>1040 && unicodE[i]<1103)
+                {
+                    countK++;
+                }
+            }
+
+            if (chars.Length - countK > s.Length / 2)
+            {
+                for (int i = 0; i < chars.Length; i++)
+                {
+                    if ((int)chars[i] > 1040 && (int)chars[i] < 1103)
+                    {
+                        for (int k = 0; k < kyr.Length; k++)
+                        {
+                            if (chars[i] == kyr[k])
+                            {
+                                chars[i] = lat[k];
+                            }
+                        }
+                    }
+                }
+                Console.Write("new string:");
+            }
+            else
+            {
+                Console.Write("string doesn't change: ");
+            }
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                Console.Write(chars[i]+" ");
+            }
+
+            Console.Write("\nInput one more string: ");
+        }
+
+        public static void toType()
+        {
+            string s = Console.ReadLine();
+            Luxof lx = new Luxof();
+            lx.changed(s);
+            
+        }
+    }
+
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Luxof.toType();    
+            }
+            Console.ReadLine();
+        }
+    }
+}
