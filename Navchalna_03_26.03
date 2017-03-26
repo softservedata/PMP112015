@@ -1,0 +1,133 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    public class Numbers
+    {
+
+        int[,] matrix;
+        int[] arrayWithSums;
+        int m;
+        int n;
+        Random random = new Random();
+        
+        public Numbers()
+        {
+            this.m = random.Next(2, 11);
+            this.n = random.Next(4, 51);
+            matrix = new int[m, n];
+            arrayWithSums = new int[11];
+            for (int i = 0; i < m; i++)
+            {
+                for(int j = 0; j < n; j++)
+                {
+                    this.matrix[i, j] = random.Next(-50, 51);
+                }
+            }
+        }
+
+        public Numbers(Numbers temp)
+        {
+            this.matrix = temp.matrix;
+        }
+
+        ~Numbers() { }
+
+
+        public void printMatrix()
+        {
+            System.Console.WriteLine("Martix: ");
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    System.Console.Write(matrix[i, j] + "\t");
+                }
+                System.Console.WriteLine();
+            }
+        }
+
+        public int[] equels()
+        {
+            int[] sumArray = new int[m];
+            int[] array = new int[n];
+            for(int i = 0; i < m; i++)
+            {
+                for(int j = 0; j < n; j++)
+                {
+                    array[j] = matrix[i, j];
+                }
+                arrayWithSums[i] = func(array);
+            } 
+              
+            return arrayWithSums;
+        }
+
+        public void printArrayWithSums()
+        {
+            for(int i = 0; i < arrayWithSums.Length; i++)
+            {
+                System.Console.WriteLine(arrayWithSums[i]);
+            }
+        }
+
+        public int func(int[] array)
+        {
+            int tempSum = 0;
+            int countNumberOfNumbersMinus = 0;
+            int countNumberOfNumbersPlus = 0;
+            for (int q = 0; q < array.Length; q++)
+            {
+                if (array[q] < 0)
+                {
+                    countNumberOfNumbersMinus++;
+                }
+                if (array[q] > 0)
+                {
+                    countNumberOfNumbersPlus++;
+                }
+            }
+            if (countNumberOfNumbersMinus > countNumberOfNumbersPlus)//count minuses
+                {
+                    tempSum = 0;
+                    for (int k = 0; k < array.Length; k++)
+                    {
+                        if(array[k] < 0)
+                        {
+                        tempSum += array[k];
+                        }
+                    }
+                }
+            else//count pluses
+            {
+                tempSum = 0;
+                for (int l = 0; l < array.Length; l++)
+                {
+                    if (array[l] > 0)
+                    {
+                        tempSum += array[l];
+                    }
+                }
+            }
+           
+            return tempSum;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random random = new Random();
+
+            Numbers numbers = new Numbers();
+            numbers.printMatrix();
+            numbers.equels();
+            Console.WriteLine("Array with sum: ");
+            numbers.printArrayWithSums();
+        }
+    }
+}
