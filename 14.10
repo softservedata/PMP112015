@@ -1,0 +1,125 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication2
+{
+    class MyGroup {
+        int n;
+        public MyGroup(int n) {
+            this.n = n;
+            Console.WriteLine("Write your string");
+            field = (Console.ReadLine());
+            while (field.Length > n) {
+                Console.WriteLine("Your string is to big");
+                field = (Console.ReadLine());
+            }
+        }
+
+        string field;
+        public string Field
+        {
+            get
+            {
+                return field;
+            }
+            set
+            {
+                Console.WriteLine("Write your string");
+                field = (Console.ReadLine());
+                while (field.Length > n)
+                {
+                   Console.WriteLine("Your string is to big");
+                   field = (Console.ReadLine());
+                }
+            }
+        }
+
+        public int amountOfChar(char temp) {
+            int res = 0;
+            foreach (char i in field)
+            {
+                if (i == temp) {
+                    res++;
+                }
+            }
+            return res;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string symbol = "";
+            string symbolFalse = "";
+            Console.WriteLine("Write amount of strings");
+            int m = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Write length of strings");
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            int[] array = new int[m];
+            for (int i = 0; i < m; i++) {
+                array[i] = 0;
+            }
+            MyGroup[] myGroup = new MyGroup[m];
+            for (int i = 0; i < m; i++) {
+                myGroup[i] = new MyGroup(n);
+            }
+            for (int i = 0; i < m; i++) {
+                foreach (char j in myGroup[i].Field) {
+                    bool res = true;
+                    bool someVar=true;
+                    foreach (char w in symbol) {
+                        if (j == w) {
+                            someVar = false;
+                        }
+                    }
+                    foreach (char w in symbolFalse)
+                    {
+                        if (j == w)
+                        {
+                            someVar = false;
+                        }
+                    }
+                    if (someVar == false) {
+                        continue;
+                    }
+                    for (int q = 0; q < m; q++) {
+                        if (myGroup[q].amountOfChar(j) == 0) {
+                            res = false;
+                            break;
+                        }
+                    }
+                    if (res == true)
+                    {
+                        symbol += j;
+                    }
+                    else {
+                        symbolFalse += j;
+                    }
+                }
+            }
+
+            //we got symbols
+            foreach (char i in symbol) {
+                for (int j = 0; j < m; j++) {
+                    array[j] += myGroup[j].amountOfChar(i);
+                }
+            }
+            int maxim = 0;
+            foreach (int i in array) {
+                if (i > maxim) {
+                    maxim = i;
+                }
+            }
+            Console.WriteLine("Result:");
+            for (int i = 0; i < m; i++) {
+                if (array[i] == maxim) {
+                    Console.WriteLine(myGroup[i].Field);
+                }
+            }
+        }
+    }
+}
