@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Complex A = new Complex(3, 4);
+            Complex B = new Complex(3, 2);
+            Complex C = new Complex(0, 0);
+            C = A + B;
+            C.Print();
+            C = A - B;
+            C.Print();
+            C = A * B;
+            C.Print();
+            C = A / B;
+            C.Print();
+            A.Modyl();
+            A.Argument();
+            A.Degree(5);
+            Console.ReadKey();
+        }
+    }
+}
+
+---------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication2
+{
+    class Complex
+    {
+        double real;
+        double imaginary;
+
+        public Complex()
+        {
+            Console.Write("Enter number:");
+            real = Convert.ToInt32(Console.ReadLine());
+            imaginary = Convert.ToInt32(Console.ReadLine());
+        }
+        public Complex(double real, double imaginary)
+        {
+            this.real = real;
+            this.imaginary = imaginary;
+        }
+
+        public void Print()
+        {
+            if (imaginary > 0)
+                Console.WriteLine((real) + "+" + imaginary + "i");
+            else
+                Console.WriteLine((real) + "" + imaginary + "i");
+        }
+        public double Modyl()
+        {
+            double modyl = Math.Sqrt(Math.Pow(real, 2) + Math.Pow(imaginary, 2));
+            Console.WriteLine("Modul=" + modyl);
+            return modyl;
+
+        }
+        public double Argument()
+        {
+            double fi = Math.Acos(real / (Math.Pow(real, 2) + Math.Pow(imaginary, 2)));
+            Console.WriteLine("Argument=" + fi);
+            return fi;
+        }
+        public void Degree(int degree)
+        {
+            double fi = Argument();
+            double modyl = Modyl();
+            Console.WriteLine("Пiднесено до {0}-го степеня:" + "|" + (Math.Pow(modyl, degree)) + "|*" + "(" + Math.Cos(degree * fi) + "+i" + Math.Sin(degree * fi) + ")", degree);
+
+        }
+
+        public static Complex operator +(Complex c1, Complex c2)
+        {
+            return new Complex(c1.real + c2.real, c1.imaginary + c2.imaginary);
+        }
+        public static Complex operator -(Complex c1, Complex c2)
+        {
+            return new Complex(c1.real - c2.real, c1.imaginary - c2.imaginary);
+        }
+        public static Complex operator *(Complex c1, Complex c2)
+        {
+            return new Complex((c1.real * c2.real) - (c1.imaginary * c2.imaginary), (c1.real * c2.imaginary + c1.imaginary * c2.real));
+        }
+        public static Complex operator /(Complex c1, Complex c2)
+        {
+            double a = c1.real;
+            double b = c1.imaginary;
+            double c = c2.real;
+            double d = c2.imaginary;
+            return new Complex(((a * c + b * d) / (Math.Pow(c, 2) + Math.Pow(d, 2))), (b * c - a * d) / (Math.Pow(c, 2) + Math.Pow(d, 2)));
+        }
+    }
+}
