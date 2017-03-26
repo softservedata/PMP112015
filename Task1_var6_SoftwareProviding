@@ -1,0 +1,136 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Task_1_var_6_Csharp_ORIGIN
+{
+    class number
+        {
+            public int num10;
+            public string num16;
+            //public int p, l;
+
+
+            public number(int a)
+            {
+                num10 = a;
+                DecToHex(a);
+            }
+
+            public number(string b)
+            {
+                num16 = b;
+                HexToDec(b);
+            }
+
+        
+
+        // CONVERTING TO 16 -----------------------------------------    
+            public void HexToDec(string hex)
+            {
+                int dec = 0;
+                for (int i = 0, j = hex.Length - 1; i < hex.Length; i++, j--)
+                {
+                    if (hex[i] == 'A') { dec += 10 * (int)Math.Pow(16, j); }
+                    else if (hex[i] == 'B') { dec += 11 * (int)Math.Pow(16, j); }
+                    else if (hex[i] == 'C') { dec += 12 * (int)Math.Pow(16, j); }
+                    else if (hex[i] == 'D') { dec += 13 * (int)Math.Pow(16, j); }
+                    else if (hex[i] == 'E') { dec += 14 * (int)Math.Pow(16, j); }
+                    else if (hex[i] == 'F') { dec += 15 * (int)Math.Pow(16, j); }
+                    else { dec += (hex[i] - '0') * (int)Math.Pow(16, j); }
+
+                }
+            num10 = dec;
+            }
+
+        // CONVERTING TO 10--------------------------------------    
+        public void DecToHex(int a)
+        {
+            string tmp = "";
+            do
+            {
+                int r = (a % 16);
+                if (r > 9) { r += (int)'A' - 10; }
+                else { r += (int)'0'; };
+                tmp = (char)r + tmp;
+                a /= 16;
+            } while (a > 0);
+            num16= tmp;
+        }
+
+
+        //---------------------------------------- INPUTTING NUMBERS
+            public static number input16()
+            {
+                Console.Write("16 number: ");
+                string s = Console.ReadLine();
+                number x = new number(s);
+                return x;
+            }
+
+            public static number input10()
+            {
+                Console.Write("10 number: ");
+                double c = Convert.ToDouble(Console.ReadLine());
+                number x = new number((int)c);
+                return x;
+            }
+        //---------------------------------------------------
+          
+        //--------------OPERATORS OVERLOADING +&-    ---------------------------
+
+            public static number operator +(number x1, number x2)
+            {
+                number y = new number(x1.num10 + x2.num10);
+                return y;
+            }
+
+            public static number operator -(number x1, number x2)
+            {
+                number y = new number(x1.num10 - x2.num10);
+                return y;
+            }
+
+        //--------------------SHOWING------------------------------------
+
+            public void show()
+            {
+                Console.WriteLine("in 10 system:" + this.num10 + " " + "in 16 system:" + this.num16);
+            }
+
+            public void show2()
+            {
+                Console.WriteLine("in 10 system:" + this.num16 + " " + "in 16 system:" + this.num10);
+            }
+
+        //--------------------------------------MAIN------------------------------------------------
+        static void Main(string[] args)
+            {
+
+               
+
+                number x = new number("110");
+                Console.WriteLine("From 16 to 10 = " + x.num10);
+
+                number y = new number(21);
+                Console.WriteLine("From 10 to 16 = " + y.num16);
+
+                y.show();
+
+                (x-y).show();
+
+               // number x;
+               // x = input16();
+               // x.show();
+               // Console.ReadLine();
+                //--------
+               // number x;
+               // x = input10();
+               // x.show2();
+               // Console.ReadLine();
+                }
+        }
+    }
+
