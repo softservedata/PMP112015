@@ -1,0 +1,189 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ForVova
+{
+    class Program
+    {
+        public class MyString
+        {
+            public int Size { get; set; }
+            private char[] array;
+            public char this[int index]
+            {
+                get
+                {
+                    return array[index];
+                }
+                private set
+                {
+                    array[index] = value;
+                }
+            }
+
+            public MyString(string str)
+            {
+                this.Size = str.Length;
+                array = new char[Size];
+                for (int i = 0; i < Size; i++)
+                {
+                    array[i] = str[i];
+                }
+            }
+            public char[] gerArray()
+            {
+                return array;
+            }
+            public MyString(char[] str)
+            {
+                this.Size = str.Length;
+                array = new char[Size];
+                for (int i = 0; i < Size; i++)
+                {
+                    array[i] = str[i];
+                }
+            }
+
+            public static MyString operator +(MyString str1, MyString str2)
+            {
+                char[] array = new char[str1.Size + str2.Size];
+                for (int i = 0; i < str1.Size; i++)
+                {
+                    array[i] = str1[i];
+                }
+                for (int i = 0; i < str2.Size; i++)
+                {
+                    array[str1.Size + i] = str2[i];
+                }
+                MyString str = new MyString(array);
+                return str;
+
+            }
+            public override string ToString()
+            {
+                return new String(array);
+            }
+
+            public static bool operator >(MyString str1, MyString str2)
+            {
+                bool isBigger = true;
+                if (str1.Size > str2.Size)
+                {
+                    return true;
+                }
+                else if (str1.Size < str2.Size)
+                {
+                    return false;
+                }
+                else
+                {
+                    for (int i = 0; i < str1.Size; i++)
+                    {
+                        if (str1[i] < str2[i]) return false;
+                    }
+                    return isBigger;
+                }
+
+            }
+
+
+            public static bool operator <(MyString str1, MyString str2)
+            {
+                bool isBigger = true;
+                if (str1.Size < str2.Size)
+                {
+                    return true;
+                }
+                else if (str1.Size > str2.Size)
+                {
+                    return false;
+                }
+                else
+                {
+                    for (int i = 0; i < str1.Size; i++)
+                    {
+                        if (str1[i] > str2[i]) return false;
+                    }
+                    return isBigger;
+                }
+
+            }
+            public override bool Equals(Object obj)
+            {
+
+                MyString str2 = obj as MyString;
+
+                return array.SequenceEqual(str2.gerArray());
+            }
+            public static bool operator ==(MyString str1, MyString str2)
+            {
+
+                return str1.Equals(str2);
+            }
+            public static bool operator !=(MyString str1, MyString str2)
+            {
+                return !str1.Equals(str2);
+            }
+            public static MyString operator *(MyString str1, MyString str2)
+            {
+                List<char> list = new List<char>();
+                bool contians = true;
+
+                for (int i = 0; i < str1.Size; i++)
+                {
+                    for (int j = 0; j < str2.Size; j++)
+                    {
+
+                        if (str1[i] == str2[j])
+                        {
+                            bool contains = false;
+                            for (int z = 0; z < list.Count; z++)
+                            {
+                                if (str1[i] == list[z])
+                                {
+                                    contains = true;
+                                    break;
+                                }
+                            }
+                            if (!contains) list.Add(str1[i]);
+                        }
+
+                    }
+                }
+                char[] arr = new char[list.Count];
+                for (int i = 0; i < list.Count; i++)
+                {
+                    arr[i] = list[i];
+                }
+                MyString str = new MyString(arr);
+                return str;
+            }
+        }
+
+        public static void Main(string[] args)
+        {
+            MyString str1 = new MyString("Hello ");
+            MyString str2 = new MyString("hell");
+            Console.Out.WriteLine("=======================================");
+            Console.Out.WriteLine("operator+");
+            Console.Out.WriteLine(str1 + "+" + str2 + "=" + str1 + str2);
+            Console.Out.WriteLine("operator*");
+            Console.Out.WriteLine(str1 + "*" + str2 + "=" + str1 * str2);
+            Console.Out.WriteLine("=======================================");
+            Console.Out.WriteLine("operator<");
+            Console.Out.WriteLine(str1 + "<" + str2 + "=" + (str1 < str2));
+            Console.Out.WriteLine("operator>");
+            Console.Out.WriteLine(str1 + ">" + str2 + "=" + (str1 > str2));
+            Console.Out.WriteLine("operator==");
+            Console.Out.WriteLine(str1 + "==" + str2 + "=" + (str1 == str2));
+            Console.Out.WriteLine("operator!=");
+            Console.Out.WriteLine(str1 + "!=" + str2 + "=" + (str1 != str2));
+            Console.Out.WriteLine("=======================================");
+            Console.ReadKey();
+
+        }
+    }
+}
