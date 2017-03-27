@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace educational_practice_10
+{
+    class Program
+    {
+        static public void ReadMatrix(char[,] matrix, int n, int m)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine("Enter new group ");
+                for (int j = 0; j < m; j++)
+                {
+                    matrix[i, j] = Convert.ToChar(Console.ReadLine());
+                }
+            }
+        }
+        static public void ChangRegister(char[,] matrix, int n, int m)
+        {
+              for (int i = 0; i < n; i++)
+              {
+                  for (int j = 0; j < m; j++)
+                  {
+                      if (Char.IsUpper(matrix[i, j]))
+                      {
+                          matrix[i, j] = Char.ToLower(matrix[i, j]);
+                      }
+                      else
+                      {
+                          matrix[i, j] = Char.ToUpper(matrix[i, j]);
+                      }        
+                  }
+              }
+        }
+
+        static public void Write(char[,] matrix, int n, int m)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    Console.Write("{0} ", (matrix[i,j]).ToString());
+                }
+                Console.WriteLine();
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            int n, m;
+            Console.Write("Enter n, 2 =< n =< 10 ");
+            n = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter m, 4 =< m =< 50 ");
+            m = Convert.ToInt32(Console.ReadLine());
+            char[,] matrix = new char[n, m];
+            Program.ReadMatrix(matrix, n, m);
+            Console.WriteLine("===============================");
+            Program.Write(matrix, n, m);
+            Console.WriteLine("===============================");
+            Program.ChangRegister(matrix,n,m);
+            Program.Write(matrix, n, m);
+        }
+    }
+}
