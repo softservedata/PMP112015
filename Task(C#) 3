@@ -1,0 +1,93 @@
+using System; 
+
+namespace NumericGroups
+{ 
+class MainClass 
+{ 
+static int[,] CreatMatrix(int n,int m){ 
+int[,] group = new int[n, m]; 
+Random R = new Random(); 
+Random Minus = new Random(); 
+
+for (int i = 0; i < n;i++){ 
+for (int j = 0; j < m;j++){ 
+int fix=Minus.Next(-1, 2); 
+while (fix==0) 
+fix = Minus.Next(-1, 2); 
+group[i, j] = R.Next(10, 100) * fix; 
+} 
+} 
+return group; 
+} 
+static void PrintMatrix(int n,int m,int [,]group){ 
+for (int i = 0; i < n; i++) 
+{ 
+for (int j = 0; j < m; j++) 
+{ 
+Console.Write(group[i, j]+"\t"); 
+} 
+Console.WriteLine(); 
+} 
+} 
+static void CheckElement(int n, int m, int[,] group) 
+{ 
+int counterPlas = 0; 
+int indexPlas = 0; 
+int counterMinus = 0; 
+int indexMinus = 0; 
+
+for (int i = 0; i < n; i++) 
+{ 
+int counterCopyPlas = 0; 
+int counterCopyMinus = 0; 
+for (int j = 0; j < m; j++) 
+{ 
+if (group[i, j] >= 10) 
+counterCopyPlas++; 
+if (group[i, j] <= -10) 
+counterCopyMinus++; 
+} 
+if (counterCopyPlas > counterPlas) { 
+counterPlas = counterCopyPlas; 
+indexPlas = i; } 
+if (counterCopyMinus > counterMinus) { 
+counterMinus = counterCopyMinus; 
+indexMinus = i; } 
+
+} 
+Console.WriteLine("Додатнiх чисел {0} штук рядок {1}", counterPlas, indexPlas+1); 
+Console.WriteLine("Вiдємних чисел {0} штук рядок {1}",counterMinus,indexMinus+1); 
+double sumaPlas=0; 
+for (int j = 0; j < m; j++) 
+{ 
+sumaPlas = sumaPlas + group[indexPlas, j]; 
+} 
+sumaPlas = sumaPlas / counterPlas; 
+Console.WriteLine("Середнє арефметичне додатнiх чисел= {0} ;",sumaPlas); 
+
+double sumaMinus = 0; 
+for (int j = 0; j < m; j++) 
+{ 
+sumaMinus = sumaMinus + Math.Pow( group[indexMinus, j],2); 
+} 
+Console.WriteLine("Cума квадратiв вiдємних чисел= {0} ;", sumaMinus); 
+
+
+} 
+
+
+
+public static void Main(string[] args) 
+{ 
+Console.Write("Enter N:"); 
+int n = Convert.ToInt32(Console.ReadLine()); 
+Console.Write("Enter M:"); 
+int m = Convert.ToInt32(Console.ReadLine());; 
+int[,] group = CreatMatrix(n, m); 
+PrintMatrix(n, m, group); 
+CheckElement(n, m, group); 
+Console.ReadKey(); 
+
+} 
+} 
+}
