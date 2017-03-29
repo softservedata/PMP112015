@@ -1,0 +1,36 @@
+using System;
+using System.Diagnostics;
+using System.ComponentModel;
+
+namespace ConsoleApplication1
+{
+    class MyProcess
+    {
+        MyProcess myProcess = new MyProcess();
+
+        static void Main()
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = ("chrome.exe");
+            startInfo.WindowStyle = ProcessWindowStyle.Minimized;
+            Process p = Process.Start(startInfo);
+            Process p2 = Process.Start(startInfo);
+            Console.WriteLine("ID: " + p.Id);
+            Console.WriteLine("ID2: " + p2.Id);
+            Process[] procList = Process.GetProcesses();
+            //if(procList.Length >= 2)
+            //{
+           //     p.Kill();
+            //}
+            foreach(Process elem in procList)
+            {
+                if (elem.ToString() == p.ToString())
+                {
+                    p.Kill();
+                    Console.WriteLine("---------------------------------------------------------------------------------------------------");
+                }
+                //Console.WriteLine("Element: " + elem);
+            }
+        }  
+    }
+}
