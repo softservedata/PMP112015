@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+namespace OS2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Process process1 = new Process();
+            process1.StartInfo.FileName = "notepad.exe";
+            process1.Start();
+            process1.WaitForExit();
+            Console.WriteLine("Notepad has been closed!!!");
+            //----------------------------------------------
+            Process process2 = new Process();
+            process2.StartInfo.FileName = "calc.exe";
+            process2.Start();
+            process2.WaitForExit();
+            Console.WriteLine("Calculator has been closed!!!");
+        }
+    }
+}
