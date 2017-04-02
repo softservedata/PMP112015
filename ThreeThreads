@@ -1,0 +1,67 @@
+using System;
+using System.Threading;
+
+namespace ThreadingClass
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Worker worker = new Worker();
+            worker.Run();
+            Console.ReadLine();
+        }
+    }
+
+    class Worker
+    {
+        public void Run()
+        {
+            Thread threadMain = new Thread(ThreadFunction);
+            threadMain.Start();
+        }
+
+        private void ThreadFunction()
+        {
+            Console.Write("Input value, please(1 or 2): ");
+            string focuson = Console.ReadLine();
+            int f = Int16.Parse(focuson);
+
+            Thread t1 = new Thread(thread1F);
+            Thread t2 = new Thread(thread2F);
+
+            if (f == 1)
+            {
+                 t1.Start();
+                 if (f == 1)
+                 {
+                     t2.Start();
+                 }
+            }
+            else
+            {
+                if (f == 2)
+                {
+                    t2.Start();
+                    if (f == 2)
+                    {
+                        t1.Start();
+                    }
+                }
+                else
+                    Console.WriteLine("Try again, please");
+            }
+                
+        }
+        public void thread1F()
+        {
+            Console.WriteLine("start of work of thread1");
+            Console.ReadLine();
+        }
+        public void thread2F()
+        {
+            Console.WriteLine("start of work of thread2");
+            Console.ReadLine();
+        }
+    }
+}
