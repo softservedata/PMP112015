@@ -1,0 +1,106 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace task_11
+{
+    class Word
+    {
+        static string[] a ;
+        static int[] b;
+        static int n;
+
+        static void count()
+        {
+            Console.WriteLine("I will count your words now, sir  ");
+            string[] x = new string[n];
+            int z = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (a[i] != "666")
+                {
+                    b[z] = 1;
+                    x[z] = a[i];
+                    for (int j = i + 1; j < n; j++)
+                    {
+                        if (a[j] == a[i])
+                        {
+                            b[z]++;
+                            a[j] = "666";
+                        }
+                    }
+                    z++;
+                }
+            }
+            a = x;
+            n = z;
+
+        }
+
+        static void sort()
+        {
+            Console.WriteLine("I will sort your words now, sir  ");
+            string s;
+            int x;
+            for (int i = 0; i < n-1; i++)
+            {
+                int j = 0;
+                while (j<a[i].Length)
+                {
+                    if ((int)a[i][j] > (int)a[i + 1][j])
+                    {
+                        s = a[i];
+                        a[i] = a[i + 1];
+                        a[i + 1] = s;
+                        x = b[i];
+                        b[i] = b[i + 1];
+                        b[i + 1] = x;
+                    }
+                    if ((int)a[i][j] == (int)a[i + 1][j]) j++;
+                    if ((int)a[i][j] < (int)a[i + 1][j]) j=a[i].Length;
+                }
+            }
+        }
+
+        static void show()
+        {
+            Console.WriteLine("Here are your words, sir  ");
+            for (int i = 0; i < n; i++)Console.WriteLine(b[i]+" "+a[i]);
+            Console.WriteLine();
+        }
+
+        static void get()
+        {
+            Console.WriteLine("May I hear these words, sir ? ");
+            for (int i = 0; i < n; i++) a[i]= Console.ReadLine();
+            Console.WriteLine();
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("How many words would you like, sir ? ");
+            n = Convert.ToInt32(Console.ReadLine());
+            //Console.WriteLine("I understood, sir  ");
+            a = new string[n];
+            b = new int[n];
+
+            get();
+
+            show();
+
+            count();
+
+            show();
+
+            sort();
+
+            show();
+
+            Console.WriteLine("May I die now, sir ? ");
+
+            Console.ReadLine();
+        }
+    }
+}
