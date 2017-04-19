@@ -1,0 +1,144 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace foreachExample
+{
+
+    public class Charrey : IEnumerable, IEnumerator
+    {
+        private Hashtable list;
+        private int index;
+
+        public Charrey()
+        {
+            index = -1;
+            list = new Hashtable();
+        }
+
+        public Charrey(Charrey x)
+        {
+            index = -1;
+            list = new Hashtable();
+
+            int k = 0;
+            foreach (string str in x)
+            {
+                this[k] = str;
+                k++;
+            }
+             
+        }
+
+        public object this[int column]
+        {
+            get
+            {
+                return list[column];
+            }
+            set
+            {
+                list[column] = value;
+            }
+        }
+    
+        public IEnumerator GetEnumerator()
+        {
+            return (IEnumerator)this;
+        }
+
+        public bool MoveNext()
+        {
+            index++;
+            if (index >= list.Count)
+            {
+                index= -1;
+                return false;
+            }
+            else
+                return true;
+        }
+
+        public void Reset()
+        {
+            index = -1;
+        }
+
+        public object Current
+        {
+            get
+            {
+                return list[index];
+            }
+        }
+
+    }
+
+    class Program
+    {
+        public static bool Equal(string s1, string s2)
+        {
+            //return true;
+
+            int x = s1.Length;
+            int y = s2.Length;
+            int k = 0;
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (s1[i] == s2[j])
+                    {
+                        k++;
+                        break;
+                    }
+                    
+                }
+                if (k == 3) return true;
+            }
+            return false;
+        }
+
+        //public static bool operator !=(string x1, string x2)
+        //{
+        //    if (x1 == x2) return false;
+        //    else return true;
+        //}
+
+        static void Main(string[] args)
+        {
+            Charrey it = new Charrey();
+            it[0] = "abcdef";
+            it[1] = "";
+            it[2] = "ab";
+            it[3] = "cba";
+            it[4] = "fcbra";
+            //
+            Console.WriteLine("Integer Indexing: it[0] = " + it[0]);
+            //Console.WriteLine("String  Indexing: it[\"Three\"] = " + it["Three"]);
+            ////
+            //Console.WriteLine("Printing entire contents of object via enumerating through indexer:");
+
+            foreach (string str in it)
+            {
+                Console.WriteLine(str);
+            }
+            Console.WriteLine();
+
+            Charrey he = new Charrey(it);
+
+            foreach (string str1 in he)
+            {
+                foreach (string str2 in it)
+                {
+                    if (Equal(str1, str2)) Console.WriteLine(str1 + " = " + str2);
+                }
+            }
+
+            Console.ReadLine();
+        }
+    }
+}
