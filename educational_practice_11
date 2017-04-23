@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace educational_practice_11
+{
+    class Program
+    {
+        static bool IsPalindromic(string text)
+        {
+            for (int i = 0; i < text.Length / 2; i++)
+            {
+                if (text[i] != text[text.Length - i - 1]) return false;
+            }
+            return true;
+        }
+        static void Main(string[] args)
+        {
+            string s;
+            Console.WriteLine("Vedit stroku");
+            s=Console.ReadLine();
+            String[] substrings = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string str in substrings)
+            {
+                if(Program.IsPalindromic(str))
+                Console.WriteLine(str);
+            }
+            Console.ReadLine();
+        }
+    }
+}
