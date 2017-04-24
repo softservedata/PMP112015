@@ -1,0 +1,46 @@
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Text; 
+using System.Threading.Tasks; 
+
+namespace ConsoleApplication5 
+{ 
+class Program 
+{ 
+static void Main(string[] args) 
+{ 
+Console.Write("Enter text:"); 
+string text = Console.ReadLine(); 
+int num=0; 
+for (int i = 0; i < text.Length; i++) 
+{ 
+if (text[i] != ' ') 
+{ 
+num = i; 
+break; 
+} 
+} 
+text = text.Remove(0, num); 
+
+for (int i =text.Length-1; i>=0; i--) 
+{ 
+if (text[i] != ' ') 
+{ 
+num = i+1; 
+break; 
+} 
+} 
+text = text.Remove(num,text.Length-num); 
+string newText=""; 
+//int count=0; 
+for (int i = text.Length -1; i >= 0; i--) 
+{ 
+newText = newText + text[i]; 
+} 
+Console.WriteLine("Результат без пробiлiв:"+text+"!!!"); 
+Console.WriteLine("Результат в зворотному порятку:"+newText); 
+Console.ReadKey(); 
+} 
+} 
+}
