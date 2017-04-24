@@ -1,0 +1,163 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Collections;
+
+
+
+
+namespace ConsoleApplication3
+{
+    class Program
+    {
+        class MyArray : IEnumerable, IEnumerator
+        {
+            ArrayList array;
+            int index=-1;
+            public int Count { get; set; }
+
+            public MyArray()
+            {
+                array = new ArrayList();
+                Count = 0;
+            }
+
+            public MyArray(int[] temp)
+            {
+                array = new ArrayList();
+                Count = temp.Length;
+                foreach (int i in temp) {
+                    array.Add(i);
+                }
+            }
+
+            public MyArray(MyArray temp)
+            {
+                array = new ArrayList();
+                Count = temp.Count;
+                foreach (object var in temp) {
+                    array.Add((int)var);
+                }
+            }
+
+            public void Add(int temp) {
+                array.Add(temp);
+                Count++;
+            }
+
+            public object Get(int index) {
+                if(index < Count && index > -1)
+                {
+                    return array[index];
+                }
+                else
+{
+                    return null;
+                }
+            }
+
+            public bool Set(int index,int value)
+            {
+                if (index <= Count && index > -1)
+                {
+                    if (index == Count)
+                    {
+                        this.Add(value);
+                        return true;
+                    }
+                    else
+                    {
+                        array[index] = value;
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            public IEnumerator GetEnumerator()
+            {
+                return this;
+            }
+            
+            public bool MoveNext()
+            {
+                if (index == Count- 1)
+                {
+                    Reset();
+                    return false;
+                }
+   
+                index++;
+                return true;
+            }
+
+            public void Reset()
+            {
+                index = -1;
+            }
+
+            public object Current
+            {
+                get
+                {
+                    return array[index];
+                }
+            }
+
+            public static MyArray operator /(MyArray c1, MyArray c2)
+            {
+                MyArray result = new MyArray();
+                int length = (c1.Count < c2.Count) ?c1.Count:c2.Count;
+                for (int i = 0; i < length; i++) {
+                    int temp = ((int)c1.Get(i)) % ((int)c2.Get(i));
+                    result.Add(temp);
+                }
+                if (length != c1.Count) {
+                    for (int i = length; i < c1.Count; i++)
+                    {
+                        result.Add((int)c1.Get(i));
+                    }
+                }
+                return result;
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter first length");
+            int firstLen = Convert.ToInt32(Console.ReadLine());
+            int[] firstArr = new int[firstLen];
+            firstArr = readArray(firstLen);
+            Console.WriteLine("Enter second length");
+            int secondLen = Convert.ToInt32(Console.ReadLine());
+            int[] secondArr = new int[secondLen];
+            secondArr = readArray(secondLen);
+            MyArray first = new MyArray(firstArr);
+            MyArray second = new MyArray(secondArr);
+            MyArray third = new MyArray(first/second);
+            Console.WriteLine("\tRESULT");
+            foreach (int temp in third) {
+                Console.WriteLine("\t"+temp);
+            }
+
+        }
+
+       static int[] readArray(int length) {
+            int[] result = new int[length];
+            for (int i = 0; i < length; i++)
+            {
+                Console.WriteLine("Enter element {0}",i);
+                result[i] = Convert.ToInt32(Console.ReadLine());
+            }
+            return result;
+        }
+    }
+}
