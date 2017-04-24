@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Task_11_var_6_2_course_2_sem
+{
+    class Program
+    {
+        static void Main()
+        {
+            string input;         
+            input = Console.ReadLine();
+            Console.WriteLine("::BEFORE::");
+            Console.WriteLine(input);
+
+            // Replace word (and following space) with a new word.
+            // ... We assign to the Replace method's result.
+            string output = input.Replace("x", "iks ");
+            Console.WriteLine("::AFTER::");
+            Console.WriteLine(output);
+        }
+    }
+}
