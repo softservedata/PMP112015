@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace String_words
+{
+    class Program
+    {
+        public static string Check(String s)
+        {
+            string work = String.Copy(s);
+            int len = work.Length;
+            char one = work[len-1];
+            char two = work[len-2];
+            for (int i=0;i<len;i++)
+            {
+                //if (work != "")
+                {
+                    if ((work[i] == one) || (work[i] == two))
+                    {
+                        work = work.Remove(i, 1);
+                        i--;
+                        len--;
+                        Console.WriteLine(work);
+                    }
+                }
+            }
+            Console.WriteLine(one+"  "+two);
+            Console.WriteLine(work);
+            if (work!="")
+            {
+                return work;
+            }
+            else
+            {
+                return s;
+            }
+        }
+        static void Main(string[] args)
+        {
+            String[] str = { "ababab", "abcd", "lalattla", "pararam" };
+            int len = str.GetLength(0);
+            for (int i=0;i<len;i++)
+            {
+                str[i] = Check(str[i]);
+            }
+            for (int i = 0; i < len; i++)
+            {
+                Console.Write(str[i] + ";");
+            }
+            Console.Read();
+        }
+    }
+}
