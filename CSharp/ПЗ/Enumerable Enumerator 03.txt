@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplicationClassString11
+{
+    class Program
+    {
+        private static bool Test(String a)
+        {
+            int index;
+            foreach(char k in a)
+            {
+                index = a.IndexOf(k);
+                if(a.IndexOf(k,index+1)!=-1)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Write number of words(n<21)");
+            int n = int.Parse(Console.ReadLine());
+            String[] MyStrings = new String[n];
+            Console.WriteLine("Write your words:");
+            for (int i=0; i<n;i++)
+            {
+                MyStrings[i] = Console.ReadLine(); 
+               // Console.WriteLine(MyStrings[i]+i);
+            }
+            Console.WriteLine("Correct words are:");
+            foreach (String str in MyStrings)
+            {
+                if (Test(str))
+                {
+                    Console.WriteLine(str);
+                }
+            }
+        }
+    }
+}
