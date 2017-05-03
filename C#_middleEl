@@ -1,0 +1,101 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Luxof_03
+{
+    class Lux
+    {
+        string str;
+        int counter;
+
+        public string DATAstr
+        {
+            get { return str; }
+            set { str = value; }
+        }
+
+        public void process()
+        {
+            cOunter();
+            for (int i = 0; i <= counter; i++)
+            {
+                if (i == counter)
+                {
+                    withdrawal();
+                }
+                else
+                {
+                    withdrawal();
+                    rejuvenation();
+                }
+            }
+        }
+        
+        public int cOunter()
+        {
+            char[] str1 = str.ToCharArray();
+            counter = 0;
+            for(int i =0;i<str1.Length;i++)
+            {
+                if(str1[i]==' ')
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+
+        public void withdrawal()
+        {
+            char[] str1 = str.ToCharArray();
+            int i = 0;
+            while(str1[i]!=' ')
+            {
+                i++;
+                if (i == str1.Length)
+                    break;
+            }
+            if ((i + 1) % 2 == 0 && i!=1)
+            {
+                Console.WriteLine("\neverything good, one second to withdrawal! {0}element, which is withdrawaled - {1}", Environment.NewLine, str1[i / 2]);
+            }
+            else if (i == 1)
+                Console.WriteLine("\nLength = 1!");
+            else
+                Console.WriteLine("\nLength is steamed!");
+        }
+
+        public void rejuvenation()
+        {
+            char[] str1 = str.ToCharArray();
+            for (int i = 0; i < str1.Length; i++)
+            {
+                if (str1[i] == ' ')
+                {
+                    int found;
+                    found = i;
+                    str = new string(str1);
+                    str = str.Substring(found + 1); //string
+                    Console.Write("\nMyNewString is:{0}", str);
+                    break;
+                }
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Lux S = new Lux();
+
+            S.DATAstr = "I said that you";
+            S.process();
+
+            Console.ReadLine();
+        }
+    }
+}
