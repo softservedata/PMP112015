@@ -1,16 +1,16 @@
 using System;
-using System.Diagnostics;
-using System.ComponentModel;
 
 namespace ConsoleApplication1
 {
 
     class Vector
     {
-        double[] arr;
+        private double[] arr;
+        public int vectorSize;
         public Vector(int length)
         {
             arr = new double[length];
+            vectorSize = length;
         }
 
         ~Vector() { }
@@ -87,8 +87,7 @@ namespace ConsoleApplication1
             vectorCollection[2] = vectorCollection[0] + vectorCollection[1];
             Console.WriteLine(vectorCollection[2]);
 
-
-            
+           
         }
     }
 }
