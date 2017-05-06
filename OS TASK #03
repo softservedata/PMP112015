@@ -1,0 +1,94 @@
+using System;
+using System.Diagnostics;
+using System.ComponentModel;
+
+namespace ConsoleApplication1
+{
+
+    class Vector
+    {
+        double[] arr;
+        public Vector(int length)
+        {
+            arr = new double[length];
+        }
+
+        ~Vector() { }
+
+        public void fillinArray()
+        {
+            Console.WriteLine("Enter your vector:");
+            for(int i = 0; i < arr.Length; i++)
+            {
+                Console.Write("Enter your " + i + " element: ");
+                arr[i] = double.Parse(Console.ReadLine());
+            }
+        }
+
+        public void writeVector()
+        {
+            for(int i = 0; i < arr.Length; i++)
+            {
+                Console.WriteLine(arr[i]);
+            }
+        }
+
+        public static Vector operator +(Vector a, Vector b)
+        {
+            if(a.arr.Length != b.arr.Length)
+            {
+                return null;
+            }
+            else
+            {
+                Vector vector = new Vector(a.arr.Length);
+                for (int i = 0; i < vector.arr.Length; i++)
+                {
+                    vector.arr[i] = (a.arr[i] + b.arr[i]);
+                }
+                return vector;
+            }
+        }
+
+        public double this[int index]    // Indexer declaration  
+        {
+            get { return arr[index]; }
+            set { arr[index] = value; }
+        }
+
+        public override string ToString()
+        {
+            string info = "Vector is: \n";
+            foreach(double elem in arr)
+            {
+                info += elem;
+                info += "\n";
+            }
+            return info;
+        }
+    }
+
+    class MyProcess
+    {
+
+
+        static void Main()
+        {
+            
+            Vector[] vectorCollection = new Vector[3];
+            for (int i = 0; i < 3; i++)
+            {
+                vectorCollection[i] = new Vector(5);
+            }
+            vectorCollection[0].fillinArray();
+            vectorCollection[1].fillinArray();
+
+
+            vectorCollection[2] = vectorCollection[0] + vectorCollection[1];
+            Console.WriteLine(vectorCollection[2]);
+
+
+            
+        }
+    }
+}
