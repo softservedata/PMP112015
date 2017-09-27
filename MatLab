@@ -1,0 +1,40 @@
+Task1
+
+function Function_for_first_task(n)
+if(mod(n,2)==0)
+    disp("1");
+else 
+    disp("0");
+end    
+end
+
+Task2
+
+function s=task2(f,a,b,n)
+% f - підінтегральна функція, вводиться як текстовий рядок
+% а і b - верхня і нижня границі інтегрування
+% n - число підінтервалів
+% s - сума формули прямокутників
+h=(b-a)/n;
+s=0;
+for k=0:(n)
+ x=a+h*k;
+ s=s+eval(f);
+end
+s=h*s;
+
+Task3
+
+function mf(str)
+f=inline(str);
+xt=-50:1:50;
+yt=zeros(101);
+for i=1:1:101
+    yt(i)=f(xt(i));
+end
+disp("min= ")
+disp(sum(min(yt)))
+disp("max= ")
+disp(sum(max(yt)))
+
+
