@@ -12,7 +12,7 @@ import edu.lnu.regres.data.users.IUser;
 public class LoginPage extends AHeaderComponent {
 
 	public enum LoginPageLanguage {
-		SUBMIT_BUTTON_LANGUAGE("Увійти", "Войти", "Sign in");
+		SUBMIT_BUTTON_LANGUAGE("пїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ", "Sign in");
 		
 		private Map<HeaderLanguage, String> allLanguages;
 		

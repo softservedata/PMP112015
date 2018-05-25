@@ -18,7 +18,8 @@ public abstract class TestRunner {
 	public void setUpBeforeClass() {
 		// For Google Chrome
 		System.setProperty("webdriver.chrome.driver",
-				"C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe");
+				//"C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe");
+				"target/test-classes/chromedriver-windows-32bit.exe");
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
